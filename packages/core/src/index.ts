@@ -1,4 +1,2 @@
 
-export default function () {
-  console.log('tisqleditor core')
-}
+export * from './editor-instance'
