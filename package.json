@@ -4,9 +4,27 @@
   "description": "a SQL editor based codemirror6",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm -r build"
+    "build": "pnpm -r build",
+    "prepare": "husky"
   },
-  "keywords": ["sql", "editor", "codemirror6"],
+  "keywords": [
+    "sql",
+    "editor",
+    "codemirror6"
+  ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^9.4.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.5",
+    "prettier": "^3.3.1"
+  },
+  "lint-staged": {
+    "*.+(ts|tsx|js)": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.+(json|css|md|html)": "prettier --write"
+  }
 }
