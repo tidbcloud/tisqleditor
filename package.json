@@ -1,12 +1,12 @@
 {
   "name": "@tisqleditor",
   "version": "1.0.0",
-  "description": "",
+  "description": "a SQL editor based codemirror6",
   "main": "index.js",
   "scripts": {
     "build": "pnpm -r build"
   },
-  "keywords": [],
+  "keywords": ["sql", "editor", "codemirror6"],
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }

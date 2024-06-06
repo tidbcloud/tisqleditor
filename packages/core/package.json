@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@codemirror/lang-sql": "^6.6.4",
     "@codemirror/language": "^6.10.2",
