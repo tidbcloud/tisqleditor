@@ -1,11 +1,13 @@
 {
-  "name": "@tisqleditor",
+  "name": "tisqleditor",
+  "private": "true",
   "version": "1.0.0",
   "description": "a SQL editor based codemirror6",
   "main": "index.js",
   "scripts": {
     "build": "pnpm -r build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "pnpm -r release"
   },
   "keywords": [
     "sql",

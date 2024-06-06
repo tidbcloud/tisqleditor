@@ -6,8 +6,15 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/*.js",
+    "dist/*.ts",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
-    "build": "tsc && rollup -c"
+    "build": "tsc && rollup -c",
+    "release": "pnpm publish --access public"
   },
   "keywords": [],
   "author": "",
