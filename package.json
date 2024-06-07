@@ -7,7 +7,7 @@
   "scripts": {
     "prepare": "husky",
     "build": "pnpm -r build",
-    "release": "pnpm -r release"
+    "release": "changeset publish"
   },
   "keywords": [
     "sql",
