@@ -5,8 +5,8 @@
   "description": "a SQL editor based codemirror6",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm -r build",
     "prepare": "husky",
+    "build": "pnpm -r build",
     "release": "pnpm -r release"
   },
   "keywords": [
