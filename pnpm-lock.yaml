@@ -26,9 +26,18 @@ importers:
 
   packages/core:
     dependencies:
-      '@tidbcloud/tisqleditor-extensions':
+      '@tidbcloud/tisqleditor-extensions-basic-setup':
         specifier: workspace:^
-        version: link:../extensions
+        version: link:../extensions/basic-setup
+      '@tidbcloud/tisqleditor-extensions-cur-sql':
+        specifier: workspace:^
+        version: link:../extensions/cur-sql
+      '@tidbcloud/tisqleditor-extensions-lang-sql':
+        specifier: workspace:^
+        version: link:../extensions/lang-sql
+      '@tidbcloud/tisqleditor-extensions-sql-parser':
+        specifier: workspace:^
+        version: link:../extensions/sql-parser
     devDependencies:
       '@codemirror/lang-sql':
         specifier: ^6.6.4
@@ -58,7 +67,7 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
-  packages/extensions:
+  packages/extensions/basic-setup:
     dependencies:
       '@lezer/highlight':
         specifier: ^1.2.0
@@ -82,6 +91,76 @@ importers:
       '@codemirror/search':
         specifier: ^6.5.6
         version: 6.5.6
+      '@codemirror/state':
+        specifier: ^6.4.1
+        version: 6.4.1
+      '@codemirror/view':
+        specifier: ^6.26.3
+        version: 6.26.3
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
+      rollup:
+        specifier: ^4.18.0
+        version: 4.18.0
+      tslib:
+        specifier: ^2.6.3
+        version: 2.6.3
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+
+  packages/extensions/cur-sql:
+    dependencies:
+      '@tidbcloud/tisqleditor-extensions-sql-parser':
+        specifier: workspace:^0.0.1
+        version: link:../sql-parser
+    devDependencies:
+      '@codemirror/state':
+        specifier: ^6.4.1
+        version: 6.4.1
+      '@codemirror/view':
+        specifier: ^6.26.3
+        version: 6.26.3
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
+      rollup:
+        specifier: ^4.18.0
+        version: 4.18.0
+      tslib:
+        specifier: ^2.6.3
+        version: 2.6.3
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+
+  packages/extensions/lang-sql:
+    devDependencies:
+      '@codemirror/lang-sql':
+        specifier: ^6.6.4
+        version: 6.6.4(@codemirror/view@6.26.3)
+      '@codemirror/language':
+        specifier: ^6.10.2
+        version: 6.10.2
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
+      rollup:
+        specifier: ^4.18.0
+        version: 4.18.0
+      tslib:
+        specifier: ^2.6.3
+        version: 2.6.3
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+
+  packages/extensions/sql-parser:
+    devDependencies:
+      '@codemirror/language':
+        specifier: ^6.10.2
+        version: 6.10.2
       '@codemirror/state':
         specifier: ^6.4.1
         version: 6.4.1
