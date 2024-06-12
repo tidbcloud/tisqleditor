@@ -37,7 +37,8 @@ const statementsField = StateField.define<SqlStatement[]>({
 // - use 'test';
 // - use "test";
 export const useStatementRegex = /^use\s+[`'"]?([a-zA-Z0-9_-]+)[`'"]?;$/i
-const ddlStatementRegex = /^(create|drop|alter|truncate|rename|comment|grant|revoke)/i
+const ddlStatementRegex =
+  /^(create|drop|alter|truncate|rename|comment|grant|revoke)/i
 
 // event listener
 const statementsParser = () => {

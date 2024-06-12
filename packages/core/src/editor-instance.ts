@@ -3,7 +3,20 @@ import { search } from '@codemirror/search'
 import { Compartment, EditorState, Extension } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 
-import { curSql, getCurStatements, langSql, getNearbyStatement, getSqlStatements, sqlParser, BasicSetupOptions, basicSetup } from '@tidbcloud/tisqleditor-extensions'
+import {
+  BasicSetupOptions,
+  basicSetup
+} from '@tidbcloud/tisqleditor-extensions-basic-setup'
+import {
+  sqlParser,
+  getSqlStatements,
+  getNearbyStatement
+} from '@tidbcloud/tisqleditor-extensions-sql-parser'
+import { langSql } from '@tidbcloud/tisqleditor-extensions-lang-sql'
+import {
+  curSql,
+  getCurStatements
+} from '@tidbcloud/tisqleditor-extensions-cur-sql'
 
 export class SQLEditorInstance {
   constructor(
@@ -11,7 +24,7 @@ export class SQLEditorInstance {
     public themeCompartment: Compartment,
     public sqlCompartment: Compartment,
     public extraData: {}
-  ) { }
+  ) {}
 
   changeTheme(theme: Extension) {
     if (this.themeCompartment.get(this.editor.state) === theme) return
@@ -87,6 +100,11 @@ export const createSQLEditorInstance = ({
       extensions
     })
   })
-  const editorInst = new SQLEditorInstance(editor, themeCompartment, sqlCompartment, extraData)
+  const editorInst = new SQLEditorInstance(
+    editor,
+    themeCompartment,
+    sqlCompartment,
+    extraData
+  )
   return editorInst
 }

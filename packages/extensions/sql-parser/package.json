@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extensions",
+  "name": "@tidbcloud/tisqleditor-extensions-sql-parser",
   "version": "0.0.1",
   "description": "tisqleditor extensions",
   "type": "module",
@@ -13,21 +13,13 @@
     "README.md"
   ],
   "scripts": {
-    "tsc:watch": "tsc --watch",
-    "rollup:watch": "rollup -c --watch",
-    "dev": "concurrently --kill-others \"pnpm tsc:watch\" \"pnpm rollup:watch\"",
     "build": "tsc && rollup -c"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "@codemirror/autocomplete": "^6.16.2",
-    "@codemirror/commands": "6.3.3",
-    "@codemirror/lang-sql": "^6.6.4",
     "@codemirror/language": "^6.10.2",
-    "@codemirror/lint": "^6.8.0",
-    "@codemirror/search": "^6.5.6",
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.26.3",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -36,14 +28,8 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "@codemirror/autocomplete": "^6.16.2",
-    "@codemirror/commands": "6.3.3",
-    "@codemirror/lang-sql": "^6.6.4",
     "@codemirror/language": "^6.10.2",
-    "@codemirror/lint": "^6.8.0",
-    "@codemirror/search": "^6.5.6",
     "@codemirror/state": "^6.4.1",
-    "@codemirror/view": "^6.26.3",
-    "@lezer/highlight": "^1.2.0"
+    "@codemirror/view": "^6.26.3"
   }
 }

@@ -1,7 +1,10 @@
 import { StateField, StateEffect, EditorState } from '@codemirror/state'
 import { EditorView, ViewUpdate } from '@codemirror/view'
 
-import { SqlStatement, getSqlStatements } from './sql-parser'
+import {
+  SqlStatement,
+  getSqlStatements
+} from '@tidbcloud/tisqleditor-extensions-sql-parser'
 
 // state effect
 const curStatementsEffect = StateEffect.define<SqlStatement[]>()
@@ -9,7 +12,17 @@ const curStatementsEffect = StateEffect.define<SqlStatement[]>()
 // state field
 const curStatementsField = StateField.define<SqlStatement[]>({
   create() {
-    return [{ from: 0, to: 0, lineFrom: 1, lineTo: 1, content: '', database: '', type: 'other' }]
+    return [
+      {
+        from: 0,
+        to: 0,
+        lineFrom: 1,
+        lineTo: 1,
+        content: '',
+        database: '',
+        type: 'other'
+      }
+    ]
   },
   update(value, tr) {
     for (let effect of tr.effects) {
@@ -76,7 +89,8 @@ export function getCurStatements(state: EditorState) {
 
 export function getCurDatabase(state: EditorState) {
   const curStatements = getCurStatements(state)
-  if (curStatements.length === 0) throw new Error('curStatements must not be empty')
+  if (curStatements.length === 0)
+    throw new Error('curStatements must not be empty')
   return curStatements[0].database
 }
 

@@ -9,7 +9,6 @@
     /* declaration */
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "./dist",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -24,6 +23,5 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
-  },
-  "include": ["src"]
+  }
 }

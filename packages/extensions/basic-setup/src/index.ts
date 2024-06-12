@@ -2,7 +2,12 @@
 // - https://github.com/uiwjs/react-codemirror/blob/master/extensions/basic-setup/src/index.ts
 // - https://github.com/codemirror/basic-setup/blob/main/src/codemirror.ts
 
-import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete'
+import {
+  autocompletion,
+  completionKeymap,
+  closeBrackets,
+  closeBracketsKeymap
+} from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
 import {
   defaultHighlightStyle,
@@ -115,23 +120,31 @@ export const basicSetup = (options: BasicSetupOptions = {}): Extension[] => {
 
   const extensions: Extension[] = []
   if (options.lineNumbers !== false) extensions.push(lineNumbers())
-  if (options.highlightActiveLineGutter !== false) extensions.push(highlightActiveLineGutter())
-  if (options.highlightSpecialChars !== false) extensions.push(highlightSpecialChars())
+  if (options.highlightActiveLineGutter !== false)
+    extensions.push(highlightActiveLineGutter())
+  if (options.highlightSpecialChars !== false)
+    extensions.push(highlightSpecialChars())
   if (options.history !== false) extensions.push(history())
   if (options.foldGutter !== false) extensions.push(foldGutter())
   if (options.drawSelection !== false) extensions.push(drawSelection())
   if (options.dropCursor !== false) extensions.push(dropCursor())
-  if (options.allowMultipleSelections !== false) extensions.push(EditorState.allowMultipleSelections.of(true))
+  if (options.allowMultipleSelections !== false)
+    extensions.push(EditorState.allowMultipleSelections.of(true))
   if (options.indentOnInput !== false) extensions.push(indentOnInput())
   if (options.syntaxHighlighting !== false)
-    extensions.push(syntaxHighlighting(defaultHighlightStyle, { fallback: true }))
+    extensions.push(
+      syntaxHighlighting(defaultHighlightStyle, { fallback: true })
+    )
   if (options.bracketMatching !== false) extensions.push(bracketMatching())
   if (options.closeBrackets !== false) extensions.push(closeBrackets())
   if (options.autocompletion !== false) extensions.push(autocompletion())
-  if (options.rectangularSelection !== false) extensions.push(rectangularSelection())
+  if (options.rectangularSelection !== false)
+    extensions.push(rectangularSelection())
   if (initCrosshairCursor !== false) extensions.push(crosshairCursor())
-  if (options.highlightActiveLine !== false) extensions.push(highlightActiveLine())
-  if (options.highlightSelectionMatches !== false) extensions.push(highlightSelectionMatches())
+  if (options.highlightActiveLine !== false)
+    extensions.push(highlightActiveLine())
+  if (options.highlightSelectionMatches !== false)
+    extensions.push(highlightSelectionMatches())
 
   return extensions.concat([keymap.of(keymaps.flat())]).filter(Boolean)
 }
@@ -164,11 +177,14 @@ export const minimalSetup = (options: MinimalSetupOptions = {}) => {
   }
 
   const extensions: Extension[] = []
-  if (options.highlightSpecialChars !== false) extensions.push(highlightSpecialChars())
+  if (options.highlightSpecialChars !== false)
+    extensions.push(highlightSpecialChars())
   if (options.history !== false) extensions.push(history())
   if (options.drawSelection !== false) extensions.push(drawSelection())
   if (options.syntaxHighlighting !== false)
-    extensions.push(syntaxHighlighting(defaultHighlightStyle, { fallback: true }))
+    extensions.push(
+      syntaxHighlighting(defaultHighlightStyle, { fallback: true })
+    )
 
   return extensions.concat([keymap.of(keymaps.flat())]).filter(Boolean)
 }
