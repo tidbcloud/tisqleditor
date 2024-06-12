@@ -31,6 +31,6 @@
     "@codemirror/view": "^6.26.3"
   },
   "dependencies": {
-    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^0.0.1"
+    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^"
   }
 }
