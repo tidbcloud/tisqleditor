@@ -4,7 +4,7 @@ import { useEditorCacheContext } from './editor-cache-context'
 import {
   CreateSQLEditorOptions,
   createSQLEditorInstance
-} from '../editor-instance'
+} from '@tidbcloud/tisqleditor'
 
 type SQLEditorProps = CreateSQLEditorOptions & {
   editorId: string
@@ -24,7 +24,7 @@ export default function SQLEditor({
   useLayoutEffect(() => {
     if (!editorContainerRef.current) return
 
-    let editorInst = cacheCtx.getEditor(editorId)
+    let editorInst = cacheCtx.cache.getEditor(editorId)
     if (!editorInst) {
       editorInst = createSQLEditorInstance({
         editorId,
@@ -32,7 +32,7 @@ export default function SQLEditor({
         sqlConfig,
         ...rest
       })
-      cacheCtx.addEditor(editorId, editorInst)
+      cacheCtx.cache.addEditor(editorId, editorInst)
     }
 
     editorContainerRef.current.appendChild(editorInst.editorView.dom)
@@ -47,11 +47,11 @@ export default function SQLEditor({
 
   // use `useLayoutEffect` to avoid flicker
   useLayoutEffect(() => {
-    cacheCtx.getEditor(editorId)?.changeTheme(theme ?? [])
+    cacheCtx.cache.getEditor(editorId)?.changeTheme(theme ?? [])
   }, [editorId, theme])
 
   useEffect(() => {
-    cacheCtx.getEditor(editorId)?.changeSQLConfig(sqlConfig ?? {})
+    cacheCtx.cache.getEditor(editorId)?.changeSQLConfig(sqlConfig ?? {})
   }, [editorId, sqlConfig])
 
   return <div className={className} ref={editorContainerRef} />
