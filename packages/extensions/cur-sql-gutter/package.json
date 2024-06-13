@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extensions-cur-sql",
+  "name": "@tidbcloud/tisqleditor-extensions-cur-sql-gutter",
   "version": "1.0.0",
   "description": "tisqleditor extensions",
   "type": "module",
@@ -23,7 +23,7 @@
     "sql",
     "editor",
     "extensions",
-    "cur sql"
+    "gutter"
   ],
   "author": "",
   "license": "MIT",
@@ -40,6 +40,7 @@
     "@codemirror/view": "^6.26.3"
   },
   "dependencies": {
-    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^"
+    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^",
+    "@tidbcloud/tisqleditor-extensions-cur-sql": "workspace:^"
   }
 }

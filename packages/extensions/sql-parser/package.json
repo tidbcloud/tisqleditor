@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/tisqleditor-extensions-sql-parser",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "tisqleditor extensions",
   "type": "module",
   "main": "dist/index.js",
