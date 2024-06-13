@@ -21,37 +21,37 @@ import {
 export class SQLEditorInstance {
   constructor(
     public editorId: string,
-    public editor: EditorView,
+    public editorView: EditorView,
     public themeCompartment: Compartment,
     public sqlCompartment: Compartment,
     public extraData: {}
   ) {}
 
   changeTheme(theme: Extension) {
-    if (this.themeCompartment.get(this.editor.state) === theme) return
+    if (this.themeCompartment.get(this.editorView.state) === theme) return
 
-    this.editor.dispatch({
+    this.editorView.dispatch({
       effects: this.themeCompartment.reconfigure(theme)
     })
   }
 
   changeSQLConfig(sqlConfig: SQLConfig) {
-    this.editor.dispatch({
+    this.editorView.dispatch({
       effects: this.sqlCompartment.reconfigure(langSql(sqlConfig))
     })
   }
 
   getAllStatements() {
-    return getSqlStatements(this.editor.state)
+    return getSqlStatements(this.editorView.state)
   }
 
   getCurStatements() {
-    return getCurStatements(this.editor.state)
+    return getCurStatements(this.editorView.state)
   }
 
   getNearbyStatement() {
     const { from } = this.getCurStatements()[0]
-    return getNearbyStatement(this.editor.state, from)
+    return getNearbyStatement(this.editorView.state, from)
   }
 }
 
@@ -97,7 +97,7 @@ export const createSQLEditorInstance = ({
     curSql(),
     extraExts
   ]
-  const editor = new EditorView({
+  const editorView = new EditorView({
     state: EditorState.create({
       doc,
       extensions
@@ -105,7 +105,7 @@ export const createSQLEditorInstance = ({
   })
   const editorInst = new SQLEditorInstance(
     editorId,
-    editor,
+    editorView,
     themeCompartment,
     sqlCompartment,
     extraData

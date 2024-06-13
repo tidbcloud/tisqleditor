@@ -35,12 +35,12 @@ export default function SQLEditor({
       cacheCtx.addEditor(editorId, editorInst)
     }
 
-    editorContainerRef.current.appendChild(editorInst.editor.dom)
-    editorInst.editor.focus()
+    editorContainerRef.current.appendChild(editorInst.editorView.dom)
+    editorInst.editorView.focus()
 
     return () => {
       if (editorContainerRef.current && editorInst) {
-        editorContainerRef.current.removeChild(editorInst.editor.dom)
+        editorContainerRef.current.removeChild(editorInst.editorView.dom)
       }
     }
   }, [editorId])
