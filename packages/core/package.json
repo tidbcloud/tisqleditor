@@ -41,8 +41,8 @@
   },
   "dependencies": {
     "@tidbcloud/tisqleditor-extensions-basic-setup": "workspace:^",
-    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^",
     "@tidbcloud/tisqleditor-extensions-cur-sql": "workspace:^",
-    "@tidbcloud/tisqleditor-extensions-lang-sql": "workspace:^"
+    "@tidbcloud/tisqleditor-extensions-lang-sql": "workspace:^",
+    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^"
   }
 }

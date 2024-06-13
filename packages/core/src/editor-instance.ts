@@ -20,41 +20,43 @@ import {
 
 export class SQLEditorInstance {
   constructor(
-    public editor: EditorView,
+    public editorId: string,
+    public editorView: EditorView,
     public themeCompartment: Compartment,
     public sqlCompartment: Compartment,
     public extraData: {}
   ) {}
 
   changeTheme(theme: Extension) {
-    if (this.themeCompartment.get(this.editor.state) === theme) return
+    if (this.themeCompartment.get(this.editorView.state) === theme) return
 
-    this.editor.dispatch({
+    this.editorView.dispatch({
       effects: this.themeCompartment.reconfigure(theme)
     })
   }
 
   changeSQLConfig(sqlConfig: SQLConfig) {
-    this.editor.dispatch({
+    this.editorView.dispatch({
       effects: this.sqlCompartment.reconfigure(langSql(sqlConfig))
     })
   }
 
   getAllStatements() {
-    return getSqlStatements(this.editor.state)
+    return getSqlStatements(this.editorView.state)
   }
 
   getCurStatements() {
-    return getCurStatements(this.editor.state)
+    return getCurStatements(this.editorView.state)
   }
 
   getNearbyStatement() {
     const { from } = this.getCurStatements()[0]
-    return getNearbyStatement(this.editor.state, from)
+    return getNearbyStatement(this.editorView.state, from)
   }
 }
 
 export type CreateSQLEditorOptions = {
+  editorId: string
   doc: string
 
   basicSetupOptions?: BasicSetupOptions
@@ -67,6 +69,7 @@ export type CreateSQLEditorOptions = {
 }
 
 export const createSQLEditorInstance = ({
+  editorId,
   doc,
   basicSetupOptions = {},
   sqlConfig = {},
@@ -94,14 +97,15 @@ export const createSQLEditorInstance = ({
     curSql(),
     extraExts
   ]
-  const editor = new EditorView({
+  const editorView = new EditorView({
     state: EditorState.create({
       doc,
       extensions
     })
   })
   const editorInst = new SQLEditorInstance(
-    editor,
+    editorId,
+    editorView,
     themeCompartment,
     sqlCompartment,
     extraData
