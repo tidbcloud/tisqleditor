@@ -1,1 +1,0 @@
-# @tidbcloud/tisqleditor-extensions

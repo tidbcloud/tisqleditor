@@ -13,6 +13,9 @@
     "README.md"
   ],
   "scripts": {
+    "tsc:watch": "tsc --watch",
+    "rollup:watch": "rollup -c --watch",
+    "dev": "concurrently --kill-others \"pnpm tsc:watch\" \"pnpm rollup:watch\"",
     "build": "tsc && rollup -c"
   },
   "keywords": [],

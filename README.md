@@ -11,12 +11,12 @@
 - node.js >18.16.0
 - pnpm >8.6.12
 
-### Develop
+### Local Development
 
 - `pnpm i`
 - `pnpm dev`
 
-### Build
+### Production Build
 
 - `pnpm i`
 - `pnpm build`

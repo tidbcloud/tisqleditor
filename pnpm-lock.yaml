@@ -116,7 +116,7 @@ importers:
   packages/extensions/cur-sql:
     dependencies:
       '@tidbcloud/tisqleditor-extensions-sql-parser':
-        specifier: workspace:^0.0.1
+        specifier: workspace:^
         version: link:../sql-parser
     devDependencies:
       '@codemirror/state':
