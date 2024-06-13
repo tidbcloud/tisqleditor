@@ -20,6 +20,7 @@ import {
 
 export class SQLEditorInstance {
   constructor(
+    public editorId: string,
     public editor: EditorView,
     public themeCompartment: Compartment,
     public sqlCompartment: Compartment,
@@ -55,6 +56,7 @@ export class SQLEditorInstance {
 }
 
 export type CreateSQLEditorOptions = {
+  editorId: string
   doc: string
 
   basicSetupOptions?: BasicSetupOptions
@@ -67,6 +69,7 @@ export type CreateSQLEditorOptions = {
 }
 
 export const createSQLEditorInstance = ({
+  editorId,
   doc,
   basicSetupOptions = {},
   sqlConfig = {},
@@ -101,6 +104,7 @@ export const createSQLEditorInstance = ({
     })
   })
   const editorInst = new SQLEditorInstance(
+    editorId,
     editor,
     themeCompartment,
     sqlCompartment,

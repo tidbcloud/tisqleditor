@@ -28,6 +28,8 @@
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.26.3",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.3.3",
+    "react": "^18.3.1",
     "rollup": "^4.18.0",
     "tslib": "^2.6.3",
     "typescript": "^5.4.5"
@@ -37,12 +39,13 @@
     "@codemirror/language": "^6.10.2",
     "@codemirror/search": "^6.5.6",
     "@codemirror/state": "^6.4.1",
-    "@codemirror/view": "^6.26.3"
+    "@codemirror/view": "^6.26.3",
+    "react": "^18.3.1"
   },
   "dependencies": {
     "@tidbcloud/tisqleditor-extensions-basic-setup": "workspace:^",
-    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^",
     "@tidbcloud/tisqleditor-extensions-cur-sql": "workspace:^",
-    "@tidbcloud/tisqleditor-extensions-lang-sql": "workspace:^"
+    "@tidbcloud/tisqleditor-extensions-lang-sql": "workspace:^",
+    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^"
   }
 }
