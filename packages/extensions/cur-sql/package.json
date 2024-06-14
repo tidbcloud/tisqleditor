@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/tisqleditor-extensions-cur-sql",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "tisqleditor extensions",
   "type": "module",
   "main": "dist/index.js",
@@ -18,7 +18,13 @@
     "dev": "concurrently --kill-others \"pnpm tsc:watch\" \"pnpm rollup:watch\"",
     "build": "tsc && rollup -c"
   },
-  "keywords": [],
+  "keywords": [
+    "tidbcloud",
+    "sql",
+    "editor",
+    "extensions",
+    "cur sql"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
