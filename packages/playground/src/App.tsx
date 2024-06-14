@@ -3,14 +3,13 @@ import {
   ResizablePanel,
   ResizablePanelGroup
 } from '@/components/ui/resizable'
+import { LeftPanel } from '@/components/biz/left-panel'
 
 function App() {
   return (
-    <ResizablePanelGroup direction="horizontal" className="rounded-lg border">
+    <ResizablePanelGroup direction="horizontal">
       <ResizablePanel defaultSize={15} maxSize={30}>
-        <div className="flex h-[200px] items-center justify-center p-6">
-          <span className="font-semibold">One</span>
-        </div>
+        <LeftPanel />
       </ResizablePanel>
 
       <ResizableHandle withHandle />
