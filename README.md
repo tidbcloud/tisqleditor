@@ -9,7 +9,7 @@
 ### Setup
 
 - node.js >18.16.0
-- pnpm >8.6.12
+- pnpm >9.3.0
 
 ### Local Development
 

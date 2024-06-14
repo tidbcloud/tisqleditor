@@ -31,5 +31,6 @@
       "prettier --write"
     ],
     "*.+(json|css|md|html)": "prettier --write"
-  }
+  },
+  "packageManager": "pnpm@9.3.0"
 }
