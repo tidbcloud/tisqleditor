@@ -1,11 +1,11 @@
 import { FILES } from './files-data'
-import { delay } from '@/utils/delay'
+import { delay } from '@/lib/delay'
 import { IFile } from '@/contexts/files-context'
 import {
   getLocalStorageItem,
   removeLocalStorageItem,
   setLocalStorageItem
-} from '@/utils/env-vars'
+} from '@/lib/env-vars'
 
 let memoryFiles = FILES
 
