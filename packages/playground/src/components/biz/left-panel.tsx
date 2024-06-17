@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import FilesList from './files-list'
+import FilesTab from './files-tab'
 
 export function LeftPanel() {
   return (
@@ -17,7 +17,7 @@ export function LeftPanel() {
             <TabsTrigger value="schemas">Schemas</TabsTrigger>
           </TabsList>
           <TabsContent value="sql-files">
-            <FilesList />
+            <FilesTab />
           </TabsContent>
           <TabsContent value="schemas">Change your password here.</TabsContent>
         </Tabs>
