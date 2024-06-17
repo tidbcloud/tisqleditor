@@ -2,7 +2,7 @@ import { linter, Diagnostic } from '@codemirror/lint'
 import { Extension } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 
-export interface GrammerCheckConfig {
+export interface GrammerLinterConfig {
   title?: string
   content?: string
 }
@@ -13,7 +13,7 @@ export interface RegexpItem {
   message: string
 }
 
-const linterBaseTheme: Extension = EditorView.baseTheme({
+export const linterBaseTheme: Extension = EditorView.baseTheme({
   '.cm-tooltip-hover': {
     marginTop: '4px',
     borderRadius: '8px'
@@ -50,7 +50,7 @@ const linterBaseTheme: Extension = EditorView.baseTheme({
   }
 })
 
-const hintEle = (title?: string, content?: string) => {
+export const hintEle = (title?: string, content?: string) => {
   const ele = document.createDocumentFragment()
   const titleEle = document.createElement('div')
   titleEle.textContent = title ?? 'Invalid Character'
@@ -64,7 +64,7 @@ const hintEle = (title?: string, content?: string) => {
   return ele
 }
 
-const chineseCharacterCheckParser = (config: GrammerCheckConfig) => {
+const chineseCharacterCheckParser = (config: GrammerLinterConfig) => {
   return linter((view) => {
     const diagnostics: Diagnostic[] = []
     view.visibleRanges.forEach((range) => {
@@ -139,7 +139,7 @@ const regexMatchParser = (regs: RegexpItem[]) => {
   })
 }
 
-export const chineseCharacterLinter = (config: GrammerCheckConfig) => {
+export const chineseCharacterLinter = (config: GrammerLinterConfig) => {
   return [chineseCharacterCheckParser(config), linterBaseTheme]
 }
 

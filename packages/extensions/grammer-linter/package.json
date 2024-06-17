@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extensions-grammer-check",
+  "name": "@tidbcloud/tisqleditor-extensions-grammer-linter",
   "version": "1.0.0",
   "description": "tisqleditor extensions",
   "type": "module",
@@ -23,7 +23,7 @@
     "sql",
     "editor",
     "extensions",
-    "grammer check"
+    "grammer linter"
   ],
   "author": "",
   "license": "MIT",
