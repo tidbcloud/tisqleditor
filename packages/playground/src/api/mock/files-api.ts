@@ -7,16 +7,18 @@ import {
   setLocalStorageItem
 } from '@/utils/env-vars'
 
-const memoryFiles = FILES
+let memoryFiles = FILES
 
 export async function loadFiles(): Promise<IFile[]> {
   await delay(1000)
 
-  return memoryFiles.map((file) => ({
-    id: file.id,
-    name: file.name,
-    content: ''
-  }))
+  const localFiles = getLocalStorageItem('sql_files')
+  if (localFiles) {
+    memoryFiles = JSON.parse(localFiles)
+  } else {
+    setLocalStorageItem('sql_files', JSON.stringify(memoryFiles))
+  }
+  return memoryFiles
 }
 
 export async function openFile(id: string): Promise<IFile> {
@@ -24,8 +26,8 @@ export async function openFile(id: string): Promise<IFile> {
 
   const f = memoryFiles.find((file) => file.id === id)!
 
-  // replace content from localStorage
-  const content = getLocalStorageItem(id)
+  // replace content from local storage
+  const content = getLocalStorageItem(`sql_file.${id}`)
   if (content !== null) {
     f.content = content
   }
@@ -42,6 +44,8 @@ export async function addFile(name: string, content?: string): Promise<IFile> {
     content: content ?? ''
   }
   memoryFiles.push(newFile)
+  setLocalStorageItem('sql_files', JSON.stringify(memoryFiles))
+
   return newFile
 }
 
@@ -51,8 +55,8 @@ export async function delFile(id: string): Promise<void> {
   const index = memoryFiles.findIndex((file) => file.id === id)
   memoryFiles.splice(index, 1)
 
-  // remove from localStorage
-  removeLocalStorageItem(id)
+  setLocalStorageItem('sql_files', JSON.stringify(memoryFiles))
+  removeLocalStorageItem(`sql_file.${id}`)
 }
 
 export async function renameFile(id: string, name: string): Promise<void> {
@@ -62,6 +66,7 @@ export async function renameFile(id: string, name: string): Promise<void> {
   if (file) {
     file.name = name
   }
+  setLocalStorageItem('sql_files', JSON.stringify(memoryFiles))
 }
 
 export async function saveFile(id: string, content: string) {
@@ -72,7 +77,5 @@ export async function saveFile(id: string, content: string) {
   if (file) {
     file.content = content
   }
-
-  // save to localStorage
-  setLocalStorageItem(id, content)
+  setLocalStorageItem(`sql_file.${id}`, content)
 }
