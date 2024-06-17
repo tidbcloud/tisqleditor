@@ -6,7 +6,7 @@ import {
   ReloadIcon
 } from '@radix-ui/react-icons'
 import dayjs from 'dayjs'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { Button } from '@/components/ui/button'
@@ -29,6 +29,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
 
 function AddFileButton() {
   const {
@@ -219,12 +220,36 @@ function DelFileAlertDialog() {
   )
 }
 
+function ReloadButton() {
+  const {
+    api: { loadFiles }
+  } = useFilesContext()
+
+  const { isFetching, refetch } = useQuery({
+    queryKey: ['sql_files'],
+    queryFn: loadFiles
+  })
+
+  return (
+    <Button
+      variant="outline"
+      size="icon"
+      className="h-8 w-8"
+      onClick={() => refetch()}
+      disabled={isFetching}
+    >
+      <ReloadIcon className={cn('h-4 w-4', { 'animate-spin': isFetching })} />
+    </Button>
+  )
+}
+
 export function FilesActions() {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 mt-4">
       <AddFileButton />
       <RenameFileDialog />
       <DelFileAlertDialog />
+      <ReloadButton />
     </div>
   )
 }
