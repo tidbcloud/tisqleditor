@@ -35,7 +35,7 @@ export function FilesProvider(props: { children: React.ReactNode }) {
         setActiveFileId
       }
     }),
-    [loadFiles, allFiles, openedFiles, activeFileId]
+    [allFiles, openedFiles, activeFileId]
   )
 
   return (

@@ -19,7 +19,7 @@ export function FilesList() {
   } = useFilesContext()
 
   const { data: filesData, isLoading: loadingFiles } = useQuery({
-    queryKey: ['files_list'],
+    queryKey: ['sql_files'],
     queryFn: loadFiles
   })
   useEffect(() => {

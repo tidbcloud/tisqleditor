@@ -6,7 +6,7 @@ import {
   ReloadIcon
 } from '@radix-ui/react-icons'
 import dayjs from 'dayjs'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { Button } from '@/components/ui/button'
@@ -32,21 +32,24 @@ import { Input } from '@/components/ui/input'
 
 function AddFileButton() {
   const {
-    api: { loadFiles, addFile }
+    state: { setAllFiles },
+    api: { addFile }
   } = useFilesContext()
 
-  const { refetch: refetchFiles } = useQuery({
-    queryKey: ['files_list'],
-    queryFn: loadFiles
-  })
-
   async function handleAddFile() {
-    await addFile(`file-${dayjs().format('MMDDHHmmss')}`, '-- use db;')
-    await refetchFiles()
+    const f = await addFile(
+      `file-${dayjs().format('MMDDHHmmss')}`,
+      '-- use db;'
+    )
+    setAllFiles((pre) => [...pre, { ...f }])
   }
 
+  const queryClient = useQueryClient()
   const addFileMut = useMutation({
-    mutationFn: handleAddFile
+    mutationFn: handleAddFile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['sql_files'] })
+    }
   })
 
   return (
@@ -68,8 +71,8 @@ function AddFileButton() {
 
 function RenameFileDialog() {
   const {
-    state: { allFiles, activeFileId },
-    api: { loadFiles, renameFile }
+    state: { allFiles, setAllFiles, activeFileId },
+    api: { renameFile }
   } = useFilesContext()
 
   const oriFileName = useMemo(
@@ -81,22 +84,26 @@ function RenameFileDialog() {
     setNewFileName(oriFileName)
   }, [oriFileName])
 
-  const { refetch: refetchFiles } = useQuery({
-    queryKey: ['files_list'],
-    queryFn: loadFiles
-  })
-
   async function handleRenameFile() {
     if (!activeFileId || newFileName === oriFileName) {
       return
     }
     await renameFile(activeFileId, newFileName)
-    await refetchFiles()
+    setAllFiles((pre) => {
+      const next = [...pre]
+      const target = next.find((f) => f.id === activeFileId)
+      target!.name = newFileName
+      return next
+    })
   }
 
+  const queryClient = useQueryClient()
   const renameFileMut = useMutation({
     mutationFn: handleRenameFile,
-    onSuccess: () => setOpen(false)
+    onSuccess: () => {
+      setOpen(false)
+      queryClient.invalidateQueries({ queryKey: ['sql_files'] })
+    }
   })
 
   const [open, setOpen] = useState(false)
@@ -142,8 +149,8 @@ function RenameFileDialog() {
 
 function DelFileAlertDialog() {
   const {
-    state: { allFiles, activeFileId, setActiveFileId },
-    api: { loadFiles, delFile }
+    state: { allFiles, setAllFiles, activeFileId, setActiveFileId },
+    api: { delFile }
   } = useFilesContext()
 
   const fileName = useMemo(
@@ -151,23 +158,22 @@ function DelFileAlertDialog() {
     [allFiles, activeFileId]
   )
 
-  const { refetch: refetchFiles } = useQuery({
-    queryKey: ['files_list'],
-    queryFn: loadFiles
-  })
-
   async function handleDeleteFile() {
     if (!activeFileId) {
       return
     }
     await delFile(activeFileId)
-    await refetchFiles()
+    setAllFiles((pre) => pre.filter((f) => f.id !== activeFileId))
     setActiveFileId(null)
   }
 
+  const queryClient = useQueryClient()
   const delFileMut = useMutation({
     mutationFn: handleDeleteFile,
-    onSuccess: () => setOpen(false)
+    onSuccess: () => {
+      setOpen(false)
+      queryClient.invalidateQueries({ queryKey: ['sql_files'] })
+    }
   })
 
   const [open, setOpen] = useState(false)

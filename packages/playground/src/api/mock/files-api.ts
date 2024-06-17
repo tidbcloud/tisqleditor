@@ -10,6 +10,7 @@ import {
 let memoryFiles = FILES
 
 export async function loadFiles(): Promise<IFile[]> {
+  console.log('load files')
   await delay(1000)
 
   const localFiles = getLocalStorageItem('sql_files')
@@ -18,7 +19,7 @@ export async function loadFiles(): Promise<IFile[]> {
   } else {
     setLocalStorageItem('sql_files', JSON.stringify(memoryFiles))
   }
-  return memoryFiles.slice()
+  return memoryFiles
 }
 
 export async function openFile(id: string): Promise<IFile> {
