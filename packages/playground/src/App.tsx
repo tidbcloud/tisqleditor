@@ -4,8 +4,9 @@ import {
   ResizablePanelGroup
 } from '@/components/ui/resizable'
 import { LeftPanel } from '@/components/biz/left-panel'
+import { FilesProvider } from './contexts/files-context-provider'
 
-function App() {
+function Panels() {
   return (
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel defaultSize={15} maxSize={30}>
@@ -32,6 +33,14 @@ function App() {
         </ResizablePanelGroup>
       </ResizablePanel>
     </ResizablePanelGroup>
+  )
+}
+
+function App() {
+  return (
+    <FilesProvider>
+      <Panels />
+    </FilesProvider>
   )
 }
 
