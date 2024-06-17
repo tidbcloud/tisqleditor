@@ -1,46 +1,16 @@
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup
-} from '@/components/ui/resizable'
-import { LeftPanel } from '@/components/biz/left-panel'
-import { FilesProvider } from './contexts/files-context-provider'
+import { Panels } from '@/components/biz/panels'
+import { FilesProvider } from '@/contexts/files-context-provider'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-function Panels() {
-  return (
-    <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel defaultSize={15} maxSize={30}>
-        <LeftPanel />
-      </ResizablePanel>
-
-      <ResizableHandle withHandle />
-
-      <ResizablePanel>
-        <ResizablePanelGroup direction="vertical">
-          <ResizablePanel defaultSize={75} minSize={5}>
-            <div className="flex h-full items-center justify-center p-6">
-              <span className="font-semibold">Two</span>
-            </div>
-          </ResizablePanel>
-
-          <ResizableHandle withHandle />
-
-          <ResizablePanel defaultSize={25} minSize={5}>
-            <div className="flex h-full items-center justify-center p-6">
-              <span className="font-semibold">Three</span>
-            </div>
-          </ResizablePanel>
-        </ResizablePanelGroup>
-      </ResizablePanel>
-    </ResizablePanelGroup>
-  )
-}
+const queryClient = new QueryClient()
 
 function App() {
   return (
-    <FilesProvider>
-      <Panels />
-    </FilesProvider>
+    <QueryClientProvider client={queryClient}>
+      <FilesProvider>
+        <Panels />
+      </FilesProvider>
+    </QueryClientProvider>
   )
 }
 

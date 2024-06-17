@@ -18,7 +18,7 @@ export async function loadFiles(): Promise<IFile[]> {
   } else {
     setLocalStorageItem('sql_files', JSON.stringify(memoryFiles))
   }
-  return memoryFiles
+  return memoryFiles.slice()
 }
 
 export async function openFile(id: string): Promise<IFile> {
