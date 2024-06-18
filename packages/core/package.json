@@ -40,9 +40,9 @@
     "@codemirror/view": "^6.26.3"
   },
   "dependencies": {
-    "@tidbcloud/tisqleditor-extensions-basic-setup": "workspace:^",
-    "@tidbcloud/tisqleditor-extensions-cur-sql": "workspace:^",
-    "@tidbcloud/tisqleditor-extensions-lang-sql": "workspace:^",
-    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^"
+    "@tidbcloud/tisqleditor-extension-basic-setup": "workspace:^",
+    "@tidbcloud/tisqleditor-extension-cur-sql": "workspace:^",
+    "@tidbcloud/tisqleditor-extension-lang-sql": "workspace:^",
+    "@tidbcloud/tisqleditor-extension-sql-parser": "workspace:^"
   }
 }

@@ -6,17 +6,17 @@ import { EditorView } from '@codemirror/view'
 import {
   BasicSetupOptions,
   basicSetup
-} from '@tidbcloud/tisqleditor-extensions-basic-setup'
+} from '@tidbcloud/tisqleditor-extension-basic-setup'
 import {
   sqlParser,
   getSqlStatements,
   getNearbyStatement
-} from '@tidbcloud/tisqleditor-extensions-sql-parser'
-import { langSql } from '@tidbcloud/tisqleditor-extensions-lang-sql'
+} from '@tidbcloud/tisqleditor-extension-sql-parser'
+import { langSql } from '@tidbcloud/tisqleditor-extension-lang-sql'
 import {
   curSql,
   getCurStatements
-} from '@tidbcloud/tisqleditor-extensions-cur-sql'
+} from '@tidbcloud/tisqleditor-extension-cur-sql'
 
 export class SQLEditorInstance {
   constructor(

@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extensions-lang-sql",
+  "name": "@tidbcloud/tisqleditor-extension-lang-sql",
   "version": "0.0.1",
   "description": "tisqleditor extensions",
   "type": "module",

@@ -29,16 +29,16 @@ importers:
 
   packages/core:
     dependencies:
-      '@tidbcloud/tisqleditor-extensions-basic-setup':
+      '@tidbcloud/tisqleditor-extension-basic-setup':
         specifier: workspace:^
         version: link:../extensions/basic-setup
-      '@tidbcloud/tisqleditor-extensions-cur-sql':
+      '@tidbcloud/tisqleditor-extension-cur-sql':
         specifier: workspace:^
         version: link:../extensions/cur-sql
-      '@tidbcloud/tisqleditor-extensions-lang-sql':
+      '@tidbcloud/tisqleditor-extension-lang-sql':
         specifier: workspace:^
         version: link:../extensions/lang-sql
-      '@tidbcloud/tisqleditor-extensions-sql-parser':
+      '@tidbcloud/tisqleditor-extension-sql-parser':
         specifier: workspace:^
         version: link:../extensions/sql-parser
     devDependencies:
@@ -115,7 +115,7 @@ importers:
 
   packages/extensions/cur-sql:
     dependencies:
-      '@tidbcloud/tisqleditor-extensions-sql-parser':
+      '@tidbcloud/tisqleditor-extension-sql-parser':
         specifier: workspace:^
         version: link:../sql-parser
     devDependencies:
@@ -146,6 +146,27 @@ importers:
       '@codemirror/language':
         specifier: ^6.10.2
         version: 6.10.2
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
+      rollup:
+        specifier: ^4.18.0
+        version: 4.18.0
+      tslib:
+        specifier: ^2.6.3
+        version: 2.6.3
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+
+  packages/extensions/save-helper:
+    devDependencies:
+      '@codemirror/state':
+        specifier: ^6.4.1
+        version: 6.4.1
+      '@codemirror/view':
+        specifier: ^6.26.3
+        version: 6.26.3
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
         version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
@@ -209,6 +230,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.45.1
         version: 5.45.1(react@18.3.1)
+      '@tidbcloud/tisqleditor-extension-save-helper':
+        specifier: workspace:^
+        version: link:../extensions/save-helper
       '@tidbcloud/tisqleditor-react':
         specifier: workspace:^
         version: link:../react

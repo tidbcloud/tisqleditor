@@ -15,6 +15,7 @@
 
 - `pnpm i`
 - `pnpm dev`
+- `echo 'link-workspace-packages=true' >> ~/.npmrc`
 
 ### Production Build
 
