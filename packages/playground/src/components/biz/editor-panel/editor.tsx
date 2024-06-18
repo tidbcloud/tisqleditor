@@ -1,5 +1,5 @@
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 
-export function EditorPanel() {
+export function Editor() {
   return <SQLEditor className="h-full" editorId="loading" doc="-- use {db};" />
 }
