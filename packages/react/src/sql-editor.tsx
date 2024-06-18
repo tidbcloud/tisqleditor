@@ -11,7 +11,7 @@ type SQLEditorProps = CreateSQLEditorOptions & {
   className?: string
 }
 
-export default function SQLEditor({
+export function SQLEditor({
   className,
   editorId,
   theme,
