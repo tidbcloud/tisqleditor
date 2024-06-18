@@ -1,12 +1,7 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useContext, useEffect, useRef } from 'react'
 import { EditorCache } from '@tidbcloud/tisqleditor'
 
-type EditorCacheCtxValue = {
-  cache: EditorCache
-
-  activeEditorId: string
-  setActiveEditorId: (editorId: string) => void
-}
+type EditorCacheCtxValue = EditorCache
 
 const EditorCacheContext = createContext<EditorCacheCtxValue | null>(null)
 
@@ -21,25 +16,16 @@ export const useEditorCacheContext = () => {
 }
 
 export function EditorCacheProvider(props: { children: React.ReactNode }) {
-  const [activeEditorId, setActiveEditorId] = useState('')
-  const cache = useMemo(() => new EditorCache(), [])
-  const ctxValue = useMemo(
-    () => ({
-      cache,
-      activeEditorId,
-      setActiveEditorId
-    }),
-    [activeEditorId]
-  )
+  const cacheRef = useRef<EditorCache>(new EditorCache())
 
   useEffect(() => {
     return () => {
-      cache.clearEditors()
+      cacheRef.current.clearEditors()
     }
   }, [])
 
   return (
-    <EditorCacheContext.Provider value={ctxValue}>
+    <EditorCacheContext.Provider value={cacheRef.current}>
       {props.children}
     </EditorCacheContext.Provider>
   )

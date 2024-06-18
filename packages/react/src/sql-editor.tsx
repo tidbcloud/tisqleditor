@@ -24,7 +24,7 @@ export function SQLEditor({
   useLayoutEffect(() => {
     if (!editorContainerRef.current) return
 
-    let editorInst = cacheCtx.cache.getEditor(editorId)
+    let editorInst = cacheCtx.getEditor(editorId)
     if (!editorInst) {
       editorInst = createSQLEditorInstance({
         editorId,
@@ -32,7 +32,7 @@ export function SQLEditor({
         sqlConfig,
         ...rest
       })
-      cacheCtx.cache.addEditor(editorId, editorInst)
+      cacheCtx.addEditor(editorId, editorInst)
     }
 
     editorContainerRef.current.appendChild(editorInst.editorView.dom)
@@ -47,11 +47,11 @@ export function SQLEditor({
 
   // use `useLayoutEffect` to avoid flicker
   useLayoutEffect(() => {
-    cacheCtx.cache.getEditor(editorId)?.changeTheme(theme ?? [])
+    cacheCtx.getEditor(editorId)?.changeTheme(theme ?? [])
   }, [editorId, theme])
 
   useEffect(() => {
-    cacheCtx.cache.getEditor(editorId)?.changeSQLConfig(sqlConfig ?? {})
+    cacheCtx.getEditor(editorId)?.changeSQLConfig(sqlConfig ?? {})
   }, [editorId, sqlConfig])
 
   return <div className={className} ref={editorContainerRef} />

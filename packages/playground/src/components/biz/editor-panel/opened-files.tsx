@@ -1,14 +1,15 @@
+import { Cross1Icon } from '@radix-ui/react-icons'
+
+import { useEditorCacheContext } from '@tidbcloud/tisqleditor-react'
 import { Button } from '@/components/ui/button'
 import { IFile, useFilesContext } from '@/contexts/files-context'
-import { Cross1Icon } from '@radix-ui/react-icons'
-import { useEditorCacheContext } from '@tidbcloud/tisqleditor-react'
 
 export function OpenedFilesTabs() {
   const {
     api: { saveFile },
     state: { openedFiles, setOpenedFiles, activeFileId, setActiveFileId }
   } = useFilesContext()
-  const { cache } = useEditorCacheContext()
+  const cacheCtx = useEditorCacheContext()
 
   function handleCloseFile(file: IFile) {
     const next = openedFiles.filter((f) => f.id !== file.id)
@@ -25,7 +26,7 @@ export function OpenedFilesTabs() {
     }
 
     // save if changed
-    const editorInst = cache.getEditor(file.id)
+    const editorInst = cacheCtx.getEditor(file.id)
     if (editorInst) {
       const editorDoc = editorInst.editorView.state.doc.toString()
       if (editorDoc !== file.content) {
@@ -34,7 +35,7 @@ export function OpenedFilesTabs() {
     }
 
     // cleanup
-    cache.deleteEditor(file.id)
+    cacheCtx.deleteEditor(file.id)
   }
 
   function handleSwitchFile(file: IFile) {
@@ -45,7 +46,7 @@ export function OpenedFilesTabs() {
     // save pre file if changed
     if (activeFileId) {
       const preFile = openedFiles.find((f) => f.id === activeFileId)
-      const editorInst = cache.getEditor(activeFileId)
+      const editorInst = cacheCtx.getEditor(activeFileId)
       if (preFile && editorInst) {
         const editorDoc = editorInst.editorView.state.doc.toString()
         if (editorDoc !== preFile.content) {
