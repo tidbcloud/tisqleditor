@@ -18,10 +18,12 @@ export function Panels() {
       <ResizablePanel>
         <ResizablePanelGroup direction="vertical">
           <ResizablePanel defaultSize={75} minSize={5}>
-            {/* <div className="flex h-full items-center justify-center p-6">
-              <span className="font-semibold">Two</span>
-            </div> */}
-            <EditorPanel />
+            <div className="flex flex-col h-full">
+              <div className="flex-none h-12">opened files</div>
+              <div className="flex-auto overflow-auto">
+                <EditorPanel />
+              </div>
+            </div>
           </ResizablePanel>
 
           <ResizableHandle withHandle />

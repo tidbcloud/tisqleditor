@@ -95,7 +95,12 @@ export const createSQLEditorInstance = ({
     sqlCompartment.of(langSql(sqlConfig)),
     sqlParser(),
     curSql(),
-    extraExts
+    extraExts,
+
+    // make it full height default
+    EditorView.theme({
+      '&': { height: '100%' }
+    })
   ]
   const editorView = new EditorView({
     state: EditorState.create({
