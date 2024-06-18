@@ -1,4 +1,6 @@
 import { useMemo } from 'react'
+import { EditorView, placeholder } from '@codemirror/view'
+import { EditorState } from '@codemirror/state'
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 import { useFilesContext } from '@/contexts/files-context'
 
@@ -24,7 +26,17 @@ export function Editor() {
 
   if (activeFile.status === 'loading') {
     return (
-      <SQLEditor className="h-full" editorId="loading" doc="-- use {db};" />
+      <SQLEditor
+        className="h-full"
+        editorId="loading"
+        doc=""
+        extraExts={[
+          placeholder('loading...'),
+          // both needed to prevent user from typing
+          EditorView.editable.of(false),
+          EditorState.readOnly.of(true)
+        ]}
+      />
     )
   }
 

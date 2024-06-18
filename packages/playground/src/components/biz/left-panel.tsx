@@ -19,7 +19,7 @@ export function LeftPanel() {
           <TabsContent value="sql-files">
             <FilesPanel />
           </TabsContent>
-          <TabsContent value="schemas">Change your password here.</TabsContent>
+          <TabsContent value="schemas">Schemas</TabsContent>
         </Tabs>
       </div>
     </div>

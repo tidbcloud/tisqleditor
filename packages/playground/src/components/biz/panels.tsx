@@ -25,7 +25,7 @@ export function Panels() {
 
           <ResizablePanel defaultSize={25} minSize={5}>
             <div className="flex h-full items-center justify-center p-6">
-              <span className="font-semibold">Three</span>
+              <span className="font-semibold">Result Panel</span>
             </div>
           </ResizablePanel>
         </ResizablePanelGroup>
