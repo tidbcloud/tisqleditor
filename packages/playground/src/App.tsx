@@ -2,9 +2,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { EditorCacheProvider } from '@tidbcloud/tisqleditor-react'
 
-import { FilesProvider } from '@/contexts/files-context-provider'
 import { Panels } from '@/components/biz/panels'
 import { ThemeProvider } from '@/components/darkmode-toggle/theme-provider'
+import { StatementProvider } from '@/contexts/statement-context-provider'
+import { FilesProvider } from '@/contexts/files-context-provider'
 
 const queryClient = new QueryClient()
 
@@ -14,7 +15,9 @@ function App() {
       <FilesProvider>
         <EditorCacheProvider>
           <ThemeProvider>
-            <Panels />
+            <StatementProvider>
+              <Panels />
+            </StatementProvider>
           </ThemeProvider>
         </EditorCacheProvider>
       </FilesProvider>
