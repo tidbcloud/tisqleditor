@@ -1,10 +1,10 @@
 import { linter, Diagnostic } from '@codemirror/lint'
 
-import { getSqlStatements } from '@tidbcloud/tisqleditor-extensions-sql-parser'
+import { getSqlStatements } from '@tidbcloud/tisqleditor-extension-sql-parser'
 import {
   hintEle,
   linterBaseTheme
-} from '@tidbcloud/tisqleditor-extensions-grammer-linter'
+} from '@tidbcloud/tisqleditor-extension-grammer-linter'
 
 export type DBLinterOptions = {
   level?: 'error' | 'warning'

@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extensions-database-linter",
+  "name": "@tidbcloud/tisqleditor-extension-database-linter",
   "version": "1.0.0",
   "description": "tisqleditor extensions",
   "type": "module",
@@ -41,7 +41,7 @@
     "@codemirror/view": "^6.26.3"
   },
   "dependencies": {
-    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^",
-    "@tidbcloud/tisqleditor-extensions-grammer-linter": "workspace:^"
+    "@tidbcloud/tisqleditor-extension-sql-parser": "workspace:^",
+    "@tidbcloud/tisqleditor-extension-grammer-linter": "workspace:^"
   }
 }

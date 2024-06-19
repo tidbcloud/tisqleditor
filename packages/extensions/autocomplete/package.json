@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extensions-autocomplete",
+  "name": "@tidbcloud/tisqleditor-extension-autocomplete",
   "version": "1.0.0",
   "description": "tisqleditor extensions",
   "type": "module",
