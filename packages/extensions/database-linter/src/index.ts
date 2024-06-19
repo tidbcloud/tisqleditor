@@ -4,7 +4,7 @@ import { getSqlStatements } from '@tidbcloud/tisqleditor-extension-sql-parser'
 import {
   hintEle,
   linterBaseTheme
-} from '@tidbcloud/tisqleditor-extension-grammer-linter'
+} from '@tidbcloud/tisqleditor-extension-grammar-linter'
 
 export type DBLinterOptions = {
   level?: 'error' | 'warning'

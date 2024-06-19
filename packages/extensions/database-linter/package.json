@@ -42,6 +42,6 @@
   },
   "dependencies": {
     "@tidbcloud/tisqleditor-extension-sql-parser": "workspace:^",
-    "@tidbcloud/tisqleditor-extension-grammer-linter": "workspace:^"
+    "@tidbcloud/tisqleditor-extension-grammar-linter": "workspace:^"
   }
 }

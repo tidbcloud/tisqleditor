@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extension-grammer-linter",
+  "name": "@tidbcloud/tisqleditor-extension-grammar-linter",
   "version": "1.0.0",
   "description": "tisqleditor extensions",
   "type": "module",
@@ -23,7 +23,7 @@
     "sql",
     "editor",
     "extensions",
-    "grammer linter"
+    "grammar linter"
   ],
   "author": "",
   "license": "MIT",
