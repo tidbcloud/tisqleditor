@@ -1,6 +1,6 @@
 {
-  "name": "@tidbcloud/tisqleditor-extension-basic-setup",
-  "version": "0.0.1",
+  "name": "@tidbcloud/tisqleditor-extensions-autocomplete",
+  "version": "1.0.0",
   "description": "tisqleditor extensions",
   "type": "module",
   "main": "dist/index.js",
@@ -23,17 +23,13 @@
     "sql",
     "editor",
     "extensions",
-    "basic setup"
+    "autocomplete"
   ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@codemirror/autocomplete": "^6.16.2",
     "@codemirror/commands": "6.3.3",
-    "@codemirror/lang-sql": "^6.6.4",
-    "@codemirror/language": "^6.10.2",
-    "@codemirror/lint": "^6.8.0",
-    "@codemirror/search": "^6.5.6",
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.26.3",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -44,12 +40,7 @@
   "peerDependencies": {
     "@codemirror/autocomplete": "^6.16.2",
     "@codemirror/commands": "6.3.3",
-    "@codemirror/lang-sql": "^6.6.4",
-    "@codemirror/language": "^6.10.2",
-    "@codemirror/lint": "^6.8.0",
-    "@codemirror/search": "^6.5.6",
     "@codemirror/state": "^6.4.1",
-    "@codemirror/view": "^6.26.3",
-    "@lezer/highlight": "^1.2.0"
+    "@codemirror/view": "^6.26.3"
   }
 }
