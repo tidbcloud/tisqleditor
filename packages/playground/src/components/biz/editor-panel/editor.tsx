@@ -51,6 +51,7 @@ export function Editor() {
         className="h-full"
         editorId="loading"
         doc=""
+        theme={isDark ? oneDark : bbedit}
         extraExts={[
           placeholder('loading...'),
           // both needed to prevent user from typing
