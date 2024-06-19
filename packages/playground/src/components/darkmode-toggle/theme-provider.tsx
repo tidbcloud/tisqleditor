@@ -10,11 +10,13 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: Theme
+  isDark: boolean
   setTheme: (theme: Theme) => void
 }
 
 const initialState: ThemeProviderState = {
   theme: 'system',
+  isDark: false,
   setTheme: () => null
 }
 
@@ -29,6 +31,7 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   )
+  const [dark, setDark] = useState(theme === 'dark')
 
   useEffect(() => {
     const root = window.document.documentElement
@@ -42,14 +45,17 @@ export function ThemeProvider({
         : 'light'
 
       root.classList.add(systemTheme)
+      setDark(systemTheme === 'dark')
       return
     }
 
     root.classList.add(theme)
+    setDark(theme === 'dark')
   }, [theme])
 
   const value = {
     theme,
+    isDark: dark,
     setTheme: (theme: Theme) => {
       localStorage.setItem(storageKey, theme)
       setTheme(theme)

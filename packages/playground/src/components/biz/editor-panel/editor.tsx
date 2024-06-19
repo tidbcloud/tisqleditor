@@ -4,13 +4,18 @@ import { EditorState } from '@codemirror/state'
 
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
+import { bbedit, oneDark } from '@tidbcloud/tisqleditor-extension-themes'
+
 import { useFilesContext } from '@/contexts/files-context'
+import { useTheme } from '@/components/darkmode-toggle/theme-provider'
 
 export function Editor() {
   const {
     api: { saveFile },
     state: { activeFileId, openedFiles }
   } = useFilesContext()
+
+  const { isDark } = useTheme()
 
   const activeFile = useMemo(
     () => openedFiles.find((f) => f.id === activeFileId),
@@ -61,6 +66,7 @@ export function Editor() {
       className="h-full"
       editorId={activeFile.id}
       doc={activeFile.content}
+      theme={isDark ? oneDark : bbedit}
       extraExts={extraExts}
     />
   )
