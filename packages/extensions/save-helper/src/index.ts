@@ -4,7 +4,7 @@ import { EditorView, keymap } from '@codemirror/view'
 type SaveHelperOptions = {
   delay?: number // in milliseconds, default 5000
   auto?: boolean
-  hotkey?: boolean
+  hotkey?: string
   save: (view: EditorView) => void
 }
 
@@ -21,11 +21,11 @@ const autoSave = (delay: number, save: (view: EditorView) => void) => {
   })
 }
 
-const saveKeymap = (save: (view: EditorView) => void) => {
+const saveKeymap = (key: string, save: (view: EditorView) => void) => {
   return Prec.highest(
     keymap.of([
       {
-        key: 'Mod-s',
+        key,
         run: (view: EditorView) => {
           save(view)
           return true
@@ -38,7 +38,7 @@ const saveKeymap = (save: (view: EditorView) => void) => {
 export const saveHelper = ({
   delay = 5000,
   auto = true,
-  hotkey = true,
+  hotkey = 'Mod-s',
   save
 }: SaveHelperOptions) => {
   const exts: Extension[] = []
@@ -48,7 +48,7 @@ export const saveHelper = ({
   }
 
   if (hotkey) {
-    exts.push(saveKeymap(save))
+    exts.push(saveKeymap(hotkey, save))
   }
 
   return exts

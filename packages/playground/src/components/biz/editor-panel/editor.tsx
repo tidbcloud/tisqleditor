@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { EditorView, placeholder } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
+
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
 import { useFilesContext } from '@/contexts/files-context'
@@ -17,7 +18,7 @@ export function Editor() {
   )
 
   const extraExts = useMemo(() => {
-    if (activeFile && activeFile?.status === 'loaded') {
+    if (activeFile && activeFile.status === 'loaded') {
       return [
         saveHelper({
           save: (view: EditorView) => {
@@ -27,7 +28,7 @@ export function Editor() {
       ]
     }
     return []
-  }, [activeFile?.status, activeFile?.id])
+  }, [activeFile])
 
   if (!activeFile) {
     return (
