@@ -3,6 +3,10 @@ import { SqlStatement } from '@tidbcloud/tisqleditor-extension-sql-parser'
 
 type StatementCtxValue = {
   runStatement: (fileId: string, statements: SqlStatement) => Promise<any>
+
+  // state
+  runResult: any
+  setRunResult: (result: any | ((prev: any) => any)) => void
 }
 
 export const StatementContext = createContext<StatementCtxValue | null>(null)
