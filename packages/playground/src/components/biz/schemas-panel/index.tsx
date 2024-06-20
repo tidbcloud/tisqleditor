@@ -1,5 +1,11 @@
+import { SchemaActions } from './actions'
 import { SchemasTree } from './schemas-tree'
 
 export function SchemasPanel() {
-  return <SchemasTree />
+  return (
+    <div>
+      <SchemaActions />
+      <SchemasTree />
+    </div>
+  )
 }

@@ -93,8 +93,13 @@ ORDER BY
     }
   }
   return new Response(
-    JSON.stringify({ code: 200, message: 'ok', data: schema })
+    JSON.stringify({ code: 200, message: 'ok', data: schema }),
+    {
+      headers: {
+        'cache-control': 'public, s-maxage=120'
+      }
+    }
   )
 }
 
-export const config = { path: '/api/schema' }
+export const config = { path: '/api/schema', cache: 'manual' }

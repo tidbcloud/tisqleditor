@@ -18,7 +18,7 @@ export function FilesList() {
     api: { loadFiles, openFile }
   } = useFilesContext()
 
-  const { data: filesData, isLoading: loadingFiles } = useQuery({
+  const { data: filesData, isLoading } = useQuery({
     queryKey: ['sql_files'],
     queryFn: loadFiles
   })
@@ -45,17 +45,19 @@ export function FilesList() {
     }
   }
 
+  if (isLoading) {
+    return (
+      <div className="mt-4 space-y-2">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[250px]" />
+      </div>
+    )
+  }
+
   return (
     <ul className="mt-4 space-y-1">
-      {loadingFiles && (
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
-        </div>
-      )}
-
       {allFiles.map((f) => (
         <li key={f.id}>
           <a
