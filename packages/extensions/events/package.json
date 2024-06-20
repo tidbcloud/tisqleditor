@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extensions-events",
+  "name": "@tidbcloud/tisqleditor-extension-events",
   "version": "1.0.0",
   "description": "tisqleditor extensions",
   "type": "module",
@@ -53,7 +53,7 @@
     "@lezer/highlight": "^1.2.0"
   },
   "dependencies": {
-    "@tidbcloud/tisqleditor-extensions-cur-sql": "workspace:^",
-    "@tidbcloud/tisqleditor-extensions-sql-parser": "workspace:^"
+    "@tidbcloud/tisqleditor-extension-cur-sql": "workspace:^",
+    "@tidbcloud/tisqleditor-extension-sql-parser": "workspace:^"
   }
 }
