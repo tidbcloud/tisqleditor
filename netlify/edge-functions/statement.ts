@@ -16,20 +16,23 @@ export default async (req: Request, _context: Context) => {
     url: Netlify.env.get('TIDBCLOUD_DATABASE_URL') + body.database
   })
 
-  //   const res = await conn.execute(`
-  // SELECT g.*
-  // FROM game_genre gg
-  // LEFT JOIN games g ON g.app_id = gg.app_id
-  // WHERE gg.genre_id  = 9
-  // ORDER BY g.estimated_owners DESC
-  // LIMIT 10`)
+  if (body.sql.trim().toLowerCase().startsWith('select')) {
+    const res = await conn.execute(body.sql, null, {
+      arrayMode: true,
+      fullResult: true
+    })
 
-  const res = await conn.execute(body.sql, null, {
-    arrayMode: true,
-    fullResult: true
-  })
-
-  return new Response(JSON.stringify({ code: 200, message: 'ok', data: res }))
+    return new Response(JSON.stringify({ code: 200, message: 'ok', data: res }))
+  } else {
+    return new Response(
+      JSON.stringify({
+        code: 403,
+        message:
+          'forbidden, only select statement is available to run in this playground'
+      }),
+      { status: 403 }
+    )
+  }
 }
 
 export const config: Config = { path: '/api/statement' }
