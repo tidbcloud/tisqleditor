@@ -7,5 +7,12 @@ type StatementCtxValue = {
 
 export const StatementContext = createContext<StatementCtxValue | null>(null)
 
-// StatementContext.Provider is not necessary, so we don't check whether `useContext()` returns null
-export const useStatementContext = () => useContext(StatementContext)
+export const useStatementContext = () => {
+  const context = useContext(StatementContext)
+
+  if (!context) {
+    throw new Error('useStatementContext must be used within a provider')
+  }
+
+  return context
+}

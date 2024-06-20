@@ -20,7 +20,7 @@ export default async () => {
     url: Netlify.env.get('TIDBCLOUD_DATABASE_URL')
   })
 
-  let schemas: SchemaRes = []
+  let schema: SchemaRes = []
 
   // step 1: get all databases
   let dbs = await conn.execute('show databases')
@@ -37,7 +37,7 @@ export default async () => {
   //   },
   //   ...
   // ]
-  schemas = dbs
+  schema = dbs
     .map((db) => db.Database)
     .filter(
       (db) =>
@@ -50,11 +50,11 @@ export default async () => {
     )
     .sort()
     .map((db) => ({ name: db, tables: [] }))
-  console.log('dbs:', schemas)
+  console.log('dbs:', schema)
 
   // step 2: get tables for each db
-  for (let i = 0; i < schemas.length; i++) {
-    const db = schemas[i]
+  for (let i = 0; i < schema.length; i++) {
+    const db = schema[i]
     const tables = await conn.execute(
       `
 SELECT
@@ -93,8 +93,8 @@ ORDER BY
     }
   }
   return new Response(
-    JSON.stringify({ code: 200, message: 'ok', data: schemas })
+    JSON.stringify({ code: 200, message: 'ok', data: schema })
   )
 }
 
-export const config = { path: '/api/schemas' }
+export const config = { path: '/api/schema' }
