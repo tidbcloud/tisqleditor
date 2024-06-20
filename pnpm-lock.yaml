@@ -343,6 +343,12 @@ importers:
 
   packages/playground:
     dependencies:
+      '@codemirror/autocomplete':
+        specifier: ^6.16.2
+        version: 6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1)
+      '@codemirror/lang-sql':
+        specifier: ^6.6.4
+        version: 6.6.4(@codemirror/view@6.26.3)
       '@codemirror/state':
         specifier: ^6.4.1
         version: 6.4.1

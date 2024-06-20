@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { EditorView, placeholder } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
+import { SQLConfig } from '@codemirror/lang-sql'
 
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
@@ -8,6 +9,36 @@ import { bbedit, oneDark } from '@tidbcloud/tisqleditor-extension-themes'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
+import { SchemaRes, useSchemaContext } from '@/contexts/schema-context'
+import { autocompletion } from '@codemirror/autocomplete'
+
+function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
+  const schema: any = {}
+  const tables: any[] = []
+
+  dbList.forEach((d) => {
+    const db = d.name
+    tables.push({
+      label: db,
+      type: 'database'
+    })
+    d.tables.forEach((t: any) => {
+      const table = t.name
+      tables.push({ label: table, type: 'table' })
+
+      const columns = t.columns.map((c: any) => ({
+        label: c.col,
+        type: c.data_type
+      }))
+      tables.push(...columns)
+
+      schema[`${db}.${table}`] = columns
+      schema[table] = columns
+    })
+  })
+
+  return { schema, tables }
+}
 
 export function Editor() {
   const {
@@ -16,6 +47,12 @@ export function Editor() {
   } = useFilesContext()
 
   const { isDark } = useTheme()
+
+  const { schema } = useSchemaContext()
+  const sqlConfig = useMemo(
+    () => convertSchemaToSQLConfig(schema ?? []),
+    [schema]
+  )
 
   const activeFile = useMemo(
     () => openedFiles.find((f) => f.id === activeFileId),
@@ -29,7 +66,8 @@ export function Editor() {
           save: (view: EditorView) => {
             saveFile(activeFile.id, view.state.doc.toString())
           }
-        })
+        }),
+        autocompletion()
       ]
     }
     return []
@@ -67,6 +105,7 @@ export function Editor() {
       className="h-full"
       editorId={activeFile.id}
       doc={activeFile.content}
+      sqlConfig={sqlConfig}
       theme={isDark ? oneDark : bbedit}
       extraExts={extraExts}
     />
