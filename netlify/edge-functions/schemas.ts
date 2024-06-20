@@ -13,6 +13,9 @@ type SchemaRes = {
 }[]
 
 export default async () => {
+  // url:
+  // mysql://[user]:[pwd]@[host]/
+  // database is skipped and its default value is `test`
   const conn = connect({
     url: Netlify.env.get('TIDBCLOUD_DATABASE_URL')
   })
