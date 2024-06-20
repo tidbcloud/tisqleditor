@@ -13,6 +13,19 @@ import { useStatementContext } from '@/contexts/statement-context'
 export function ResultPanel() {
   const { runResult } = useStatementContext()
 
+  if (runResult.status === 'error') {
+    return (
+      <div className="h-full p-4">
+        <p>
+          <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+            {runResult.statement}
+          </code>
+        </p>
+        <p>Query Failed: {runResult.message}</p>
+      </div>
+    )
+  }
+
   if (runResult.status === 'running') {
     return (
       <div className="h-full p-4">

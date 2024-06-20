@@ -28,7 +28,8 @@ export default async (req: Request, _context: Context) => {
       JSON.stringify({
         code: 403,
         message:
-          'forbidden, only select statement is available to run in this playground'
+          'forbidden, only select statement is available to run in this playground',
+        data: {}
       }),
       { status: 403 }
     )
