@@ -40,7 +40,7 @@ function AddFileButton() {
   async function handleAddFile() {
     const f = await addFile(
       `file-${dayjs().format('MMDDHHmmss')}`,
-      '-- use db;'
+      '-- use {dbName};'
     )
     setAllFiles((pre) => [...pre, { ...f }])
   }
