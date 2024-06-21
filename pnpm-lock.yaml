@@ -404,6 +404,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.45.1
         version: 5.45.1(react@18.3.1)
+      '@tidbcloud/tisqleditor-extension-cur-sql-gutter':
+        specifier: workspace:^
+        version: link:../extensions/cur-sql-gutter
       '@tidbcloud/tisqleditor-extension-save-helper':
         specifier: workspace:^
         version: link:../extensions/save-helper
