@@ -23,10 +23,10 @@ export function SchemasTree() {
   if (isLoading) {
     return (
       <div className="mt-4 space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-full" />
       </div>
     )
   }
@@ -35,7 +35,7 @@ export function SchemasTree() {
     <Accordion type="multiple" className="w-full">
       {schema?.map((s) => (
         <AccordionItem value={s.name} key={s.name} className="border-b-0">
-          <AccordionTrigger>{s.name}</AccordionTrigger>
+          <AccordionTrigger className="py-2">{s.name}</AccordionTrigger>
           <AccordionContent>
             <Accordion type="multiple" className="ml-4">
               {s.tables.map((t) => (
@@ -44,7 +44,7 @@ export function SchemasTree() {
                   key={t.name}
                   className="border-b-0"
                 >
-                  <AccordionTrigger>{t.name}</AccordionTrigger>
+                  <AccordionTrigger className="py-2">{t.name}</AccordionTrigger>
                   <AccordionContent>
                     {t.columns.map((col) => (
                       <div key={col.col}>{col.col}</div>

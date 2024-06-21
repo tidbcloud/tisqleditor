@@ -96,7 +96,7 @@ ORDER BY
     JSON.stringify({ code: 200, message: 'ok', data: schema }),
     {
       headers: {
-        'cache-control': 'public, s-maxage=120'
+        'cache-control': 'public, s-maxage=3600'
       }
     }
   )
