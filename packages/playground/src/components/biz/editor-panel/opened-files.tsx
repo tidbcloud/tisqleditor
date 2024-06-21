@@ -60,7 +60,7 @@ export function OpenedFilesTabs() {
     <div className="flex-auto flex items-end overflow-auto">
       {openedFiles.map((f) => (
         <div
-          className="h-10 border border-l-0 flex items-center pl-2 pr-1 group data-[current]:border-b-transparent data-[current]:border-t-2 data-[current]:border-t-cyan-500"
+          className="h-10 border border-l-0 flex items-center pl-2 pr-1 cursor-pointer group data-[current]:border-b-transparent data-[current]:border-t-2 data-[current]:border-t-cyan-500"
           key={f.id}
           data-current={activeFileId === f.id || undefined}
           onClick={() => handleSwitchFile(f)}

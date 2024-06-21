@@ -5,6 +5,7 @@ import {
 } from '@/components/ui/resizable'
 import { LeftPanel } from '@/components/biz/left-panel'
 import { EditorPanel } from '@/components/biz/editor-panel'
+import { ResultPanel } from '@/components/biz/result-panel'
 
 export function Panels() {
   return (
@@ -24,9 +25,7 @@ export function Panels() {
           <ResizableHandle withHandle />
 
           <ResizablePanel defaultSize={25} minSize={5}>
-            <div className="flex h-full items-center justify-center p-6">
-              <span className="font-semibold">Result Panel</span>
-            </div>
+            <ResultPanel />
           </ResizablePanel>
         </ResizablePanelGroup>
       </ResizablePanel>

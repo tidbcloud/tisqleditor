@@ -40,7 +40,7 @@ function AddFileButton() {
   async function handleAddFile() {
     const f = await addFile(
       `file-${dayjs().format('MMDDHHmmss')}`,
-      '-- use db;'
+      '-- use {dbName};'
     )
     setAllFiles((pre) => [...pre, { ...f }])
   }
@@ -72,7 +72,7 @@ function AddFileButton() {
 
 function RenameFileDialog() {
   const {
-    state: { allFiles, setAllFiles, activeFileId },
+    state: { allFiles, setAllFiles, activeFileId, setOpenedFiles },
     api: { renameFile }
   } = useFilesContext()
 
@@ -95,6 +95,15 @@ function RenameFileDialog() {
       const target = next.find((f) => f.id === activeFileId)
       target!.name = newFileName
       return next
+    })
+    setOpenedFiles((pre) => {
+      const pos = pre.findIndex((f) => f.id === activeFileId)
+      if (pos >= 0) {
+        const next = [...pre]
+        next[pos].name = newFileName
+        return next
+      }
+      return pre
     })
   }
 

@@ -18,7 +18,7 @@ export function FilesList() {
     api: { loadFiles, openFile }
   } = useFilesContext()
 
-  const { data: filesData, isLoading: loadingFiles } = useQuery({
+  const { data: filesData, isLoading } = useQuery({
     queryKey: ['sql_files'],
     queryFn: loadFiles
   })
@@ -45,22 +45,24 @@ export function FilesList() {
     }
   }
 
+  if (isLoading) {
+    return (
+      <div className="mt-4 space-y-2">
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-full" />
+      </div>
+    )
+  }
+
   return (
     <ul className="mt-4 space-y-1">
-      {loadingFiles && (
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
-        </div>
-      )}
-
       {allFiles.map((f) => (
         <li key={f.id}>
           <a
             href="#"
-            className="block rounded-lg px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 data-[current]:bg-gray-100"
+            className="block rounded-lg px-2 py-2 text-sm font-medium hover:bg-muted data-[current]:bg-muted"
             data-current={activeFileId === f.id || undefined}
             onClick={() => handleOpenFile(f)}
             title={f.name}
