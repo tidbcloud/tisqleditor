@@ -20,23 +20,24 @@ export function EditorActions() {
     const activeEditor = cacheCtx.getEditor(activeFileId)
     if (!activeEditor) return
 
-    const nearbyStatement = activeEditor.getNearbyStatement()
-    if (!nearbyStatement) {
-      return
-    }
+    const curStatements = activeEditor.getCurStatements()
+    if (curStatements[0].content === '') return
 
-    setRunResult({ statement: nearbyStatement.content, status: 'running' })
-    try {
-      const res = await runStatement(activeFileId, nearbyStatement)
-      console.log('res:', res)
-      setRunResult(res)
-    } catch (error: any) {
-      console.log('error:', error)
-      setRunResult({
-        statement: nearbyStatement.content,
-        status: 'error',
-        message: error.message ?? 'unknown error'
-      })
+    const lastStatement = curStatements.at(-1)
+    if (lastStatement) {
+      setRunResult({ statement: lastStatement.content, status: 'running' })
+      try {
+        const res = await runStatement(activeFileId, lastStatement)
+        console.log('res:', res)
+        setRunResult(res)
+      } catch (error: any) {
+        console.log('error:', error)
+        setRunResult({
+          statement: lastStatement.content,
+          status: 'error',
+          message: error.message ?? 'unknown error'
+        })
+      }
     }
   }
 
