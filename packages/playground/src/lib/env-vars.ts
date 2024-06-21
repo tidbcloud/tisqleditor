@@ -1,4 +1,4 @@
-const keyPrefix = (import.meta.env.VITE_STORAGE_KEY_PREFIX ?? 'v1') + '.'
+const keyPrefix = (import.meta.env.VITE_STORAGE_KEY_PREFIX ?? 'v2') + '.'
 
 export function getLocalStorageItem(key: string) {
   return localStorage.getItem(keyPrefix + key)

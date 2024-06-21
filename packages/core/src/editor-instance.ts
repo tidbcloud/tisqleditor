@@ -81,6 +81,15 @@ export const createSQLEditorInstance = ({
   const sqlCompartment = new Compartment()
 
   const extensions = [
+    // make it full height default
+    // you can override it by theme and extraExts
+    EditorView.theme({
+      '&': { height: '100%' },
+      '.cm-line': {
+        paddingLeft: '8px'
+      }
+    }),
+
     basicSetup({
       foldGutter: false,
       foldKeymap: false,
@@ -95,12 +104,8 @@ export const createSQLEditorInstance = ({
     sqlCompartment.of(langSql(sqlConfig)),
     sqlParser(),
     curSql(),
-    extraExts,
 
-    // make it full height default
-    EditorView.theme({
-      '&': { height: '100%' }
-    })
+    extraExts
   ]
   const editorView = new EditorView({
     state: EditorState.create({

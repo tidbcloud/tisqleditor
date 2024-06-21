@@ -42,7 +42,8 @@ export const bbeditTheme = EditorView.theme(
     // gutter
     '.cm-gutters': {
       backgroundColor: '#FFFFFF',
-      color: '#999'
+      color: '#999',
+      border: 'none'
     }
   },
   { dark: false }

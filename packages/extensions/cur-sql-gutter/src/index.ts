@@ -7,18 +7,18 @@ export interface CurSqlGutterConfig {
   backgroundColor?: string
   width?: number
   className?: string
-  shouldGutterDisplay?: (view: EditorView) => boolean
+  shouldDisplay?: (view: EditorView) => boolean
 }
 
 function getMarkers(
   view: EditorView,
-  config: CurSqlGutterConfig,
-  curSqlMarker: GutterMarker
+  curSqlMarker: GutterMarker,
+  config?: CurSqlGutterConfig
 ) {
   let markers = RangeSet.empty
 
-  // when something happend, hide the gutter
-  if (config.shouldGutterDisplay && !config.shouldGutterDisplay(view)) {
+  // when something happens, hide the gutter
+  if (config?.shouldDisplay && !config.shouldDisplay(view)) {
     return markers
   }
 
@@ -54,34 +54,35 @@ function getMarkers(
 /**
  * gutter style
  */
-const baseTheme = (config: CurSqlGutterConfig) => {
+const baseTheme = (config?: CurSqlGutterConfig) => {
   return EditorView.baseTheme({
     '.cm-sql-gutter .cm-gutterElement': {
-      width: config.width || '2px'
+      width: `${config?.width ?? 2}px`
     },
     '.cm-lineNumbers .cm-gutterElement': {
+      paddingLeft: '8px',
       paddingRight: '8px'
     }
   })
 }
 
-const sqlGutter = (config: CurSqlGutterConfig, curSqlMarker: GutterMarker) => {
+const sqlGutter = (curSqlMarker: GutterMarker, config?: CurSqlGutterConfig) => {
   return gutter({
-    class: `cm-sql-gutter ${config.className || ''}`,
+    class: `cm-sql-gutter ${config?.className || ''}`,
     initialSpacer: () => curSqlMarker,
-    markers: (view: EditorView) => getMarkers(view, config, curSqlMarker)
+    markers: (view: EditorView) => getMarkers(view, curSqlMarker, config)
   })
 }
 
-export const curSqlGutter = (config: CurSqlGutterConfig) => {
+export const curSqlGutter = (config?: CurSqlGutterConfig) => {
   const curSqlMarker = new (class extends GutterMarker {
     toDOM() {
       const el = document.createElement('div')
-      el.style.background = config.backgroundColor || '#0CA6F2'
+      el.style.background = config?.backgroundColor || '#0CA6F2'
       el.style.height = '100%'
       return el
     }
   })()
 
-  return [baseTheme(config), sqlGutter(config, curSqlMarker)]
+  return [baseTheme(config), sqlGutter(curSqlMarker, config)]
 }
