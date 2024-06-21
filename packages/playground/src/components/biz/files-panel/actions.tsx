@@ -159,7 +159,14 @@ function RenameFileDialog() {
 
 function DelFileAlertDialog() {
   const {
-    state: { allFiles, setAllFiles, activeFileId, setActiveFileId },
+    state: {
+      allFiles,
+      setAllFiles,
+      activeFileId,
+      setActiveFileId,
+      openedFiles,
+      setOpenedFiles
+    },
     api: { delFile }
   } = useFilesContext()
 
@@ -174,7 +181,11 @@ function DelFileAlertDialog() {
     }
     await delFile(activeFileId)
     setAllFiles((pre) => pre.filter((f) => f.id !== activeFileId))
-    setActiveFileId(null)
+
+    const nextOpenedFiles = openedFiles.filter((f) => f.id !== activeFileId)
+    setOpenedFiles(nextOpenedFiles)
+
+    setActiveFileId(nextOpenedFiles[0]?.id ?? null)
   }
 
   const queryClient = useQueryClient()
