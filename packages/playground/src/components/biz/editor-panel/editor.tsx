@@ -11,11 +11,11 @@ import {
   useDbLinter,
   fullWidthCharLinter
 } from '@tidbcloud/tisqleditor-extension-linters'
+import { autoCompletion } from '@tidbcloud/tisqleditor-extension-autocomplete'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
 import { SchemaRes, useSchemaContext } from '@/contexts/schema-context'
-import { autocompletion } from '@codemirror/autocomplete'
 
 function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
   const schema: any = {}
@@ -72,7 +72,7 @@ export function Editor() {
             saveFile(activeFile.id, view.state.doc.toString())
           }
         }),
-        autocompletion(),
+        autoCompletion({}),
         curSqlGutter({
           whenHide: (_view) => {
             return false

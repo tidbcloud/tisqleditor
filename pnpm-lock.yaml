@@ -317,9 +317,6 @@ importers:
 
   packages/playground:
     dependencies:
-      '@codemirror/autocomplete':
-        specifier: ^6.16.2
-        version: 6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1)
       '@codemirror/lang-sql':
         specifier: ^6.6.4
         version: 6.6.4(@codemirror/view@6.26.3)
@@ -353,6 +350,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.45.1
         version: 5.45.1(react@18.3.1)
+      '@tidbcloud/tisqleditor-extension-autocomplete':
+        specifier: workspace:^
+        version: link:../extensions/autocomplete
       '@tidbcloud/tisqleditor-extension-cur-sql-gutter':
         specifier: workspace:^
         version: link:../extensions/cur-sql-gutter

@@ -1,3 +1,5 @@
+import { EditorState } from '@codemirror/state'
+import { EditorView, Rect, keymap } from '@codemirror/view'
 import {
   acceptCompletion,
   autocompletion,
@@ -6,8 +8,7 @@ import {
   CompletionSource
 } from '@codemirror/autocomplete'
 import { indentLess, indentMore } from '@codemirror/commands'
-import { EditorState } from '@codemirror/state'
-import { EditorView, Rect, keymap } from '@codemirror/view'
+
 import {
   Brackets,
   Calendar,
@@ -203,9 +204,12 @@ const baseTheme = EditorView.baseTheme({
       color: '#333333'
     }
   },
-  '.cm-autocomplete-item > img': {
-    marginRight: '10px',
-    verticalAlign: 'middle'
+  '.cm-autocomplete-item': {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  '.cm-autocomplete-item > div.icon': {
+    marginRight: '10px'
   },
   '.cm-autocomplete-item .cm-completionIcon-keyword': {
     paddingRight: '24px'
@@ -319,8 +323,9 @@ const customAutoCompletion = (config: AutoCompletionConfig) => {
           }
 
           if (src) {
-            const element = document.createElement('img')
-            element.src = src
+            const element = document.createElement('div')
+            element.className = 'icon'
+            element.innerHTML = src
             return element
           } else {
             return null
