@@ -35,9 +35,6 @@ importers:
       '@tidbcloud/tisqleditor-extension-cur-sql':
         specifier: workspace:^
         version: link:../extensions/cur-sql
-      '@tidbcloud/tisqleditor-extension-lang-sql':
-        specifier: workspace:^
-        version: link:../extensions/lang-sql
       '@tidbcloud/tisqleditor-extension-sql-parser':
         specifier: workspace:^
         version: link:../extensions/sql-parser
@@ -193,37 +190,6 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
-  packages/extensions/database-linter:
-    dependencies:
-      '@codemirror/view':
-        specifier: ^6.26.3
-        version: 6.26.3
-      '@tidbcloud/tisqleditor-extension-grammar-linter':
-        specifier: workspace:^
-        version: link:../grammar-linter
-      '@tidbcloud/tisqleditor-extension-sql-parser':
-        specifier: workspace:^
-        version: link:../sql-parser
-    devDependencies:
-      '@codemirror/lint':
-        specifier: ^6.8.0
-        version: 6.8.0
-      '@codemirror/state':
-        specifier: ^6.4.1
-        version: 6.4.1
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
-      rollup:
-        specifier: ^4.18.0
-        version: 4.18.0
-      tslib:
-        specifier: ^2.6.3
-        version: 2.6.3
-      typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
-
   packages/extensions/events:
     dependencies:
       '@tidbcloud/tisqleditor-extension-cur-sql':
@@ -236,51 +202,6 @@ importers:
       '@codemirror/view':
         specifier: ^6.26.3
         version: 6.26.3
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
-      rollup:
-        specifier: ^4.18.0
-        version: 4.18.0
-      tslib:
-        specifier: ^2.6.3
-        version: 2.6.3
-      typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
-
-  packages/extensions/grammar-linter:
-    devDependencies:
-      '@codemirror/lint':
-        specifier: ^6.8.0
-        version: 6.8.0
-      '@codemirror/state':
-        specifier: ^6.4.1
-        version: 6.4.1
-      '@codemirror/view':
-        specifier: ^6.26.3
-        version: 6.26.3
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
-      rollup:
-        specifier: ^4.18.0
-        version: 4.18.0
-      tslib:
-        specifier: ^2.6.3
-        version: 2.6.3
-      typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
-
-  packages/extensions/lang-sql:
-    devDependencies:
-      '@codemirror/lang-sql':
-        specifier: ^6.6.4
-        version: 6.6.4(@codemirror/view@6.26.3)
-      '@codemirror/language':
-        specifier: ^6.10.2
-        version: 6.10.2
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
         version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
