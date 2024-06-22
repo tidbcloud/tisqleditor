@@ -1,0 +1,30 @@
+# @tidbcloud/tisqleditor-extension-autocomplete
+
+## Quick Start
+
+### Installation
+
+```shell
+npm install @tidbcloud/tisqleditor-extension-autocomplete
+```
+
+You need to install its peer dependencies as well:
+
+```shell
+npm install @codemirror/view @codemirror/state @codemirror/autocomplete @codemirror/commands
+```
+
+### Usage
+
+```js
+import { EditorView } from '@codemirror/view'
+import { EditorState } from '@codemirror/state'
+import { autoCompletion } from '@tidbcloud/tisqleditor-extension-autocomplete'
+
+const editorView = new EditorView({
+  state: EditorState.create({
+    doc,
+    extensions: [autoCompletion()]
+  })
+})
+```

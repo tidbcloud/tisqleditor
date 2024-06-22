@@ -1,15 +1,11 @@
 # tisqleditor
 
-## Usage
-
-// TODO
-
 ## Contributing
 
 ### Setup
 
 - node.js >18.16.0
-- [use corepack](https://www.totaltypescript.com/how-to-use-corepack): `corepack enable && corepack enable npm`
+- [enable corepack](https://www.totaltypescript.com/how-to-use-corepack): `corepack enable && corepack enable npm`
 
 ### Local Development
 
