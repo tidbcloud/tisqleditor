@@ -1,7 +1,7 @@
-import { SQLConfig } from '@codemirror/lang-sql'
-import { search } from '@codemirror/search'
-import { Compartment, EditorState, Extension } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
+import { Compartment, EditorState, Extension } from '@codemirror/state'
+import { SQLConfig, sql, MySQL } from '@codemirror/lang-sql'
+import { search } from '@codemirror/search'
 
 import {
   BasicSetupOptions,
@@ -12,11 +12,17 @@ import {
   getSqlStatements,
   getNearbyStatement
 } from '@tidbcloud/tisqleditor-extension-sql-parser'
-import { langSql } from '@tidbcloud/tisqleditor-extension-lang-sql'
 import {
   curSql,
   getCurStatements
 } from '@tidbcloud/tisqleditor-extension-cur-sql'
+
+const langSql = (config: SQLConfig) =>
+  sql({
+    dialect: MySQL,
+    upperCaseKeywords: true,
+    ...config
+  })
 
 export class SQLEditorInstance {
   constructor(
@@ -100,8 +106,10 @@ export const createSQLEditorInstance = ({
     search({
       top: true
     }),
+
     themeCompartment.of(theme),
     sqlCompartment.of(langSql(sqlConfig)),
+
     sqlParser(),
     curSql(),
 

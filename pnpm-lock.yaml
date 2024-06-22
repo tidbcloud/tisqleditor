@@ -35,9 +35,6 @@ importers:
       '@tidbcloud/tisqleditor-extension-cur-sql':
         specifier: workspace:^
         version: link:../extensions/cur-sql
-      '@tidbcloud/tisqleditor-extension-lang-sql':
-        specifier: workspace:^
-        version: link:../extensions/lang-sql
       '@tidbcloud/tisqleditor-extension-sql-parser':
         specifier: workspace:^
         version: link:../extensions/sql-parser
@@ -193,37 +190,6 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
-  packages/extensions/database-linter:
-    dependencies:
-      '@codemirror/view':
-        specifier: ^6.26.3
-        version: 6.26.3
-      '@tidbcloud/tisqleditor-extension-grammar-linter':
-        specifier: workspace:^
-        version: link:../grammar-linter
-      '@tidbcloud/tisqleditor-extension-sql-parser':
-        specifier: workspace:^
-        version: link:../sql-parser
-    devDependencies:
-      '@codemirror/lint':
-        specifier: ^6.8.0
-        version: 6.8.0
-      '@codemirror/state':
-        specifier: ^6.4.1
-        version: 6.4.1
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
-      rollup:
-        specifier: ^4.18.0
-        version: 4.18.0
-      tslib:
-        specifier: ^2.6.3
-        version: 2.6.3
-      typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
-
   packages/extensions/events:
     dependencies:
       '@tidbcloud/tisqleditor-extension-cur-sql':
@@ -249,7 +215,11 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
-  packages/extensions/grammar-linter:
+  packages/extensions/linters:
+    dependencies:
+      '@tidbcloud/tisqleditor-extension-sql-parser':
+        specifier: workspace:^
+        version: link:../sql-parser
     devDependencies:
       '@codemirror/lint':
         specifier: ^6.8.0
@@ -260,27 +230,6 @@ importers:
       '@codemirror/view':
         specifier: ^6.26.3
         version: 6.26.3
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
-      rollup:
-        specifier: ^4.18.0
-        version: 4.18.0
-      tslib:
-        specifier: ^2.6.3
-        version: 2.6.3
-      typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
-
-  packages/extensions/lang-sql:
-    devDependencies:
-      '@codemirror/lang-sql':
-        specifier: ^6.6.4
-        version: 6.6.4(@codemirror/view@6.26.3)
-      '@codemirror/language':
-        specifier: ^6.10.2
-        version: 6.10.2
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
         version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.4.5)
@@ -368,9 +317,6 @@ importers:
 
   packages/playground:
     dependencies:
-      '@codemirror/autocomplete':
-        specifier: ^6.16.2
-        version: 6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1)
       '@codemirror/lang-sql':
         specifier: ^6.6.4
         version: 6.6.4(@codemirror/view@6.26.3)
@@ -404,9 +350,15 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.45.1
         version: 5.45.1(react@18.3.1)
+      '@tidbcloud/tisqleditor-extension-autocomplete':
+        specifier: workspace:^
+        version: link:../extensions/autocomplete
       '@tidbcloud/tisqleditor-extension-cur-sql-gutter':
         specifier: workspace:^
         version: link:../extensions/cur-sql-gutter
+      '@tidbcloud/tisqleditor-extension-linters':
+        specifier: workspace:^
+        version: link:../extensions/linters
       '@tidbcloud/tisqleditor-extension-save-helper':
         specifier: workspace:^
         version: link:../extensions/save-helper

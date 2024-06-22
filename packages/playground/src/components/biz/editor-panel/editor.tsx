@@ -7,11 +7,15 @@ import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
 import { bbedit, oneDark } from '@tidbcloud/tisqleditor-extension-themes'
 import { curSqlGutter } from '@tidbcloud/tisqleditor-extension-cur-sql-gutter'
+import {
+  useDbLinter,
+  fullWidthCharLinter
+} from '@tidbcloud/tisqleditor-extension-linters'
+import { autoCompletion } from '@tidbcloud/tisqleditor-extension-autocomplete'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
 import { SchemaRes, useSchemaContext } from '@/contexts/schema-context'
-import { autocompletion } from '@codemirror/autocomplete'
 
 function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
   const schema: any = {}
@@ -68,12 +72,18 @@ export function Editor() {
             saveFile(activeFile.id, view.state.doc.toString())
           }
         }),
-        autocompletion(),
+        autoCompletion(),
         curSqlGutter({
-          shouldDisplay: (_view) => {
-            return true
+          whenHide: (_view) => {
+            return false
           }
-        })
+        }),
+        useDbLinter({
+          whenDisable: (_view) => {
+            return false
+          }
+        }),
+        fullWidthCharLinter()
       ]
     }
     return []
