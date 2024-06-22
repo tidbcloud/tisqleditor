@@ -7,7 +7,7 @@ export interface charLinterConfig {
   content?: string
 }
 
-const fullWidthCharChecker = (config?: charLinterConfig) =>
+const fullWidthCharChecker = (config: charLinterConfig) =>
   linter((view) => {
     const diagnostics: Diagnostic[] = []
 
@@ -30,7 +30,7 @@ const fullWidthCharChecker = (config?: charLinterConfig) =>
                       codeNum
                     )}", which is more common in source code.`
                   : 'The character is invalid.'
-              return hintEle(config?.title || '', config?.content || tips)
+              return hintEle(config.title || '', config.content || tips)
             }
           })
         }
@@ -40,6 +40,6 @@ const fullWidthCharChecker = (config?: charLinterConfig) =>
     return diagnostics
   })
 
-export const fullWidthCharLinter = (config?: charLinterConfig) => {
+export const fullWidthCharLinter = (config: charLinterConfig = {}) => {
   return [fullWidthCharChecker(config), linterBaseTheme]
 }

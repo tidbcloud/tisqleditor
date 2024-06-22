@@ -13,12 +13,12 @@ export interface CurSqlGutterConfig {
 function getMarkers(
   view: EditorView,
   curSqlMarker: GutterMarker,
-  config?: CurSqlGutterConfig
+  config: CurSqlGutterConfig
 ) {
   let markers = RangeSet.empty
 
   // when something happens, hide the gutter
-  if (config?.whenHide && config.whenHide(view)) {
+  if (config.whenHide && config.whenHide(view)) {
     return markers
   }
 
@@ -54,10 +54,10 @@ function getMarkers(
 /**
  * gutter style
  */
-const baseTheme = (config?: CurSqlGutterConfig) => {
+const baseTheme = (config: CurSqlGutterConfig) => {
   return EditorView.baseTheme({
     '.cm-sql-gutter .cm-gutterElement': {
-      width: `${config?.width ?? 2}px`
+      width: `${config.width ?? 2}px`
     },
     '.cm-lineNumbers .cm-gutterElement': {
       paddingLeft: '8px',
@@ -66,19 +66,19 @@ const baseTheme = (config?: CurSqlGutterConfig) => {
   })
 }
 
-const sqlGutter = (curSqlMarker: GutterMarker, config?: CurSqlGutterConfig) => {
+const sqlGutter = (curSqlMarker: GutterMarker, config: CurSqlGutterConfig) => {
   return gutter({
-    class: `cm-sql-gutter ${config?.className || ''}`,
+    class: `cm-sql-gutter ${config.className || ''}`,
     initialSpacer: () => curSqlMarker,
     markers: (view: EditorView) => getMarkers(view, curSqlMarker, config)
   })
 }
 
-export const curSqlGutter = (config?: CurSqlGutterConfig) => {
+export const curSqlGutter = (config: CurSqlGutterConfig = {}) => {
   const curSqlMarker = new (class extends GutterMarker {
     toDOM() {
       const el = document.createElement('div')
-      el.style.background = config?.backgroundColor || '#0CA6F2'
+      el.style.background = config.backgroundColor || '#0CA6F2'
       el.style.height = '100%'
       return el
     }

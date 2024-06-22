@@ -72,7 +72,7 @@ export function Editor() {
             saveFile(activeFile.id, view.state.doc.toString())
           }
         }),
-        autoCompletion({}),
+        autoCompletion(),
         curSqlGutter({
           whenHide: (_view) => {
             return false

@@ -352,6 +352,6 @@ const autoCompleteTab = (config: AutoCompletionConfig) => {
   ])
 }
 
-export function autoCompletion(config: AutoCompletionConfig) {
+export function autoCompletion(config: AutoCompletionConfig = {}) {
   return [baseTheme, customAutoCompletion(config), autoCompleteTab(config)]
 }
