@@ -27,12 +27,12 @@ jobs:
       - name: Build Package
         run: pnpm build
 
-      - name: Create Release Pull Request or Publish
-        uses: changesets/action@v1
-        with:
-          commit: 'release: bump versions'
-          title: 'release: bump versions'
-          publish: pnpm release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Create Release Pull Request or Publish
+      #   uses: changesets/action@v1
+      #   with:
+      #     commit: 'release: bump versions'
+      #     title: 'release: bump versions'
+      #     publish: pnpm release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -7,6 +7,10 @@ import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
 import { bbedit, oneDark } from '@tidbcloud/tisqleditor-extension-themes'
 import { curSqlGutter } from '@tidbcloud/tisqleditor-extension-cur-sql-gutter'
+import {
+  useDbLinter,
+  fullWidthCharLinter
+} from '@tidbcloud/tisqleditor-extension-linters'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
@@ -70,10 +74,16 @@ export function Editor() {
         }),
         autocompletion(),
         curSqlGutter({
-          shouldDisplay: (_view) => {
-            return true
+          whenHide: (_view) => {
+            return false
           }
-        })
+        }),
+        useDbLinter({
+          whenDisable: (_view) => {
+            return false
+          }
+        }),
+        fullWidthCharLinter()
       ]
     }
     return []

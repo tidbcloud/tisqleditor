@@ -7,7 +7,7 @@ export interface CurSqlGutterConfig {
   backgroundColor?: string
   width?: number
   className?: string
-  shouldDisplay?: (view: EditorView) => boolean
+  whenHide?: (view: EditorView) => boolean
 }
 
 function getMarkers(
@@ -18,7 +18,7 @@ function getMarkers(
   let markers = RangeSet.empty
 
   // when something happens, hide the gutter
-  if (config?.shouldDisplay && !config.shouldDisplay(view)) {
+  if (config?.whenHide && config.whenHide(view)) {
     return markers
   }
 

@@ -1,23 +1,22 @@
+import { EditorView } from '@codemirror/view'
 import { linter, Diagnostic } from '@codemirror/lint'
 
 import { getSqlStatements } from '@tidbcloud/tisqleditor-extension-sql-parser'
-import {
-  hintEle,
-  linterBaseTheme
-} from '@tidbcloud/tisqleditor-extension-grammar-linter'
+
+import { hintEle, linterBaseTheme } from './lint-style'
 
 export type DBLinterOptions = {
   level?: 'error' | 'warning'
   title?: string
   message?: string
-  preCheck?: () => string
+  whenDisable?: (view: EditorView) => boolean
 }
 
-const databaseLinter = (config: DBLinterOptions) =>
+const databaseLinter = (config?: DBLinterOptions) =>
   linter((view) => {
     const diagnostics: Diagnostic[] = []
 
-    if (config.preCheck && config.preCheck()) {
+    if (config?.whenDisable && config.whenDisable(view)) {
       return diagnostics
     }
 
@@ -26,12 +25,12 @@ const databaseLinter = (config: DBLinterOptions) =>
         diagnostics.push({
           from: statement.from,
           to: statement.to,
-          severity: config.level || 'warning',
+          severity: config?.level || 'warning',
           message: '',
           renderMessage: () => {
             return hintEle(
-              config.title || '',
-              config.message ||
+              config?.title || '',
+              config?.message ||
                 'No database selected by using `USE {database}` statement, this statement may run failed.'
             )
           }
@@ -42,6 +41,6 @@ const databaseLinter = (config: DBLinterOptions) =>
     return diagnostics
   })
 
-export function dbLinter(config: DBLinterOptions) {
+export function useDbLinter(config?: DBLinterOptions) {
   return [databaseLinter(config), linterBaseTheme]
 }
