@@ -15,16 +15,6 @@ export function OpenedFilesTabs() {
     const next = openedFiles.filter((f) => f.id !== file.id)
     setOpenedFiles(next)
 
-    // close non-active file
-    if (activeFileId !== file.id) return
-
-    // close active file
-    if (next.length > 0) {
-      setActiveFileId(next[0].id)
-    } else {
-      setActiveFileId(null)
-    }
-
     // save if changed
     const editorInst = cacheCtx.getEditor(file.id)
     if (editorInst) {
@@ -36,6 +26,15 @@ export function OpenedFilesTabs() {
 
     // cleanup
     cacheCtx.deleteEditor(file.id)
+
+    // close active file
+    if (activeFileId === file.id) {
+      if (next.length > 0) {
+        setActiveFileId(next[0].id)
+      } else {
+        setActiveFileId(null)
+      }
+    }
   }
 
   function handleSwitchFile(file: IFile) {
