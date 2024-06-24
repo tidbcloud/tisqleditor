@@ -5,7 +5,7 @@ import { SQLConfig } from '@codemirror/lang-sql'
 
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
-import { bbedit, oneDark } from '@tidbcloud/tisqleditor-extension-themes'
+import { light, dark } from '@tidbcloud/tisqleditor-extension-themes'
 import { curSqlGutter } from '@tidbcloud/tisqleditor-extension-cur-sql-gutter'
 import {
   useDbLinter,
@@ -105,7 +105,7 @@ export function Editor() {
         className="h-full"
         editorId="loading"
         doc=""
-        theme={isDark ? oneDark : bbedit}
+        theme={isDark ? dark : light}
         extraExts={[
           placeholder('loading...'),
           // both needed to prevent user from typing
@@ -122,7 +122,7 @@ export function Editor() {
       editorId={activeFile.id}
       doc={activeFile.content}
       sqlConfig={sqlConfig}
-      theme={isDark ? oneDark : bbedit}
+      theme={isDark ? dark : light}
       extraExts={extraExts}
     />
   )
