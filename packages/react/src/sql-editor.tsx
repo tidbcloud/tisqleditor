@@ -7,7 +7,6 @@ import {
 } from '@tidbcloud/tisqleditor'
 
 type SQLEditorProps = CreateSQLEditorOptions & {
-  editorId: string
   className?: string
 }
 

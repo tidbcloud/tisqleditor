@@ -1,15 +1,129 @@
-# tisqleditor
+# TiSQLEditor
+
+TiSQLEditor is a CodeMirror6 based SQL code editor which is used in TiDB Cloud Console.
+
+[Try Playground](https://tisqleditor-playground.netlify.app/)
+
+![image](./packages/playground/public/playground.png)
+
+## Features
+
+- Support edit multiple SQL files
+- Supply React component (Vue component wip)
+- Out of box extensions
+- AI Widget (wip)
+
+## Packages
+
+- @tidbcloud/tisqleditor
+- @tidbcloud/tisqleditor-react - React component wrapper
+- @tidbcloud/tisqleditor-extension-sql-parser
+- @tidbcloud/tisqleditor-extension-cur-sql
+- @tidbcloud/tisqleditor-extension-cur-sql-gutter
+- @tidbcloud/tisqleditor-extension-save-helper
+- @tidbcloud/tisqleditor-extension-autocomplete
+- @tidbcloud/tisqleditor-extension-linters
+- @tidbcloud/tisqleditor-extension-events
+- @tidbcloud/tisqleditor-extension-themes - 2 simple builtin theme, `bbedit` for light mode, `oneDark` for dark mode
+- @tidbcloud/tisqleditor-extension-basic-setup
 
 ## Usage
 
-// TODO
+See [editor.tsx](./packages/playground/src/components/biz/editor-panel/editor.tsx) to get more details.
 
-## Contributing
+```tsx
+import { SQLEditor } from '@tidbcloud/tisqleditor-react'
+import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
+import { bbedit, oneDark } from '@tidbcloud/tisqleditor-extension-themes'
+import { curSqlGutter } from '@tidbcloud/tisqleditor-extension-cur-sql-gutter'
+import {
+  useDbLinter,
+  fullWidthCharLinter
+} from '@tidbcloud/tisqleditor-extension-linters'
+import { autoCompletion } from '@tidbcloud/tisqleditor-extension-autocomplete'
+
+export function Editor() {
+  const {
+    api: { saveFile },
+    state: { activeFileId, openedFiles }
+  } = useFilesContext()
+
+  const { isDark } = useTheme()
+
+  const { schema } = useSchemaContext()
+  const sqlConfig = useMemo(
+    () => convertSchemaToSQLConfig(schema ?? []),
+    [schema]
+  )
+
+  const activeFile = useMemo(
+    () => openedFiles.find((f) => f.id === activeFileId),
+    [activeFileId, openedFiles]
+  )
+
+  const extraExts = useMemo(() => {
+    if (activeFile && activeFile.status === 'loaded') {
+      return [
+        saveHelper({
+          save: (view: EditorView) => {
+            saveFile(activeFile.id, view.state.doc.toString())
+          }
+        }),
+        autoCompletion(),
+        curSqlGutter(),
+        useDbLinter(),
+        fullWidthCharLinter()
+      ]
+    }
+    return []
+  }, [activeFile])
+
+  if (!activeFile) {
+    return (
+      <div className="h-full flex items-center justify-center">
+        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+          TiSQLEditor
+        </h1>
+      </div>
+    )
+  }
+
+  if (activeFile.status === 'loading') {
+    return (
+      <SQLEditor
+        className="h-full"
+        editorId="loading"
+        doc=""
+        theme={isDark ? oneDark : bbedit}
+        extraExts={[
+          placeholder('loading...'),
+          // both needed to prevent user from typing
+          EditorView.editable.of(false),
+          EditorState.readOnly.of(true)
+        ]}
+      />
+    )
+  }
+
+  return (
+    <SQLEditor
+      className="h-full"
+      editorId={activeFile.id}
+      doc={activeFile.content}
+      sqlConfig={sqlConfig}
+      theme={isDark ? oneDark : bbedit}
+      extraExts={extraExts}
+    />
+  )
+}
+```
+
+## Development
 
 ### Setup
 
 - node.js >18.16.0
-- [use corepack](https://www.totaltypescript.com/how-to-use-corepack): `corepack enable && corepack enable npm`
+- [enable corepack](https://www.totaltypescript.com/how-to-use-corepack): `corepack enable && corepack enable npm`
 
 ### Local Development
 
@@ -24,7 +138,7 @@
 
 ### PR Commit Convention
 
-Before you create a Pull Request, please check whether your commits comply with the commit conventions used in this repository. When you create a commit, you should follow the convention category(scope or module): message in your commit message while using one of the following categories:
+Before you create a pull request, please check whether your commits comply with the commit conventions used in this repository. When you create a commit, you should follow the convention `category(scope or module): message` in your commit message while using one of the following categories:
 
 - feat/feature: all changes that introduce completely new code or new features
 - fix: changes that fix a bug (ideally you will additionally reference an issue if present)
@@ -38,3 +152,7 @@ Before you create a Pull Request, please check whether your commits comply with 
 - Commit the generated changeset file (a markdown file in `.changeset` folder), create a pull request to main branch.
 - After your pull request is merged, a new pull request will be created by a bot, you can review your release there.
 - After that pull request is merged, a new release will be published automatically to github registry.
+
+## License
+
+[MIT License](./LICENSE)

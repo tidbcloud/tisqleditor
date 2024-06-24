@@ -3,7 +3,7 @@ import { SQLEditorInstance } from './editor-instance'
 //-------------
 
 export class EditorCache {
-  cache: Map<string, SQLEditorInstance> = new Map()
+  private cache: Map<string, SQLEditorInstance> = new Map()
 
   addEditor = (editorId: string, editor: SQLEditorInstance) => {
     this.cache.set(editorId, editor)
