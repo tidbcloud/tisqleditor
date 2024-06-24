@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { SqlStatement } from '@tidbcloud/tisqleditor-extension-sql-parser'
+import { SqlStatement } from '@tidbcloud/codemirror-extension-sql-parser'
 
 import { runSQL } from '@/api/tidbcloud/statement-api'
 import { StatementContext } from './statement-context'

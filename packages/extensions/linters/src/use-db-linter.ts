@@ -1,7 +1,7 @@
 import { EditorView } from '@codemirror/view'
 import { linter, Diagnostic } from '@codemirror/lint'
 
-import { getSqlStatements } from '@tidbcloud/tisqleditor-extension-sql-parser'
+import { getSqlStatements } from '@tidbcloud/codemirror-extension-sql-parser'
 
 import { hintEle, linterBaseTheme } from './lint-style'
 

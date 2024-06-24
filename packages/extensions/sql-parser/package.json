@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extension-sql-parser",
+  "name": "@tidbcloud/codemirror-extension-sql-parser",
   "version": "0.0.1",
   "description": "tisqleditor extensions",
   "type": "module",

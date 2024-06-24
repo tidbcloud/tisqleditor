@@ -40,8 +40,8 @@
     "@codemirror/view": "^6.26.3"
   },
   "dependencies": {
-    "@tidbcloud/tisqleditor-extension-basic-setup": "workspace:^",
-    "@tidbcloud/tisqleditor-extension-cur-sql": "workspace:^",
-    "@tidbcloud/tisqleditor-extension-sql-parser": "workspace:^"
+    "@tidbcloud/codemirror-extension-basic-setup": "workspace:^",
+    "@tidbcloud/codemirror-extension-cur-sql": "workspace:^",
+    "@tidbcloud/codemirror-extension-sql-parser": "workspace:^"
   }
 }

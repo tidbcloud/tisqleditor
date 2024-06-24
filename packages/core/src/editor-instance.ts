@@ -6,16 +6,16 @@ import { search } from '@codemirror/search'
 import {
   BasicSetupOptions,
   basicSetup
-} from '@tidbcloud/tisqleditor-extension-basic-setup'
+} from '@tidbcloud/codemirror-extension-basic-setup'
 import {
   sqlParser,
   getSqlStatements,
   getNearbyStatement
-} from '@tidbcloud/tisqleditor-extension-sql-parser'
+} from '@tidbcloud/codemirror-extension-sql-parser'
 import {
   curSql,
   getCurStatements
-} from '@tidbcloud/tisqleditor-extension-cur-sql'
+} from '@tidbcloud/codemirror-extension-cur-sql'
 
 const langSql = (config: SQLConfig) =>
   sql({

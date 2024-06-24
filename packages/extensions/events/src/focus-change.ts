@@ -1,7 +1,7 @@
 import { EditorView, ViewUpdate } from '@codemirror/view'
 
-import { getCurStatements } from '@tidbcloud/tisqleditor-extension-cur-sql'
-import { SqlStatement } from '@tidbcloud/tisqleditor-extension-sql-parser'
+import { getCurStatements } from '@tidbcloud/codemirror-extension-cur-sql'
+import { SqlStatement } from '@tidbcloud/codemirror-extension-sql-parser'
 
 type FocusChangeHelperOptions = {
   onFocusChange: (curSql: SqlStatement[]) => void

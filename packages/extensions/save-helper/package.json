@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extension-save-helper",
+  "name": "@tidbcloud/codemirror-extension-save-helper",
   "version": "0.0.1",
   "description": "tisqleditor extensions",
   "type": "module",
