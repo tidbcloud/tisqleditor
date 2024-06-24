@@ -102,5 +102,5 @@ export function OpenedFilesTabs() {
 - `editorId`: editor id, used to differ multiple editor instances
 - `doc`: editor initial content
 - `sqlConfig`: config for SQL dialect, schemas, tables
-- `theme`: editor theme, `@tidbcloud/tisqleditor-extensions-themes` provides 2 simple themes, `bbedit` for light mode, `oneDark` for dark mode, you can choose any other themes from third-party libraries or customize it by self
-- `extraExts`: any other extra CodeMirror extensions you want to use, `@tidbcloud/tisqleditor-react` install some builtin extensions, likes `@tidbcloud/tisqleditor-extension-sql-parser`, `@tidbcloud/tisqleditor-extension-cur-sql`
+- `theme`: editor theme, `@tidbcloud/codemirror-extensions-themes` provides 2 simple themes, `bbedit` for light mode, `oneDark` for dark mode, you can choose any other themes from third-party libraries or customize it by self
+- `extraExts`: any other extra CodeMirror extensions you want to use, `@tidbcloud/tisqleditor-react` install some builtin extensions, likes `@tidbcloud/codemirror-extension-sql-parser`, `@tidbcloud/codemirror-extension-cur-sql`

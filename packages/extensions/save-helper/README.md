@@ -1,11 +1,11 @@
-# @tidbcloud/tisqleditor-extension-save-helper
+# @tidbcloud/codemirror-extension-save-helper
 
 This extension listens the editor doc changes, if changes, it will call the save handler in delay time, or, you can press the defined hotkey (default is `Mod-s`) to call save handler immediately.
 
 ## Installation
 
 ```shell
-npm install @tidbcloud/tisqleditor-extension-save-helper
+npm install @tidbcloud/codemirror-extension-save-helper
 ```
 
 You need to install its peer dependencies as well:
@@ -19,7 +19,7 @@ npm install @codemirror/view @codemirror/state
 ```js
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
+import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
 
 const editorView = new EditorView({
   state: EditorState.create({

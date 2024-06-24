@@ -1,4 +1,4 @@
-# @tidbcloud/tisqleditor-extension-sql-parser
+# @tidbcloud/codemirror-extension-sql-parser
 
 This extension listens the editor doc change, return all the parsed statements.
 
@@ -7,7 +7,7 @@ This extension is installed internally inside the `SQLEditorInstance`.
 ## Installation
 
 ```shell
-npm install @tidbcloud/tisqleditor-extension-sql-parser
+npm install @tidbcloud/codemirror-extension-sql-parser
 ```
 
 You need to install its peer dependencies as well:
@@ -21,7 +21,7 @@ npm install @codemirror/view @codemirror/state @codemirror/language
 ```js
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { sqlParser } from '@tidbcloud/tisqleditor-extension-sql-parser'
+import { sqlParser } from '@tidbcloud/codemirror-extension-sql-parser'
 
 const editorView = new EditorView({
   state: EditorState.create({

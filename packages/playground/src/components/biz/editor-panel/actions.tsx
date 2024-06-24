@@ -7,7 +7,7 @@ import { useFilesContext } from '@/contexts/files-context'
 import { useStatementContext } from '@/contexts/statement-context'
 
 import { useEditorCacheContext } from '@tidbcloud/tisqleditor-react'
-import { SqlStatement } from '@tidbcloud/tisqleditor-extension-sql-parser'
+import { SqlStatement } from '@tidbcloud/codemirror-extension-sql-parser'
 
 export function EditorActions() {
   const {

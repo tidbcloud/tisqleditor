@@ -17,15 +17,15 @@ TiSQLEditor is a CodeMirror6 based SQL code editor which is used in TiDB Cloud C
 
 - @tidbcloud/tisqleditor
 - @tidbcloud/tisqleditor-react - React component wrapper
-- @tidbcloud/tisqleditor-extension-sql-parser
-- @tidbcloud/tisqleditor-extension-cur-sql
-- @tidbcloud/tisqleditor-extension-cur-sql-gutter
-- @tidbcloud/tisqleditor-extension-save-helper
-- @tidbcloud/tisqleditor-extension-autocomplete
-- @tidbcloud/tisqleditor-extension-linters
-- @tidbcloud/tisqleditor-extension-events
-- @tidbcloud/tisqleditor-extension-themes - 2 simple builtin theme, `bbedit` for light mode, `oneDark` for dark mode
-- @tidbcloud/tisqleditor-extension-basic-setup
+- @tidbcloud/codemirror-extension-sql-parser
+- @tidbcloud/codemirror-extension-cur-sql
+- @tidbcloud/codemirror-extension-cur-sql-gutter
+- @tidbcloud/codemirror-extension-save-helper
+- @tidbcloud/codemirror-extension-autocomplete
+- @tidbcloud/codemirror-extension-linters
+- @tidbcloud/codemirror-extension-events
+- @tidbcloud/codemirror-extension-themes - 2 simple builtin theme, `bbedit` for light mode, `oneDark` for dark mode
+- @tidbcloud/codemirror-extension-basic-setup
 
 ## Usage
 
@@ -33,14 +33,14 @@ See [editor.tsx](./packages/playground/src/components/biz/editor-panel/editor.ts
 
 ```tsx
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
-import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
-import { bbedit, oneDark } from '@tidbcloud/tisqleditor-extension-themes'
-import { curSqlGutter } from '@tidbcloud/tisqleditor-extension-cur-sql-gutter'
+import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
+import { bbedit, oneDark } from '@tidbcloud/codemirror-extension-themes'
+import { curSqlGutter } from '@tidbcloud/codemirror-extension-cur-sql-gutter'
 import {
   useDbLinter,
   fullWidthCharLinter
-} from '@tidbcloud/tisqleditor-extension-linters'
-import { autoCompletion } from '@tidbcloud/tisqleditor-extension-autocomplete'
+} from '@tidbcloud/codemirror-extension-linters'
+import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
 
 export function Editor() {
   const {
