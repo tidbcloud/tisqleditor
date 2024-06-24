@@ -1,8 +1,8 @@
 # @tidbcloud/tisqleditor-extension-themes
 
-This extension provides 2 simple and out of box editor theme to use, one is for light mode and the other is for dark mode.
+This extension provides 2 simple and out of box editor themes to use, `bbedit` is for light mode and `oneDark` is for dark mode.
 
-If these 2 theme is not suitable for you, you can use other themes from third-party libraries or customized a theme by yourself.
+If these 2 themes is not suitable for you, you can use other themes from third-party libraries or customized a theme by yourself.
 
 ## Installation
 
