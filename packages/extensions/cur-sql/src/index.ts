@@ -60,7 +60,7 @@ const curStatements = () => {
       selectedStatements.push({ ...s })
     }
 
-    // if no statement is selected, use a empty statement
+    // if no statement is selected, use an empty statement
     if (selectedStatements.length === 0) {
       const lineFrom = state.doc.lineAt(from)
       const lineTo = state.doc.lineAt(to)
@@ -85,19 +85,6 @@ const curStatements = () => {
 
 export function getCurStatements(state: EditorState) {
   return state.field(curStatementsField)
-}
-
-export function getCurDatabase(state: EditorState) {
-  const curStatements = getCurStatements(state)
-  if (curStatements.length === 0)
-    throw new Error('curStatements must not be empty')
-  return curStatements[0].database
-}
-
-// AI extension use this function to get the first non-use statement
-// if there is no non-use statement, not should the tooltip hint and cmd+i should not work
-export function getFirstNonUseTypeStatement(state: EditorState) {
-  return getCurStatements(state).find((s) => s.type !== 'use')
 }
 
 //-------------------

@@ -1,11 +1,13 @@
 import { GitHubLogoIcon, PlayIcon, ReloadIcon } from '@radix-ui/react-icons'
+import { useMutation } from '@tanstack/react-query'
 
 import { DarkModeToggle } from '@/components/darkmode-toggle/toggle'
 import { Button } from '@/components/ui/button'
 import { useFilesContext } from '@/contexts/files-context'
 import { useStatementContext } from '@/contexts/statement-context'
+
 import { useEditorCacheContext } from '@tidbcloud/tisqleditor-react'
-import { useMutation } from '@tanstack/react-query'
+import { SqlStatement } from '@tidbcloud/tisqleditor-extension-sql-parser'
 
 export function EditorActions() {
   const {
@@ -20,20 +22,24 @@ export function EditorActions() {
     const activeEditor = cacheCtx.getEditor(activeFileId)
     if (!activeEditor) return
 
+    let targetStatement: SqlStatement | undefined
     const curStatements = activeEditor.getCurStatements()
-    if (curStatements[0].content === '') return
+    if (curStatements[0].content === '') {
+      targetStatement = activeEditor.getNearbyStatement()
+    } else {
+      targetStatement = curStatements.at(-1)
+    }
 
-    const lastStatement = curStatements.at(-1)
-    if (lastStatement) {
-      setRunResult({ statement: lastStatement.content, status: 'running' })
+    if (targetStatement) {
+      setRunResult({ statement: targetStatement.content, status: 'running' })
       try {
-        const res = await runStatement(activeFileId, lastStatement)
+        const res = await runStatement(activeFileId, targetStatement)
         console.log('res:', res)
         setRunResult(res)
       } catch (error: any) {
         console.log('error:', error)
         setRunResult({
-          statement: lastStatement.content,
+          statement: targetStatement.content,
           status: 'error',
           message: error.message ?? 'unknown error'
         })

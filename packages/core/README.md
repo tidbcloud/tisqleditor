@@ -66,8 +66,12 @@ class SQLEditorInstance {
 
     changeTheme(theme: Extension): void;
     changeSQLConfig(sqlConfig: SQLConfig): void;
+
+    /* get all statements */
     getAllStatements(): SqlStatement[];
+    /* get selected statements */
     getCurStatements(): SqlStatement[];
+    /* get the nearest statement before the cursor */
     getNearbyStatement(): SqlStatement | undefined;
 }
 ```
