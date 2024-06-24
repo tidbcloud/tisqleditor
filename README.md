@@ -22,9 +22,9 @@ TiSQLEditor is a CodeMirror6 based SQL code editor which is used in TiDB Cloud C
 - @tidbcloud/tisqleditor-extension-cur-sql-gutter
 - @tidbcloud/tisqleditor-extension-save-helper
 - @tidbcloud/tisqleditor-extension-autocomplete
-- @tidbcloud/tisqleditor-extension-basic-linters
-- @tidbcloud/tisqleditor-extension-basic-events
-- @tidbcloud/tisqleditor-extension-basic-themes - 2 simple builtin theme, `bbedit` for light mode, `oneDark` for dark mode
+- @tidbcloud/tisqleditor-extension-linters
+- @tidbcloud/tisqleditor-extension-events
+- @tidbcloud/tisqleditor-extension-themes - 2 simple builtin theme, `bbedit` for light mode, `oneDark` for dark mode
 - @tidbcloud/tisqleditor-extension-basic-setup
 
 ## Usage

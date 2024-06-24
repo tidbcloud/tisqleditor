@@ -8,7 +8,7 @@ This package provides a react component wrap for `@tidbcloud/tisqleditor`.
 npm install @tidbcloud/tisqleditor-react
 ```
 
-You need to install the related peer dependencies manually as well, likes `@codemirror/view`, `@codemirror/state`.
+You need to install the its peer dependencies manually as well, likes `@codemirror/view`, `@codemirror/state`.
 
 ## Usage
 

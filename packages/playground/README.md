@@ -1,1 +1,1 @@
-# Playground
+# TiSQLEditor Playground
