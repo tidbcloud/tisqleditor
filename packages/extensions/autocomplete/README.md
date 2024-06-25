@@ -16,7 +16,7 @@ npm install @codemirror/view @codemirror/state @codemirror/autocomplete @codemir
 
 ## Usage
 
-```js
+```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'

@@ -1,6 +1,6 @@
 # @tidbcloud/tisqleditor-react
 
-This package provides a react component wrap for `@tidbcloud/tisqleditor`.
+This package provides a react component wrap for `SQLEditorInstance` from `@tidbcloud/tisqleditor`.
 
 ## Installation
 
@@ -14,7 +14,7 @@ You need to install the its peer dependencies manually as well, likes `@codemirr
 
 `@tidbcloud/tisqleditor-react` supports multiple CodeMirror instances, it uses `EditorCacheProvider` as the context provider to cache the instances, then you can access all the cached editor instances anywhere inside the provider. You can put the provider in a proper place.
 
-```jsx
+```tsx
 import { EditorCacheProvider } from '@tidbcloud/tisqleditor-react'
 
 export default function () {
@@ -28,7 +28,7 @@ export default function () {
 
 When `EditorCacheProvider` unmounts, it will clear all the cached editor instances.
 
-```jsx
+```tsx
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 
 export function () {

@@ -16,7 +16,7 @@ npm install @codemirror/view @codemirror/state
 
 ## Usage
 
-```js
+```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { curSqlGutter } from '@tidbcloud/codemirror-extension-cur-sql-gutter'
@@ -31,20 +31,20 @@ const editorView = new EditorView({
 
 ## API
 
-```js
+```ts
 interface CurSqlGutterConfig {
-    // gutter background
-    backgroundColor?: string;
+  /* gutter background */
+  backgroundColor?: string
 
-    // gutter width
-    width?: number;
+  /* gutter width */
+  width?: number
 
-    // gutter extra css class
-    className?: string;
+  /* gutter extra css class */
+  className?: string
 
-    // control gutter to hide when some cases happen
-    whenHide?: (view: EditorView) => boolean;
+  /* control gutter to hide when some cases happen */
+  whenHide?: (view: EditorView) => boolean
 }
 
-const curSqlGutter: (config?: CurSqlGutterConfig) => Extension;
+function curSqlGutter(config?: CurSqlGutterConfig): Extension
 ```

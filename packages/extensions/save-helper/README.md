@@ -16,7 +16,7 @@ npm install @codemirror/view @codemirror/state
 
 ## Usage
 
-```js
+```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
@@ -29,7 +29,7 @@ const editorView = new EditorView({
         save: (view: EditorView) => {
           saveFile(view.state.doc.toString())
         }
-      }),
+      })
     ]
   })
 })
@@ -37,12 +37,19 @@ const editorView = new EditorView({
 
 ## API
 
-```js
+```ts
 type SaveHelperOptions = {
-  delay?: number                    // in milliseconds, default 5000
-  auto?: boolean                    // default is true
-  hotkey?: string                   // default is Mod-s
-  save: (view: EditorView) => void  // save handler
+  /* in milliseconds, default 5000 */
+  delay?: number
+
+  /* default is true */
+  auto?: boolean
+
+  /* default is Mod-s */
+  hotkey?: string
+
+  /* save handler */
+  save: (view: EditorView) => void
 }
 
 const saveHelper: (options: SaveHelperOptions) => Extension

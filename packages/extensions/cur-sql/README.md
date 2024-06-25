@@ -18,7 +18,7 @@ npm install @codemirror/view @codemirror/state
 
 ## Usage
 
-```js
+```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { curSql } from '@tidbcloud/codemirror-extension-cur-sql'
@@ -33,9 +33,9 @@ const editorView = new EditorView({
 
 ## API
 
-```js
-function curSql(): Extension;
-
+```ts
 /* get selected statements */
-function getCurStatements(state: EditorState): SqlStatement[];
+function getCurStatements(state: EditorState): SqlStatement[]
+
+function curSql(): Extension
 ```

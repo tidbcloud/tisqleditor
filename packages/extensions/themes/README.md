@@ -18,7 +18,7 @@ npm install @codemirror/view @codemirror/state @codemirror/language @lezer/highl
 
 ## Usage
 
-```js
+```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { bbedit, oneDark } from '@tidbcloud/codemirror-extension-themes'

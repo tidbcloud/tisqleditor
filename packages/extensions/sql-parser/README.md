@@ -18,7 +18,7 @@ npm install @codemirror/view @codemirror/state @codemirror/language
 
 ## Usage
 
-```js
+```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { sqlParser } from '@tidbcloud/codemirror-extension-sql-parser'
@@ -33,21 +33,25 @@ const editorView = new EditorView({
 
 ## API
 
-```js
+```ts
 type SqlStatement = {
-    from: number;
-    to: number;
-    lineFrom: number;
-    lineTo: number;
-    content: string;
-    database: string;
-    type: 'use' | 'ddl' | 'other';
-};
+  from: number
+  to: number
+  lineFrom: number
+  lineTo: number
+  content: string
+  database: string
+  type: 'use' | 'ddl' | 'other'
+}
 
-// get all parsed statements
-function getSqlStatements(state: EditorState): SqlStatement[];
-// get the nearest statement before the pos
-function getNearbyStatement(state: EditorState, pos: number): SqlStatement | undefined;
+/* get all parsed statements */
+function getSqlStatements(state: EditorState): SqlStatement[]
 
-function sqlParser(): Extension;
+/* get the nearest statement before the pos */
+function getNearbyStatement(
+  state: EditorState,
+  pos: number
+): SqlStatement | undefined
+
+function sqlParser(): Extension
 ```
