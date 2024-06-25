@@ -15,17 +15,19 @@ TiSQLEditor is a CodeMirror6 based SQL code editor which is used in TiDB Cloud C
 
 ## Packages
 
-- @tidbcloud/tisqleditor - SQLEditorInstance with pre-configured extensions
-- @tidbcloud/tisqleditor-react - React component wrapper
-- @tidbcloud/codemirror-extension-sql-parser - parse the editor content to SQL statements
-- @tidbcloud/codemirror-extension-cur-sql - get the selected SQL statements
-- @tidbcloud/codemirror-extension-cur-sql-gutter - show gutter for the selected SQL statements
-- @tidbcloud/codemirror-extension-save-helper - save the editor content if it changes
-- @tidbcloud/codemirror-extension-autocomplete
-- @tidbcloud/codemirror-extension-linters
-- @tidbcloud/codemirror-extension-events
-- @tidbcloud/codemirror-extension-themes - 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode
-- @tidbcloud/codemirror-extension-basic-setup
+| package                                        | desc                                                                      |
+| ---------------------------------------------- | ------------------------------------------------------------------------- |
+| @tidbcloud/tisqleditor                         | SQLEditorInstance with pre-configured extensions                          |
+| @tidbcloud/tisqleditor-react                   | React component wrapper                                                   |
+| @tidbcloud/codemirror-extension-sql-parser     | parse the editor content to SQL statements                                |
+| @tidbcloud/codemirror-extension-cur-sql        | get the selected SQL statements                                           |
+| @tidbcloud/codemirror-extension-cur-sql-gutter | show gutter for the selected SQL statements                               |
+| @tidbcloud/codemirror-extension-save-helper    | save the editor content if it changes                                     |
+| @tidbcloud/codemirror-extension-autocomplete   |                                                                           |
+| @tidbcloud/codemirror-extension-linters        |                                                                           |
+| @tidbcloud/codemirror-extension-events         |                                                                           |
+| @tidbcloud/codemirror-extension-themes         | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
+| @tidbcloud/codemirror-extension-basic-setup    |                                                                           |
 
 ## Usage
 
