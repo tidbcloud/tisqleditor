@@ -12,6 +12,7 @@ import {
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
 import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
+import { aiWidget } from '@tidbcloud/codemirror-extension-ai-widget'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
@@ -83,7 +84,8 @@ export function Editor() {
             return false
           }
         }),
-        fullWidthCharLinter()
+        fullWidthCharLinter(),
+        aiWidget()
       ]
     }
     return []

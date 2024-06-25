@@ -22,6 +22,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@codemirror/merge": "^6.6.3",
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.26.3",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -30,6 +31,7 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
+    "@codemirror/merge": "^6.6.3",
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.26.3"
   },
