@@ -31,7 +31,7 @@ TiSQLEditor is a CodeMirror6 based SQL code editor which is used in TiDB Cloud C
 
 ## Usage
 
-See [editor.tsx](./packages/playground/src/components/biz/editor-panel/editor.tsx) to get more details.
+See [editor.tsx](./packages/playground/src/components/biz/editor-panel/editor.tsx) or [editor-example.tsx](./packages/playground/src/examples/editor-example.tsx) to get more details.
 
 ```tsx
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
