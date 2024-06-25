@@ -8,6 +8,7 @@
     "prepare": "husky",
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
+    "test": "jest",
     "release": "changeset publish"
   },
   "keywords": [
@@ -18,10 +19,22 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
     "@changesets/cli": "^2.27.5",
+    "@testing-library/dom": "^10.1.0",
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^16.0.0",
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "babel-jest": "^29.7.0",
     "concurrently": "^8.2.2",
     "eslint": "^9.4.0",
     "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.5",
     "prettier": "^3.3.1"
   },
