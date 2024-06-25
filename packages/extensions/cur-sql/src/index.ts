@@ -4,7 +4,7 @@ import { EditorView, ViewUpdate } from '@codemirror/view'
 import {
   SqlStatement,
   getSqlStatements
-} from '@tidbcloud/tisqleditor-extension-sql-parser'
+} from '@tidbcloud/codemirror-extension-sql-parser'
 
 // state effect
 const curStatementsEffect = StateEffect.define<SqlStatement[]>()

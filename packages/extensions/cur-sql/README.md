@@ -1,4 +1,4 @@
-# @tidbcloud/tisqleditor-extension-cur-sql
+# @tidbcloud/codemirror-extension-cur-sql
 
 This extension listens the editor selection change, return the selected statements.
 
@@ -7,7 +7,7 @@ This extension is installed internally inside the `SQLEditorInstance`.
 ## Installation
 
 ```shell
-npm install @tidbcloud/tisqleditor-extension-cur-sql
+npm install @tidbcloud/codemirror-extension-cur-sql
 ```
 
 You need to install its peer dependencies as well:
@@ -18,10 +18,10 @@ npm install @codemirror/view @codemirror/state
 
 ## Usage
 
-```js
+```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { curSql } from '@tidbcloud/tisqleditor-extension-cur-sql'
+import { curSql } from '@tidbcloud/codemirror-extension-cur-sql'
 
 const editorView = new EditorView({
   state: EditorState.create({
@@ -33,9 +33,9 @@ const editorView = new EditorView({
 
 ## API
 
-```js
-function curSql(): Extension;
-
+```ts
 /* get selected statements */
-function getCurStatements(state: EditorState): SqlStatement[];
+function getCurStatements(state: EditorState): SqlStatement[]
+
+function curSql(): Extension
 ```

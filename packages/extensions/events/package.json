@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extension-events",
+  "name": "@tidbcloud/codemirror-extension-events",
   "version": "0.0.1",
   "description": "tisqleditor extensions",
   "type": "module",
@@ -38,7 +38,7 @@
     "@codemirror/view": "^6.26.3"
   },
   "dependencies": {
-    "@tidbcloud/tisqleditor-extension-cur-sql": "workspace:^",
-    "@tidbcloud/tisqleditor-extension-sql-parser": "workspace:^"
+    "@tidbcloud/codemirror-extension-cur-sql": "workspace:^",
+    "@tidbcloud/codemirror-extension-sql-parser": "workspace:^"
   }
 }

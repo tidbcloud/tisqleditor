@@ -20,7 +20,7 @@ npm install @codemirror/view @codemirror/state @codemirror/lang-sql @codemirror/
 
 ## Usage
 
-```js
+```ts
 import { EditorCache, createSQLEditorInstance } from '@tidbcloud/tisqleditor'
 
 const cache = new EditorCache()
@@ -37,52 +37,60 @@ cache.addEditor(editorId, editorInst)
 
 ### createSQLEditorInstance
 
-```js
+```ts
 type CreateSQLEditorOptions = {
-    editorId: string;
-    doc: string;
+  editorId: string
+  doc: string
 
-    basicSetupOptions?: BasicSetupOptions;
-    sqlConfig?: SQLConfig;
-    theme?: Extension;
-    extraExts?: Extension;
-    extraData?: {};
-};
+  basicSetupOptions?: BasicSetupOptions
+  sqlConfig?: SQLConfig
+  theme?: Extension
+  extraExts?: Extension
+  extraData?: {}
+}
 
-const createSQLEditorInstance: (options: CreateSQLEditorOptions) => SQLEditorInstance;
+const createSQLEditorInstance: (
+  options: CreateSQLEditorOptions
+) => SQLEditorInstance
 ```
 
 ### SQLEditorInstance
 
-```js
+```ts
 class SQLEditorInstance {
-    editorId: string;
-    editorView: EditorView;
-    themeCompartment: Compartment;
-    sqlCompartment: Compartment;
-    extraData: {};
+  editorId: string
+  editorView: EditorView
+  themeCompartment: Compartment
+  sqlCompartment: Compartment
+  extraData: {}
 
-    constructor(editorId: string, editorView: EditorView, themeCompartment: Compartment, sqlCompartment: Compartment, extraData: {});
+  constructor(
+    editorId: string,
+    editorView: EditorView,
+    themeCompartment: Compartment,
+    sqlCompartment: Compartment,
+    extraData: {}
+  )
 
-    changeTheme(theme: Extension): void;
-    changeSQLConfig(sqlConfig: SQLConfig): void;
+  changeTheme(theme: Extension): void
+  changeSQLConfig(sqlConfig: SQLConfig): void
 
-    /* get all statements */
-    getAllStatements(): SqlStatement[];
-    /* get selected statements */
-    getCurStatements(): SqlStatement[];
-    /* get the nearest statement before the cursor */
-    getNearbyStatement(): SqlStatement | undefined;
+  /* get all statements */
+  getAllStatements(): SqlStatement[]
+  /* get selected statements */
+  getCurStatements(): SqlStatement[]
+  /* get the nearest statement before the cursor */
+  getNearbyStatement(): SqlStatement | undefined
 }
 ```
 
 ### EditorCache
 
-```js
+```ts
 class EditorCache {
-    addEditor: (editorId: string, editor: SQLEditorInstance) => void;
-    getEditor: (editorId: string) => SQLEditorInstance | undefined;
-    deleteEditor: (editorId: string) => void;
-    clearEditors: () => void;
+  addEditor: (editorId: string, editor: SQLEditorInstance) => void
+  getEditor: (editorId: string) => SQLEditorInstance | undefined
+  deleteEditor: (editorId: string) => void
+  clearEditors: () => void
 }
 ```

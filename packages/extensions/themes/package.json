@@ -1,5 +1,5 @@
 {
-  "name": "@tidbcloud/tisqleditor-extension-themes",
+  "name": "@tidbcloud/codemirror-extension-themes",
   "version": "0.0.1",
   "description": "tisqleditor extensions",
   "type": "module",

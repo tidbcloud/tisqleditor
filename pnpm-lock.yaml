@@ -29,13 +29,13 @@ importers:
 
   packages/core:
     dependencies:
-      '@tidbcloud/tisqleditor-extension-basic-setup':
+      '@tidbcloud/codemirror-extension-basic-setup':
         specifier: workspace:^
         version: link:../extensions/basic-setup
-      '@tidbcloud/tisqleditor-extension-cur-sql':
+      '@tidbcloud/codemirror-extension-cur-sql':
         specifier: workspace:^
         version: link:../extensions/cur-sql
-      '@tidbcloud/tisqleditor-extension-sql-parser':
+      '@tidbcloud/codemirror-extension-sql-parser':
         specifier: workspace:^
         version: link:../extensions/sql-parser
     devDependencies:
@@ -139,7 +139,7 @@ importers:
 
   packages/extensions/cur-sql:
     dependencies:
-      '@tidbcloud/tisqleditor-extension-sql-parser':
+      '@tidbcloud/codemirror-extension-sql-parser':
         specifier: workspace:^
         version: link:../sql-parser
     devDependencies:
@@ -164,10 +164,10 @@ importers:
 
   packages/extensions/cur-sql-gutter:
     dependencies:
-      '@tidbcloud/tisqleditor-extension-cur-sql':
+      '@tidbcloud/codemirror-extension-cur-sql':
         specifier: workspace:^
         version: link:../cur-sql
-      '@tidbcloud/tisqleditor-extension-sql-parser':
+      '@tidbcloud/codemirror-extension-sql-parser':
         specifier: workspace:^
         version: link:../sql-parser
     devDependencies:
@@ -192,10 +192,10 @@ importers:
 
   packages/extensions/events:
     dependencies:
-      '@tidbcloud/tisqleditor-extension-cur-sql':
+      '@tidbcloud/codemirror-extension-cur-sql':
         specifier: workspace:^
         version: link:../cur-sql
-      '@tidbcloud/tisqleditor-extension-sql-parser':
+      '@tidbcloud/codemirror-extension-sql-parser':
         specifier: workspace:^
         version: link:../sql-parser
     devDependencies:
@@ -217,7 +217,7 @@ importers:
 
   packages/extensions/linters:
     dependencies:
-      '@tidbcloud/tisqleditor-extension-sql-parser':
+      '@tidbcloud/codemirror-extension-sql-parser':
         specifier: workspace:^
         version: link:../sql-parser
     devDependencies:
@@ -350,22 +350,22 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.45.1
         version: 5.45.1(react@18.3.1)
-      '@tidbcloud/tisqleditor-extension-autocomplete':
+      '@tidbcloud/codemirror-extension-autocomplete':
         specifier: workspace:^
         version: link:../extensions/autocomplete
-      '@tidbcloud/tisqleditor-extension-cur-sql-gutter':
+      '@tidbcloud/codemirror-extension-cur-sql-gutter':
         specifier: workspace:^
         version: link:../extensions/cur-sql-gutter
-      '@tidbcloud/tisqleditor-extension-linters':
+      '@tidbcloud/codemirror-extension-linters':
         specifier: workspace:^
         version: link:../extensions/linters
-      '@tidbcloud/tisqleditor-extension-save-helper':
+      '@tidbcloud/codemirror-extension-save-helper':
         specifier: workspace:^
         version: link:../extensions/save-helper
-      '@tidbcloud/tisqleditor-extension-sql-parser':
+      '@tidbcloud/codemirror-extension-sql-parser':
         specifier: workspace:^
         version: link:../extensions/sql-parser
-      '@tidbcloud/tisqleditor-extension-themes':
+      '@tidbcloud/codemirror-extension-themes':
         specifier: workspace:^
         version: link:../extensions/themes
       '@tidbcloud/tisqleditor-react':

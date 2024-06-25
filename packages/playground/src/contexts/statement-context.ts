@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { SqlStatement } from '@tidbcloud/tisqleditor-extension-sql-parser'
+import { SqlStatement } from '@tidbcloud/codemirror-extension-sql-parser'
 
 type StatementCtxValue = {
   runStatement: (fileId: string, statements: SqlStatement) => Promise<any>

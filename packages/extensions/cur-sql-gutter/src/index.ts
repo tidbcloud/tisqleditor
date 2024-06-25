@@ -1,7 +1,7 @@
 import { RangeSet } from '@codemirror/state'
 import { EditorView, gutter, GutterMarker } from '@codemirror/view'
-import { getCurStatements } from '@tidbcloud/tisqleditor-extension-cur-sql'
-import { getNearbyStatement } from '@tidbcloud/tisqleditor-extension-sql-parser'
+import { getCurStatements } from '@tidbcloud/codemirror-extension-cur-sql'
+import { getNearbyStatement } from '@tidbcloud/codemirror-extension-sql-parser'
 
 export interface CurSqlGutterConfig {
   backgroundColor?: string

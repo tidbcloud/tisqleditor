@@ -4,14 +4,14 @@ import { EditorState } from '@codemirror/state'
 import { SQLConfig } from '@codemirror/lang-sql'
 
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
-import { saveHelper } from '@tidbcloud/tisqleditor-extension-save-helper'
-import { bbedit, oneDark } from '@tidbcloud/tisqleditor-extension-themes'
-import { curSqlGutter } from '@tidbcloud/tisqleditor-extension-cur-sql-gutter'
+import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
+import { bbedit, oneDark } from '@tidbcloud/codemirror-extension-themes'
+import { curSqlGutter } from '@tidbcloud/codemirror-extension-cur-sql-gutter'
 import {
   useDbLinter,
   fullWidthCharLinter
-} from '@tidbcloud/tisqleditor-extension-linters'
-import { autoCompletion } from '@tidbcloud/tisqleditor-extension-autocomplete'
+} from '@tidbcloud/codemirror-extension-linters'
+import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
