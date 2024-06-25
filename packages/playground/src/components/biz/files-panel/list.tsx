@@ -24,6 +24,12 @@ export function FilesList() {
   })
   useEffect(() => {
     setAllFiles(filesData ?? [])
+    const params = new URLSearchParams(window.location.search)
+    const hidden = params.get('hidden')
+    if (!hidden) {
+      return
+    }
+    filesData?.length && handleOpenFile(filesData[0])
   }, [filesData])
 
   async function handleOpenFile(file: IFile) {

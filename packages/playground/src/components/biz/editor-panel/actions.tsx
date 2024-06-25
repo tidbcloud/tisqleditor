@@ -13,6 +13,8 @@ export function EditorActions() {
   } = useFilesContext()
   const { runStatement, setRunResult } = useStatementContext()
   const cacheCtx = useEditorCacheContext()
+  const params = new URLSearchParams(window.location.search)
+  const hidden = params.get('hidden')
 
   async function handleRunSQL() {
     if (activeFileId === null) return
@@ -47,19 +49,22 @@ export function EditorActions() {
 
   return (
     <div className="flex-none flex items-center px-2 border-b">
-      <Button
-        size="sm"
-        className="mr-2"
-        onClick={() => runSQLMut.mutate()}
-        disabled={runSQLMut.isPending}
-      >
-        {runSQLMut.isPending ? (
-          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <PlayIcon className="mr-2 h-4 w-4" />
-        )}
-        Run
-      </Button>
+      {!hidden && (
+        <Button
+          size="sm"
+          className="mr-2"
+          onClick={() => runSQLMut.mutate()}
+          disabled={runSQLMut.isPending}
+        >
+          {runSQLMut.isPending ? (
+            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <PlayIcon className="mr-2 h-4 w-4" />
+          )}
+          Run
+        </Button>
+      )}
+
       <DarkModeToggle />
       <Button variant="ghost" size="icon">
         <a href="https://github.com/tidbcloud/tisqleditor" target="_blank">
