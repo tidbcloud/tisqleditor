@@ -18,7 +18,7 @@ export type AiWidgetOptions = {
   chat: (view: EditorView, req: ChatReq) => Promise<ChatRes>
   cancelChat: () => void
 
-  onEvent: (view: EditorView, type: string, payload?: any) => void
+  onEvent?: (view: EditorView, type: string, payload?: any) => void
 
   getDbList: () => string[] // for auto add `use {db};` statement if miss it
 }

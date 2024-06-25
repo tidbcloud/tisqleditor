@@ -8,3 +8,4 @@ export function aiWidget(options: AiWidgetOptions): Extension {
 }
 
 export * from './prompt-input'
+export * from './type'
