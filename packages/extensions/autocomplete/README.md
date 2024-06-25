@@ -37,10 +37,6 @@ const editorView = new EditorView({
 
 ## API
 
-```
-
-```
-
 ```ts
 // DefaultCompletionConfig configs please refer to: https://codemirror.net/docs/ref/#autocomplete.autocompletion
 

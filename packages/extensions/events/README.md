@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-events
 
-Events Extensions for CodeMirror6. This extension provides 3 default events: onChange, onFocusChange and onSelectionChange.
+Events extensions for CodeMirror6. This extension provides 3 default events: onChange, onFocusChange and onSelectionChange.
 
 ## Installation
 
@@ -11,7 +11,7 @@ npm install @tidbcloud/codemirror-extension-events
 You need to install its peer dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/view
+npm install @codemirror/view @codemirror/state
 ```
 
 ## Usage

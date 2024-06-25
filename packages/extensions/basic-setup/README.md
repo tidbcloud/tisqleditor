@@ -11,7 +11,7 @@ npm install @tidbcloud/codemirror-extension-basic-setup
 You need to install its peer dependencies as well:
 
 ```shell
-npm install @codemirror/autocomplete @codemirror/commands @codemirror/lang-sql @codemirror/language  @codemirror/lint @codemirror/search @codemirror/state @codemirror/view  @codemirror/highlight
+npm install @codemirror/autocomplete @codemirror/commands @codemirror/lang-sql @codemirror/language  @codemirror/lint @codemirror/search @codemirror/state @codemirror/view  @lezer/highlight
 ```
 
 ## Usage
@@ -23,11 +23,6 @@ import {
   BasicSetupOptions,
   basicSetup
 } from '@tidbcloud/codemirror-extension-basic-setup'
-
-interface basicSetupOptions {
-  title?: string
-  message?: string
-}
 
 const editorView = new EditorView({
   state: EditorState.create({

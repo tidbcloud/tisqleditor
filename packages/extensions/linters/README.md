@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-linters
 
-This extension provide 3 linters:
+This extension provides 3 linters:
 
 - fullWidthCharLinter: lint all the chinese characters
 - useDbLinter: use statement linter, the first statement should be use dbName;
@@ -23,7 +23,7 @@ npm install @codemirror/view @codemirror/state @codemirror/lint
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { autoCompletion } from '@tidbcloud/codemirror-extension-linters'
+import { fullWidthCharLinter } from '@tidbcloud/codemirror-extension-linters'
 
 interface charLinterConfig {
   title?: string
@@ -46,7 +46,7 @@ const editorView = new EditorView({
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { autoCompletion } from '@tidbcloud/codemirror-extension-linters'
+import { useDbLinter } from '@tidbcloud/codemirror-extension-linters'
 
 type DBLinterOptions = {
   level?: 'error' | 'warning'
@@ -72,7 +72,7 @@ const editorView = new EditorView({
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { autoCompletion } from '@tidbcloud/codemirror-extension-linters'
+import { regexMatchLinter } from '@tidbcloud/codemirror-extension-linters'
 
 interface RegexpItem {
   reg: RegExp
