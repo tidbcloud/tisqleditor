@@ -21,36 +21,55 @@ GROUP BY sector, industry
 ORDER BY sector, companies DESC;
 `
 
+const ALL_EXAMPLES = [
+  'save-helper',
+  'autocomplete',
+  'cur-sql-gutter',
+  'use-db-linter',
+  'full-width-char-linter'
+]
+
 export function EditorExample({
-  example,
-  isDark
+  example = '',
+  isDark = false
 }: {
   example?: string
   isDark?: boolean
 }) {
   const extraExts = useMemo(() => {
-    if (example === 'save-helper') {
-      return [
+    let exampleArr = example.split(',')
+    if (exampleArr.includes('all')) {
+      exampleArr = ALL_EXAMPLES
+    } else if (exampleArr.includes('linters')) {
+      exampleArr = exampleArr.concat([
+        'use-db-linter',
+        'full-width-char-linter'
+      ])
+    }
+    exampleArr = [...new Set(exampleArr)]
+
+    return exampleArr.map((example) => {
+      if (example === 'save-helper') {
         saveHelper({
           save: (view: EditorView) => {
             console.log('save content:', view.state.doc.toString())
           }
         })
-      ]
-    }
-    if (example === 'autocomplete') {
-      return [autoCompletion()]
-    }
-    if (example === 'cur-sql-gutter') {
-      return [curSqlGutter()]
-    }
-    if (example === 'usd-db-linter') {
-      return [useDbLinter()]
-    }
-    if (example === 'full-width-char-linter') {
-      return [fullWidthCharLinter()]
-    }
-    return []
+      }
+      if (example === 'autocomplete') {
+        return autoCompletion()
+      }
+      if (example === 'cur-sql-gutter') {
+        return curSqlGutter()
+      }
+      if (example === 'use-db-linter') {
+        return useDbLinter()
+      }
+      if (example === 'full-width-char-linter') {
+        return fullWidthCharLinter()
+      }
+      return []
+    })
   }, [example])
 
   return (

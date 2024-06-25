@@ -35,7 +35,7 @@ function App() {
   const example = params.get('example')
   const isDark = params.get('theme') === 'dark'
 
-  if (example) {
+  if (example !== null) {
     return (
       <EditorCacheProvider>
         <EditorExample example={example} isDark={isDark} />
