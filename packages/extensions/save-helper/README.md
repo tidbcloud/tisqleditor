@@ -27,6 +27,7 @@ const editorView = new EditorView({
     extensions: [
       saveHelper({
         save: (view: EditorView) => {
+          // call save file api
           saveFile(view.state.doc.toString())
         }
       })

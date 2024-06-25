@@ -8,9 +8,11 @@ import { StatementProvider } from '@/contexts/statement-context-provider'
 import { FilesProvider } from '@/contexts/files-context-provider'
 import { SchemaProvider } from '@/contexts/schema-context-provider'
 
+import { EditorExample } from '@/examples/editor-example'
+
 const queryClient = new QueryClient()
 
-function App() {
+function Full() {
   return (
     <QueryClientProvider client={queryClient}>
       <EditorCacheProvider>
@@ -26,6 +28,22 @@ function App() {
       </EditorCacheProvider>
     </QueryClientProvider>
   )
+}
+
+function App() {
+  const params = new URLSearchParams(window.location.search)
+  const example = params.get('example')
+  const isDark = params.get('theme') === 'dark'
+
+  if (example) {
+    return (
+      <EditorCacheProvider>
+        <EditorExample example={example} isDark={isDark} />
+      </EditorCacheProvider>
+    )
+  }
+
+  return <Full />
 }
 
 export default App
