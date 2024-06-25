@@ -91,6 +91,7 @@ export const promptInputTheme = EditorView.baseTheme({
       }
     }
   },
+
   '.shake': {
     animation: 'shakeX 1000ms 1'
   },
@@ -105,6 +106,18 @@ export const promptInputTheme = EditorView.baseTheme({
     '80%': { transform: 'translate3d(10px, 0, 0)' },
     '90%': { transform: 'translate3d(-10px, 0, 0)' }
   },
+  '.rotate': {
+    animation: 'rotation 2s infinite linear'
+  },
+  '@keyframes rotation': {
+    '0%': {
+      transform: 'rotate(0deg)'
+    },
+    '100%': {
+      transform: 'rotate(360deg)'
+    }
+  },
+
   '&light .cm-ai-prompt-input-root': {
     border: '1px solid #E6E6E6',
     backgroundColor: 'white'
