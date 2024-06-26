@@ -25,6 +25,8 @@ test('test getSqlStatements', () => {
   const allStatements = getSqlStatements(editorView.state)
   expect(allStatements.length).toBe(2)
 
+  console.log(JSON.stringify(allStatements))
+
   const firstStatement = allStatements[0]
   expect(firstStatement.content).toBe(LINE_1)
   expect(firstStatement.database).toBe('sp500insight')
@@ -33,4 +35,13 @@ test('test getSqlStatements', () => {
   expect(firstStatement.to).toBe(1 + LINE_1.length)
   expect(firstStatement.lineFrom).toBe(2)
   expect(firstStatement.lineTo).toBe(2)
+
+  const secondStatement = allStatements[1]
+  expect(secondStatement.content).toBe(LINE_2)
+  expect(secondStatement.database).toBe('sp500insight')
+  expect(secondStatement.type).toBe('other')
+  expect(secondStatement.from).toBe(1 + LINE_1.length + 2)
+  expect(secondStatement.to).toBe(1 + LINE_1.length + 2 + LINE_2.length)
+  expect(secondStatement.lineFrom).toBe(4)
+  expect(secondStatement.lineTo).toBe(8)
 })
