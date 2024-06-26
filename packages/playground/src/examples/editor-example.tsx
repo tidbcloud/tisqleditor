@@ -10,6 +10,8 @@ import {
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
 import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
+import { aiWidget } from '@tidbcloud/codemirror-extension-ai-widget'
+import { delay } from '@/lib/delay'
 
 const EXAMPLE_SQL = `
 USE sp500insight;
@@ -22,6 +24,7 @@ ORDER BY sector, companies DESC;
 `
 
 const ALL_EXAMPLES = [
+  'ai-widget',
   'save-helper',
   'autocomplete',
   'cur-sql-gutter',
@@ -48,24 +51,36 @@ export function EditorExample({
     }
     exampleArr = [...new Set(exampleArr)]
 
-    return exampleArr.map((example) => {
-      if (example === 'save-helper') {
-        saveHelper({
+    return exampleArr.map((item) => {
+      if (item === 'ai-widget') {
+        return aiWidget({
+          chat: async () => {
+            await delay(2000)
+            return { status: 'success', message: 'select * from test;' }
+          },
+          cancelChat: () => {},
+          getDbList: () => {
+            return ['test1', 'test2']
+          }
+        })
+      }
+      if (item === 'save-helper') {
+        return saveHelper({
           save: (view: EditorView) => {
             console.log('save content:', view.state.doc.toString())
           }
         })
       }
-      if (example === 'autocomplete') {
+      if (item === 'autocomplete') {
         return autoCompletion()
       }
-      if (example === 'cur-sql-gutter') {
+      if (item === 'cur-sql-gutter') {
         return curSqlGutter()
       }
-      if (example === 'use-db-linter') {
+      if (item === 'use-db-linter') {
         return useDbLinter()
       }
-      if (example === 'full-width-char-linter') {
+      if (item === 'full-width-char-linter') {
         return fullWidthCharLinter()
       }
       return []

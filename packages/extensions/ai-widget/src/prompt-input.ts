@@ -56,7 +56,9 @@ export function activePromptInput(
   view: EditorView,
   defPrompt: string = '',
   immediate: boolean = false,
-  source: string = 'hotkey', // this value maybe: 'hotkey', 'placeholder', 'fix_sql_button'...
+  /* where is this method called from */
+  /* the value maybe: 'hotkey', 'placeholder', 'fix_sql_button', ... */
+  source: string = 'hotkey',
   pos?: Pos
 ) {
   if (isUnifiedMergeViewActive(view.state)) {
@@ -114,7 +116,7 @@ export function activePromptInput(
   onEvent?.(view, 'widget.open', { source })
 }
 
-export function unloadPromptPlugins(view: EditorView) {
+function unloadPromptPlugins(view: EditorView) {
   view.dispatch({
     effects: [
       unifiedMergeViewCompartment.reconfigure([]),
@@ -154,7 +156,7 @@ function replaceSelection(view: EditorView, pos: Pos, content: string) {
   })
 }
 
-export function rejectChunks(view: EditorView) {
+function rejectChunks(view: EditorView) {
   const chunks = getChunks(view.state)?.chunks || []
   // must traverse from the last to the first
   for (let i = chunks.length - 1; i >= 0; i--) {
@@ -165,7 +167,7 @@ export function rejectChunks(view: EditorView) {
 
 // recover the previous selection when trigger regenerate
 // side effect: causes the tooltip hint render issue
-export function recoverSelection(view: EditorView, pos: Pos) {
+function recoverSelection(view: EditorView, pos: Pos) {
   const { from, to } = pos
 
   view.dispatch({

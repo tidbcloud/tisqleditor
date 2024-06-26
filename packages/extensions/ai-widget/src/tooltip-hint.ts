@@ -1,4 +1,10 @@
-import { EditorState, Prec, StateEffect, StateField } from '@codemirror/state'
+import {
+  EditorState,
+  Extension,
+  Prec,
+  StateEffect,
+  StateField
+} from '@codemirror/state'
 import { EditorView, Tooltip, keymap, showTooltip } from '@codemirror/view'
 
 import { getFirstNonUseTypeStatement } from '@tidbcloud/codemirror-extension-cur-sql'
@@ -153,7 +159,7 @@ const selectionChangeListener = () => {
 
 //------------------------------------------
 
-export function aiCursorTooltip(hotkey?: string) {
+export function aiCursorTooltip(hotkey?: string): Extension {
   return [
     cursorTooltipBaseTheme,
     hideTooltipKeymap(hotkey),
