@@ -1,5 +1,6 @@
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
+import { MySQL, sql } from '@codemirror/lang-sql'
 import { sqlParser, getSqlStatements, getNearbyStatement } from '../'
 
 const LINE_1 = `USE sp500insight;`
@@ -15,7 +16,7 @@ test('test getSqlStatements', () => {
   const editorView = new EditorView({
     state: EditorState.create({
       doc: '',
-      extensions: [sqlParser()]
+      extensions: [sql({ dialect: MySQL }), sqlParser()]
     })
   })
 
@@ -30,6 +31,6 @@ test('test getSqlStatements', () => {
   expect(firstStatement.type).toBe('use')
   expect(firstStatement.from).toBe(1)
   expect(firstStatement.to).toBe(1 + LINE_1.length)
-  expect(firstStatement.lineFrom).toBe(1)
-  expect(firstStatement.lineTo).toBe(1)
+  expect(firstStatement.lineFrom).toBe(2)
+  expect(firstStatement.lineTo).toBe(2)
 })
