@@ -69,6 +69,7 @@ export function activePromptInput(
     rejectChunks(view)
   }
 
+  // update the selection pos
   let { from, to } = view.state.selection.main
   // the pos comes from external (for example, a button to fix sql error), and the value is precise, use it directly
   if (pos) {
@@ -84,6 +85,7 @@ export function activePromptInput(
     }
   }
 
+  // update the selection
   const line = view.state.doc.lineAt(from)
   if (line.from === 0) {
     // a hack
@@ -213,7 +215,7 @@ class PromptInputWidget extends WidgetType {
 
   // the pos is the selection when the widget is created
   constructor(
-    public pos: Pos,
+    public oriSelPos: Pos,
     public defPrompt: string,
     public immediate: boolean
   ) {
@@ -306,7 +308,6 @@ class PromptInputWidget extends WidgetType {
       rightIcon.innerHTML = ICON_STOP
 
       input.value = this.inputPrompt
-      input.placeholder = PROMPT_PLACEHOLDER_NORMAL
 
       tips.innerText = PROMPT_TIPS_REQUESTING
 
@@ -314,6 +315,8 @@ class PromptInputWidget extends WidgetType {
     }
     const reqSuccessStatus = () => {
       normalStatus()
+
+      input.value = this.inputPrompt
 
       tips.style.display = 'none'
 
@@ -358,12 +361,12 @@ class PromptInputWidget extends WidgetType {
 
       if (isUnifiedMergeViewActive(view.state)) {
         rejectChunks(view)
-        recoverSelection(view, this.pos)
+        recoverSelection(view, this.oriSelPos)
       }
 
       requestingStatus()
 
-      const refContent = getRefContent(view, this.pos)
+      const refContent = getRefContent(view, this.oriSelPos)
       this.chatId = crypto.randomUUID()
       this.chatReq = {
         prompt: this.inputPrompt,
@@ -377,7 +380,7 @@ class PromptInputWidget extends WidgetType {
       this.chatRes = res
 
       if (res.status === 'success') {
-        replaceSelection(view, this.pos, res.message)
+        replaceSelection(view, this.oriSelPos, res.message)
         reqSuccessStatus()
       } else if (res.status === 'error') {
         reqErrorStatus(res.message)
@@ -413,7 +416,7 @@ class PromptInputWidget extends WidgetType {
 
         cancelChat(this.chatId)
         normalStatus()
-        recoverSelection(view, this.pos)
+        recoverSelection(view, this.oriSelPos)
         this.chatRes = null
       } else {
         form.requestSubmit()
@@ -426,7 +429,7 @@ class PromptInputWidget extends WidgetType {
 
       if (isUnifiedMergeViewActive(view.state)) {
         rejectChunks(view)
-        recoverSelection(view, this.pos)
+        recoverSelection(view, this.oriSelPos)
       }
 
       unloadPromptPlugins(view)
@@ -448,7 +451,7 @@ class PromptInputWidget extends WidgetType {
         chatRes: this.chatRes
       })
       rejectChunks(view)
-      recoverSelection(view, this.pos)
+      recoverSelection(view, this.oriSelPos)
       unloadPromptPlugins(view)
       view.focus()
     }
@@ -468,15 +471,17 @@ class PromptInputWidget extends WidgetType {
       const firstDb = userDbList[0] ?? 'databaseNameHere'
       const { from, to } = view.state.selection.main
       const insertContent = `${from === 1 ? '' : '\n'}use ${firstDb};\n`
-      this.pos = {
+      // update this.oriSelPos
+      this.oriSelPos = {
         from: from + insertContent.length,
         to: to + insertContent.length
       }
+      // update content and selection
       view.dispatch({
         changes: { from: from - 1, insert: insertContent },
         selection: {
-          anchor: this.pos.from,
-          head: this.pos.to
+          anchor: this.oriSelPos.from,
+          head: this.oriSelPos.to
         },
         userEvent: 'add.use_db'
       })
@@ -506,8 +511,9 @@ class PromptInputWidget extends WidgetType {
         return
       }
 
-      if (this.immediate) {
+      if (this.immediate && !this.chatReq) {
         form.requestSubmit()
+        return
       }
 
       // recover widget status when the widget is re-render, aka, toDOM is re-run
@@ -544,6 +550,8 @@ const inputPlugin = (defPrompt: string, immediate: boolean) =>
       constructor(view: EditorView) {
         let { from, to } = view.state.selection.main
         const line = view.state.doc.lineAt(from)
+
+        // show the widget before the selection head
         let pos = line.from - 1
         if (pos < 0) {
           throw new Error('pos < 0')
@@ -559,6 +567,8 @@ const inputPlugin = (defPrompt: string, immediate: boolean) =>
       }
 
       update(v: ViewUpdate) {
+        // update the decoration pos if content changes
+        // for example: after clicking `Add use {db};` button to insert new content before the widget
         this.decorations = this.decorations.map(v.changes)
       }
     },

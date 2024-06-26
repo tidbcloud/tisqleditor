@@ -16,9 +16,9 @@ type EventType =
   | 'widget.open' // {source: 'hotkey' | 'fix_sql_button' | ...}
   | 'no_use_db.error'
   | 'req.send' // {chatReq}
+  | 'req.cancel' // {chatReq}
   | 'req.success' // {chatReq, chatRes, duration}
   | 'req.error' // {chatReq, chatRes, duration}
-  | 'req.cancel' // {chatReq, duration}
   | 'accept.click' // {chatReq, chatRes}
   | 'discard.click' // {chatReq, chatRes}
   | 'gen.click' // {chatReq, chatRes}
@@ -29,7 +29,7 @@ export type AiWidgetOptions = {
   /* hotkey to trigger ai widget, default is 'Mod-i' */
   hotkey?: string
 
-  /* chat with ai */
+  /* chat with AI */
   chat: (view: EditorView, chatId: string, req: ChatReq) => Promise<ChatRes>
   cancelChat: (chatId: string) => void
 
