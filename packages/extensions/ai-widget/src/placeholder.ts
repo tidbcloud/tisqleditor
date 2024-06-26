@@ -8,7 +8,11 @@ import {
   WidgetType
 } from '@codemirror/view'
 
-import { activePromptInput, isPromptInputActive } from './prompt-input'
+import {
+  activePromptInput,
+  getAiWidgetOptions,
+  isPromptInputActive
+} from './prompt-input'
 import { isAppleOs } from './utils'
 
 const aiPlaceholderTheme = EditorView.baseTheme({
@@ -42,16 +46,18 @@ class AIPlaceholderWidget extends WidgetType {
     const root = document.createElement('span')
     root.className = 'cm-ai-placeholder'
     if (this.emptyDoc) {
-      // TODO: make it configurable
-      root.innerHTML = `Press '${cmd}' + 'I' or <span>click here</span> to use Chat2Query.`
+      root.innerHTML =
+        getAiWidgetOptions().placeholderEmptyDocElement ??
+        `Press '${cmd} + I' or <span>click here</span> to use AI`
     } else {
-      // TODO: make it configurable
-      root.innerHTML = `Press '${cmd}' + 'I' to use Chat2Query.`
+      root.innerHTML =
+        getAiWidgetOptions().placeholderNormalElement ??
+        `Press '${cmd} + I' to use AI`
     }
     const btn = root.querySelector('span')
-    if (btn) {
+    if (btn && btn.innerText === 'click here') {
       btn.onclick = () => {
-        activePromptInput(view)
+        activePromptInput(view, '', false, 'placeholder')
       }
     }
 

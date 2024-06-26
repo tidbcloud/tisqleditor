@@ -56,7 +56,7 @@ export function activePromptInput(
   view: EditorView,
   defPrompt: string = '',
   immediate: boolean = false,
-  source: string = 'hotkey', // this value maybe: 'hotkey', 'fix_sql_button'...
+  source: string = 'hotkey', // this value maybe: 'hotkey', 'placeholder', 'fix_sql_button'...
   pos?: Pos
 ) {
   if (isUnifiedMergeViewActive(view.state)) {
@@ -660,6 +660,10 @@ const inputListener = EditorView.inputHandler.of((update) => {
 //------------------------------------------
 
 let aiWidgetOptions: AiWidgetOptions
+
+export function getAiWidgetOptions() {
+  return aiWidgetOptions
+}
 
 export function aiPromptInput(options: AiWidgetOptions): Extension {
   aiWidgetOptions = options

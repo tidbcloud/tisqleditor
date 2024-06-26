@@ -13,7 +13,7 @@ export type ChatRes = {
 }
 
 type EventType =
-  | 'widget.open' // {source: 'hotkey' | 'fix_sql_button' | ...}
+  | 'widget.open' // {source: 'hotkey' | 'placeholder' | 'fix_sql_button' | ...}
   | 'no_use_db.error'
   | 'req.send' // {chatReq}
   | 'req.cancel' // {chatReq}
@@ -29,7 +29,7 @@ export type AiWidgetOptions = {
   /* hotkey to trigger ai widget, default is 'Mod-i' */
   hotkey?: string
 
-  /* prompt input wordings */
+  /* prompt input configuration */
   /* default: 'AI results may be incorrect' */
   promptInputTipsNormal?: string
   /* default: 'Fetching results...' */
@@ -38,6 +38,12 @@ export type AiWidgetOptions = {
   promptInputPlaceholderNormal?: string
   /* default: 'Error occurred. Please try to regenerate or input another instruction.' */
   promptInputPlaceholderError?: string
+
+  /* placeholder configuration */
+  /* default: 'Press 'Command + I' or <span>click here</span> to use AI' */
+  placeholderEmptyDocElement?: string
+  /* default: 'Press 'Command + I' to use AI' */
+  placeholderNormalElement?: string
 
   /* chat with AI */
   chat: (view: EditorView, chatId: string, req: ChatReq) => Promise<ChatRes>
