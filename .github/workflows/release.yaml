@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -24,11 +24,11 @@ jobs:
       - name: Install Dependencies
         run: pnpm i
 
-      - name: Test
-        run: pnpm test
-
       - name: Build Package
         run: pnpm build
+
+      - name: Test
+        run: pnpm test
 
       - name: Create Release Pull Request or Publish
         uses: changesets/action@v1
