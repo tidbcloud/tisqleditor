@@ -4,7 +4,7 @@ import { hintEle, linterBaseTheme } from './lint-style'
 
 export interface charLinterConfig {
   title?: string
-  content?: string
+  message?: string
 }
 
 const fullWidthCharChecker = (config: charLinterConfig) =>
@@ -30,7 +30,7 @@ const fullWidthCharChecker = (config: charLinterConfig) =>
                       codeNum
                     )}", which is more common in source code.`
                   : 'The character is invalid.'
-              return hintEle(config.title || '', config.content || tips)
+              return hintEle(config.title || '', config.message || tips)
             }
           })
         }
