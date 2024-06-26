@@ -29,6 +29,16 @@ export type AiWidgetOptions = {
   /* hotkey to trigger ai widget, default is 'Mod-i' */
   hotkey?: string
 
+  /* prompt input wordings */
+  /* default: 'AI results may be incorrect' */
+  promptInputTipsNormal?: string
+  /* default: 'Fetching results...' */
+  promptInputTipsRequesting?: string
+  /* default: 'Ask AI to write anything...' */
+  promptInputPlaceholderNormal?: string
+  /* default: 'Error occurred. Please try to regenerate or input another instruction.' */
+  promptInputPlaceholderError?: string
+
   /* chat with AI */
   chat: (view: EditorView, chatId: string, req: ChatReq) => Promise<ChatRes>
   cancelChat: (chatId: string) => void

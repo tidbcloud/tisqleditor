@@ -183,12 +183,11 @@ function moveCursorAfterAccept(view: EditorView) {
 
 //------------------------------------------
 
-// TODO: these contents should be configurable
-const PROMPT_TIPS_NORMAL = 'Chat2Query results may be incorrect'
+const PROMPT_TIPS_NORMAL = 'AI results may be incorrect'
 const PROMPT_TIPS_REQUESTING = 'Fetching results...'
-const PROMPT_PLACEHOLDER_NORMAL = 'Ask Chat2Query to write anything...'
+const PROMPT_PLACEHOLDER_NORMAL = 'Ask AI to write anything...'
 const PROMPT_PLACEHOLDER_ERROR =
-  'Error occurred. Please try to regenerate or click here to enter another instruction.'
+  'Error occurred. Please try to regenerate or input another instruction.'
 
 type PromptInputStatus =
   | 'normal'
@@ -241,7 +240,7 @@ class PromptInputWidget extends WidgetType {
         <span class="cm-ai-prompt-input-icon cm-ai-prompt-input-icon-left">
           ${ICON_PROMPT}
         </span>
-        <input placeholder="${PROMPT_PLACEHOLDER_NORMAL}" value="${this.defPrompt}" />
+        <input placeholder="${aiWidgetOptions.promptInputPlaceholderNormal ?? PROMPT_PLACEHOLDER_NORMAL}" value="${this.defPrompt}" />
         <button class="cm-ai-prompt-input-icon cm-ai-prompt-input-icon-right">
           ${ICON_SEND}
         </button>
@@ -249,7 +248,7 @@ class PromptInputWidget extends WidgetType {
           ${ICON_CLOSE}
         </button>
       </form>
-      <span class="cm-ai-prompt-input-tips">${PROMPT_TIPS_NORMAL}</span>
+      <span class="cm-ai-prompt-input-tips">${aiWidgetOptions.promptInputTipsNormal ?? PROMPT_TIPS_NORMAL}</span>
       <div class="cm-ai-prompt-input-actions">
         <button id="cm-ai-prompt-btn-accept">Accept</button>
         <button id="cm-ai-prompt-btn-discard">Discard</button>
@@ -300,10 +299,13 @@ class PromptInputWidget extends WidgetType {
       rightIcon.innerHTML = ICON_SEND
 
       input.value = this.defPrompt
-      input.placeholder = PROMPT_PLACEHOLDER_NORMAL
+      input.placeholder =
+        aiWidgetOptions.promptInputPlaceholderNormal ??
+        PROMPT_PLACEHOLDER_NORMAL
 
       tips.style.display = 'flex'
-      tips.innerText = PROMPT_TIPS_NORMAL
+      tips.innerText =
+        aiWidgetOptions.promptInputTipsNormal ?? PROMPT_TIPS_NORMAL
 
       actionBtns.style.display = 'none'
 
@@ -319,7 +321,8 @@ class PromptInputWidget extends WidgetType {
 
       input.value = this.inputPrompt
 
-      tips.innerText = PROMPT_TIPS_REQUESTING
+      tips.innerText =
+        aiWidgetOptions.promptInputTipsRequesting ?? PROMPT_TIPS_REQUESTING
 
       this.status = 'requesting'
     }
@@ -341,7 +344,10 @@ class PromptInputWidget extends WidgetType {
       leftIcon.innerHTML = ICON_ERROR
 
       input.value = ''
-      input.placeholder = msg || PROMPT_PLACEHOLDER_ERROR
+      input.placeholder =
+        msg ??
+        aiWidgetOptions.promptInputPlaceholderError ??
+        PROMPT_PLACEHOLDER_ERROR
 
       tips.style.display = 'none'
 
