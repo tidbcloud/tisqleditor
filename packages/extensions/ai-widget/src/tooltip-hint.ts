@@ -3,7 +3,7 @@ import { EditorView, Tooltip, keymap, showTooltip } from '@codemirror/view'
 
 import { getFirstNonUseTypeStatement } from '@tidbcloud/codemirror-extension-cur-sql'
 
-import { isPromptInputActive } from './prompt-input'
+import { getAiWidgetOptions, isPromptInputActive } from './prompt-input'
 import { isAppleOs } from './utils'
 
 //------------------------------------------
@@ -64,8 +64,9 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
         create: () => {
           let dom = document.createElement('div')
           dom.className = 'cm-ai-tooltip-cursor'
-          // TODO: make it configurable
-          dom.innerHTML = `Press <code><b>${cmd}</b> + <b>I</b></code> to rewrite SQL by Chat2Query`
+          dom.innerHTML =
+            getAiWidgetOptions().tooltipHintElement ||
+            `Press <code><b>${cmd}</b> + <b>I</b></code> to rewrite SQL by AI`
           return { dom, offset: { x: -16 * delta, y: 4 } }
         }
       }

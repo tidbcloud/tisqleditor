@@ -45,6 +45,10 @@ export type AiWidgetOptions = {
   /* default: 'Press 'Command + I' to use AI' */
   placeholderNormalElement?: string
 
+  /* tooltip hint configuration */
+  /* default: 'Press <code><b>Command</b> + <b>I</b></code> to rewrite SQL by AI' */
+  tooltipHintElement?: string
+
   /* chat with AI */
   chat: (view: EditorView, chatId: string, req: ChatReq) => Promise<ChatRes>
   cancelChat: (chatId: string) => void
