@@ -1,4 +1,4 @@
-name: Build
+name: Build & Test
 
 on:
   pull_request:
@@ -24,3 +24,6 @@ jobs:
 
       - name: Build Package
         run: pnpm build
+
+      - name: Test
+        run: pnpm test
