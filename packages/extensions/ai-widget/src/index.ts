@@ -1,11 +1,16 @@
 import { Extension } from '@codemirror/state'
 
 import { AiWidgetOptions } from './type'
-import { aiPromptInput } from './prompt-input'
+import { aiPlaceholder } from './placeholder'
 import { aiCursorTooltip } from './tooltip-hint'
+import { aiPromptInput } from './prompt-input'
 
 export function aiWidget(options: AiWidgetOptions): Extension {
-  return [aiPromptInput(options), aiCursorTooltip(options.hotkey)]
+  return [
+    aiPlaceholder(),
+    aiCursorTooltip(options.hotkey),
+    aiPromptInput(options)
+  ]
 }
 
 export * from './prompt-input'

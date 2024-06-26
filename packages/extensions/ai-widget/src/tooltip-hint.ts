@@ -64,6 +64,7 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
         create: () => {
           let dom = document.createElement('div')
           dom.className = 'cm-ai-tooltip-cursor'
+          // TODO: make it configurable
           dom.innerHTML = `Press <code><b>${cmd}</b> + <b>I</b></code> to rewrite SQL by Chat2Query`
           return { dom, offset: { x: -16 * delta, y: 4 } }
         }
