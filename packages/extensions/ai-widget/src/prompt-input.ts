@@ -1,6 +1,3 @@
-// 1. when select a part of sql statement, the selection will expand to the whole statement
-// 2. when select a part of multiple sql statements, the selection will expand to the whole first statement
-
 import { getChunks, rejectChunk, unifiedMergeView } from '@codemirror/merge'
 import { Compartment, EditorState, Extension, Prec } from '@codemirror/state'
 import {
@@ -24,7 +21,7 @@ import {
   ICON_CLOSE
 } from './icons-svg'
 import { promptInputTheme } from './prompt-input-theme'
-import { AiWidgetOptions, ChatRes } from './type'
+import { AiWidgetOptions, ChatReq, ChatRes } from './type'
 
 //------------------------------------------
 
@@ -56,10 +53,16 @@ export function isUnifiedMergeViewActive(state: EditorState) {
   return (unifiedMergeViewCompartment.get(state) as Extension[]).length > 0
 }
 
+// this method triggers the AI widget to show.
+// this method can be called by hotkey (default is `Mod-i`), or from outside of the editor.
+// for example, a SQL statement is ran failed, then we can show a button with text "Fix SQL error" in the result panel,
+// after clicking the button, it will call this method, trigger the AI widget, auto chat with AI with the prompt "Fix this SQL" immediately
+// the method is called may like this from outside: `activePromptInput(view, "Fix this SQL", true, "fix_sql_button", {from: 100, to: 200})`
 export function activePromptInput(
   view: EditorView,
   defPrompt: string = '',
   immediate: boolean = false,
+  source: string = 'hotkey', // this value maybe: 'hotkey', 'fix_sql_button'...
   pos?: Pos
 ) {
   if (isUnifiedMergeViewActive(view.state)) {
@@ -67,11 +70,13 @@ export function activePromptInput(
   }
 
   let { from, to } = view.state.selection.main
-  // the pos is passed from external (for example, a button to fix sql error), and the value is precise, use it directly
+  // the pos comes from external (for example, a button to fix sql error), and the value is precise, use it directly
   if (pos) {
     from = pos.from
     to = pos.to
   } else {
+    // 1. when select a part of sql statement, the selection will expand to the whole statement
+    // 2. when select a part of multiple sql statements, the selection will expand to the whole first statement that is not `use` type
     const firstStatement = getFirstNonUseTypeStatement(view.state)
     if (firstStatement) {
       from = firstStatement.from
@@ -108,6 +113,9 @@ export function activePromptInput(
       inputPlugin(defPrompt, immediate)
     )
   })
+
+  const { onEvent } = aiWidgetOptions
+  onEvent?.(view, 'widget.open', { source })
 }
 
 export function unloadPromptPlugins(view: EditorView) {
@@ -188,21 +196,20 @@ const PROMPT_PLACEHOLDER_ERROR =
 
 type PromptInputStatus =
   | 'normal'
-  | 'nodb-error'
+  | 'no_use_db_error'
   | 'requesting'
-  | 'req-success'
-  | 'req-error'
-
-const initChatRes: ChatRes = {
-  status: '',
-  message: '',
-  extra: {}
-}
+  | 'req_success'
+  | 'req_error'
 
 class PromptInputWidget extends WidgetType {
+  // destroy() and toDOM() may be called many times in the widget lifecycle, but this widget self won't be destroyed
+  // so you need to store the state inside PromptInputWidget object, not inside toDOM method
   private status: PromptInputStatus = 'normal'
   private inputPrompt: string = ''
-  private chatRes = initChatRes
+
+  private chatId: string = ''
+  private chatReq: ChatReq | null = null
+  private chatRes: ChatRes | null = null
 
   // the pos is the selection when the widget is created
   constructor(
@@ -213,8 +220,6 @@ class PromptInputWidget extends WidgetType {
     super()
   }
 
-  // destroy and toDOM may be called many times, but this widget object won't be destroyed
-  // so you need to store the state inside PromptInputWidget object, not inside toDOM method
   toDOM(view: EditorView): HTMLElement {
     // root element
     const root = document.createElement('div')
@@ -237,7 +242,7 @@ class PromptInputWidget extends WidgetType {
         <button id="cm-ai-prompt-btn-accept">Accept</button>
         <button id="cm-ai-prompt-btn-discard">Discard</button>
         <button id="cm-ai-prompt-btn-gen">Regenerate</button>
-        <button id="cm-ai-prompt-btn-add-use">Add "use {db};"</button>
+        <button id="cm-ai-prompt-btn-add-use-db">Add "use {db};"</button>
       </div>
     `
 
@@ -270,8 +275,8 @@ class PromptInputWidget extends WidgetType {
     const genBtn = root.querySelector(
       'button#cm-ai-prompt-btn-gen'
     ) as HTMLButtonElement
-    const addUseBtn = root.querySelector(
-      'button#cm-ai-prompt-btn-add-use'
+    const addUseDbBtn = root.querySelector(
+      'button#cm-ai-prompt-btn-add-use-db'
     ) as HTMLButtonElement
 
     // status
@@ -313,9 +318,9 @@ class PromptInputWidget extends WidgetType {
       tips.style.display = 'none'
 
       actionBtns.style.display = 'flex'
-      addUseBtn.style.display = 'none'
+      addUseDbBtn.style.display = 'none'
 
-      this.status = 'req-success'
+      this.status = 'req_success'
     }
     const reqErrorStatus = (msg: string) => {
       normalStatus()
@@ -330,17 +335,17 @@ class PromptInputWidget extends WidgetType {
       actionBtns.style.display = 'flex'
       acceptBtn.style.display = 'none'
       discardBtn.style.display = 'none'
-      addUseBtn.style.display = 'none'
+      addUseDbBtn.style.display = 'none'
 
-      this.status = 'req-error'
+      this.status = 'req_error'
     }
     const noUseDBStatus = () => {
-      reqErrorStatus('Please write an "use {db};" first!')
+      reqErrorStatus('Please write an "use {db};" SQL first!')
 
       genBtn.style.display = 'none'
-      addUseBtn.style.display = 'initial'
+      addUseDbBtn.style.display = 'initial'
 
-      this.status = 'nodb-error'
+      this.status = 'no_use_db_error'
     }
 
     const { chat, cancelChat, onEvent, getDbList } = aiWidgetOptions
@@ -359,11 +364,16 @@ class PromptInputWidget extends WidgetType {
       requestingStatus()
 
       const refContent = getRefContent(view, this.pos)
-      const res = await chat(view, {
+      this.chatId = crypto.randomUUID()
+      this.chatReq = {
         prompt: this.inputPrompt,
         refContent,
         extra: {}
-      })
+      }
+      onEvent?.(view, 'req.send', { chatReq: this.chatReq })
+      const start = performance.now()
+      const res = await chat(view, this.chatId, this.chatReq)
+      const duration = performance.now() - start
       this.chatRes = res
 
       if (res.status === 'success') {
@@ -372,8 +382,11 @@ class PromptInputWidget extends WidgetType {
       } else if (res.status === 'error') {
         reqErrorStatus(res.message)
       }
-
-      return res.status === 'success'
+      onEvent?.(view, `req.${res.status}`, {
+        chatReq: this.chatReq,
+        chatRes: this.chatRes,
+        duration
+      })
     }
 
     // event listeners
@@ -386,19 +399,70 @@ class PromptInputWidget extends WidgetType {
       if (this.inputPrompt.length === 0) {
         return
       }
-
-      const start = Date.now()
-      const ret = await handleRequest()
-      onEvent?.(view, 'generate', {
-        prompt: this.inputPrompt,
-        duration: Date.now() - start,
-        success: ret
-      })
+      await handleRequest()
     }
-    addUseBtn.onclick = () => {
-      normalStatus()
+    rightIcon.onclick = () => {
+      if (!getCurDatabase(view.state)) {
+        noUseDBStatus()
+        return
+      }
 
-      onEvent?.(view, 'add.use_db')
+      if (this.status === 'requesting') {
+        onEvent?.(view, 'req.cancel', { chatReq: this.chatReq })
+        rejectChunks(view)
+
+        cancelChat(this.chatId)
+        normalStatus()
+        recoverSelection(view, this.pos)
+        this.chatRes = null
+      } else {
+        form.requestSubmit()
+      }
+    }
+    closeIcon.onclick = () => {
+      onEvent?.(view, 'close', { by: 'icon' })
+      normalStatus()
+      cancelChat(this.chatId)
+
+      if (isUnifiedMergeViewActive(view.state)) {
+        rejectChunks(view)
+        recoverSelection(view, this.pos)
+      }
+
+      unloadPromptPlugins(view)
+      view.focus()
+    }
+    acceptBtn.onclick = () => {
+      onEvent?.(view, 'accept.click', {
+        chatReq: this.chatReq,
+        chatRes: this.chatRes
+      })
+      unloadPromptPlugins(view)
+
+      moveCursorAfterAccept(view)
+      view.focus()
+    }
+    discardBtn.onclick = () => {
+      onEvent?.(view, 'discard.click', {
+        chatReq: this.chatReq,
+        chatRes: this.chatRes
+      })
+      rejectChunks(view)
+      recoverSelection(view, this.pos)
+      unloadPromptPlugins(view)
+      view.focus()
+    }
+    genBtn.onclick = async () => {
+      onEvent?.(view, 'gen.click', {
+        chatReq: this.chatReq,
+        chatRes: this.chatRes
+      })
+      await handleRequest()
+    }
+    addUseDbBtn.onclick = () => {
+      onEvent?.(view, 'add_use_db.click')
+
+      normalStatus()
 
       const userDbList = getDbList()
       const firstDb = userDbList[0] ?? 'databaseNameHere'
@@ -428,65 +492,6 @@ class PromptInputWidget extends WidgetType {
         view.focus()
       }
     }
-    rightIcon.onclick = () => {
-      if (!getCurDatabase(view.state)) {
-        onEvent?.(view, 'use_db.send')
-        noUseDBStatus()
-        return
-      }
-
-      if (this.status === 'requesting') {
-        onEvent?.(view, 'stop')
-        rejectChunks(view)
-
-        cancelChat()
-        normalStatus()
-        recoverSelection(view, this.pos)
-        this.chatRes = initChatRes
-      } else {
-        form.requestSubmit()
-      }
-    }
-    closeIcon.onclick = () => {
-      onEvent?.(view, 'close')
-      normalStatus()
-      cancelChat()
-
-      if (isUnifiedMergeViewActive(view.state)) {
-        rejectChunks(view)
-        recoverSelection(view, this.pos)
-      }
-
-      unloadPromptPlugins(view)
-      view.focus()
-    }
-    acceptBtn.onclick = () => {
-      onEvent?.(view, 'accept', this.chatRes)
-      unloadPromptPlugins(view)
-
-      moveCursorAfterAccept(view)
-      view.focus()
-    }
-    discardBtn.onclick = () => {
-      onEvent?.(view, 'reject', {
-        prompt: this.inputPrompt,
-        ...this.chatRes
-      })
-      rejectChunks(view)
-      recoverSelection(view, this.pos)
-      unloadPromptPlugins(view)
-      view.focus()
-    }
-    genBtn.onclick = async () => {
-      this.chatRes = initChatRes
-      const start = Date.now()
-      await handleRequest()
-      onEvent?.(view, 'regenerate', {
-        prompt: this.inputPrompt,
-        ...this.chatRes,
-        duration: Date.now() - start
-      })
-    }
 
     //----
 
@@ -496,7 +501,7 @@ class PromptInputWidget extends WidgetType {
       input.focus()
 
       if (!getCurDatabase(view.state)) {
-        onEvent?.(view, 'use_db.open')
+        onEvent?.(view, 'no_use_db.error')
         noUseDBStatus()
         return
       }
@@ -505,17 +510,17 @@ class PromptInputWidget extends WidgetType {
         form.requestSubmit()
       }
 
-      // init input status when the widget is updated, aka, toDOM is re-run
+      // recover widget status when the widget is re-render, aka, toDOM is re-run
       if (this.status === 'normal') {
         normalStatus()
-      } else if (this.status === 'nodb-error') {
+      } else if (this.status === 'no_use_db_error') {
         noUseDBStatus()
       } else if (this.status === 'requesting') {
         requestingStatus()
-      } else if (this.status === 'req-success') {
+      } else if (this.status === 'req_success') {
         reqSuccessStatus()
-      } else if (this.status === 'req-error') {
-        reqErrorStatus(this.chatRes.message)
+      } else if (this.status === 'req_error') {
+        reqErrorStatus(this.chatRes!.message)
       }
     }, 100)
 

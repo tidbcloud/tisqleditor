@@ -3,22 +3,39 @@ import { EditorView } from '@codemirror/view'
 export type ChatReq = {
   prompt: string
   refContent: string
-  extra: any
+  extra?: {}
 }
 
 export type ChatRes = {
-  status: string
+  status: 'success' | 'error'
   message: string
-  extra?: any
+  extra?: {}
 }
 
+type EventType =
+  | 'widget.open' // {source: 'hotkey' | 'fix_sql_button' | ...}
+  | 'no_use_db.error'
+  | 'req.send' // {chatReq}
+  | 'req.success' // {chatReq, chatRes, duration}
+  | 'req.error' // {chatReq, chatRes, duration}
+  | 'req.cancel' // {chatReq, duration}
+  | 'accept.click' // {chatReq, chatRes}
+  | 'discard.click' // {chatReq, chatRes}
+  | 'gen.click' // {chatReq, chatRes}
+  | 'add_use_db.click'
+  | 'close' // {by: 'esc_key' | 'icon'}
+
 export type AiWidgetOptions = {
-  hotkey?: string // default is 'Mod-i'
+  /* hotkey to trigger ai widget, default is 'Mod-i' */
+  hotkey?: string
 
-  chat: (view: EditorView, req: ChatReq) => Promise<ChatRes>
-  cancelChat: () => void
+  /* chat with ai */
+  chat: (view: EditorView, chatId: string, req: ChatReq) => Promise<ChatRes>
+  cancelChat: (chatId: string) => void
 
-  onEvent?: (view: EditorView, type: string, payload?: any) => void
+  /* event call, for telemetry if you need */
+  onEvent?: (view: EditorView, type: EventType, payload?: {}) => void
 
-  getDbList: () => string[] // for auto add `use {db};` statement if miss it
+  /* for auto add `use {db};` statement if miss it */
+  getDbList: () => string[]
 }
