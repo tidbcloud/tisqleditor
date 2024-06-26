@@ -31,6 +31,7 @@ const editorView = new EditorView({
     extensions: [
       aiWidget({
         chat: async () => {
+          // replace it by yourself chat to AI api in production
           await delay(2000)
           return { status: 'success', message: 'select * from test;' }
         },
