@@ -10,7 +10,10 @@ import {
   keymap
 } from '@codemirror/view'
 
-import { getCurStatements } from '@tidbcloud/codemirror-extension-cur-sql'
+import {
+  getCurDatabase,
+  getFirstNonUseTypeStatement
+} from '@tidbcloud/codemirror-extension-cur-sql'
 
 import {
   ICON_ERROR,
@@ -29,19 +32,6 @@ const inputPluginCompartment = new Compartment()
 const unifiedMergeViewCompartment = new Compartment()
 
 type Pos = { from: number; to: number }
-
-//------------------------------------------
-
-function getFirstNonUseTypeStatement(state: EditorState) {
-  return getCurStatements(state).find((s) => s.type !== 'use')
-}
-
-function getCurDatabase(state: EditorState) {
-  const curStatements = getCurStatements(state)
-  if (curStatements.length === 0)
-    throw new Error('curStatements must not be empty')
-  return curStatements[0].database
-}
 
 //------------------------------------------
 
