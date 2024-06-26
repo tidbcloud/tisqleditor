@@ -44,8 +44,12 @@ export function isUnifiedMergeViewActive(state: EditorState) {
 }
 
 // this method triggers the AI widget to show.
-// this method can be called by hotkey (default is `Mod-i`), or from outside of the editor.
-// for example, a SQL statement is ran failed, then we can show a button with text "Fix SQL error" in the result panel,
+// this method can be called by hotkey (default is `Mod-i`), or click some content inside the editor, or from outside of the editor.
+//
+// example 1: when editor is empty, ai-widget will show default placeholder: `Press {hotkey} or <span>click here<span> to chat with AI`
+// after clicking the `click here`, this method will be called and show the prompt input widget.
+//
+// example 2: a SQL statement is ran failed, then we can show a button with text "Fix SQL error" in the result panel,
 // after clicking the button, it will call this method, trigger the AI widget, auto chat with AI with the prompt "Fix this SQL" immediately
 // the method is called may like this from outside: `activePromptInput(view, "Fix this SQL", true, "fix_sql_button", {from: 100, to: 200})`
 export function activePromptInput(
@@ -210,6 +214,22 @@ class PromptInputWidget extends WidgetType {
     public immediate: boolean
   ) {
     super()
+  }
+
+  // dismiss the prompt input widget by click `close` icon, or press `ESC`
+  dismiss(view: EditorView, by: 'icon' | 'esc_key' = 'icon'): void {
+    const { cancelChat, onEvent } = aiWidgetOptions
+
+    onEvent?.(view, 'close', { by })
+    cancelChat(this.chatId)
+
+    if (isUnifiedMergeViewActive(view.state)) {
+      rejectChunks(view)
+      recoverSelection(view, this.oriSelPos)
+    }
+
+    unloadPromptPlugins(view)
+    view.focus()
   }
 
   toDOM(view: EditorView): HTMLElement {
@@ -413,17 +433,7 @@ class PromptInputWidget extends WidgetType {
       }
     }
     closeIcon.onclick = () => {
-      onEvent?.(view, 'close', { by: 'icon' })
-      normalStatus()
-      cancelChat(this.chatId)
-
-      if (isUnifiedMergeViewActive(view.state)) {
-        rejectChunks(view)
-        recoverSelection(view, this.oriSelPos)
-      }
-
-      unloadPromptPlugins(view)
-      view.focus()
+      this.dismiss(view)
     }
     acceptBtn.onclick = () => {
       onEvent?.(view, 'accept.click', {
@@ -536,8 +546,14 @@ const inputPlugin = (defPrompt: string, immediate: boolean) =>
   ViewPlugin.fromClass(
     class {
       decorations: DecorationSet
+      promptInputWidget: PromptInputWidget
 
-      constructor(view: EditorView) {
+      dismissEventListener = (e: Event) => {
+        const source = (e as CustomEvent).detail.source
+        this.promptInputWidget.dismiss(this.view, source)
+      }
+
+      constructor(public view: EditorView) {
         let { from, to } = view.state.selection.main
         const line = view.state.doc.lineAt(from)
 
@@ -547,19 +563,36 @@ const inputPlugin = (defPrompt: string, immediate: boolean) =>
           throw new Error('pos < 0')
         }
 
+        this.promptInputWidget = new PromptInputWidget(
+          { from, to },
+          defPrompt,
+          immediate
+        )
         this.decorations = Decoration.set([
           Decoration.widget({
-            widget: new PromptInputWidget({ from, to }, defPrompt, immediate),
+            widget: this.promptInputWidget,
             side: 1
             // block: true, // totally doesn't work
           }).range(pos)
         ])
+
+        document.addEventListener(
+          'dismiss_ai_widget',
+          this.dismissEventListener
+        )
       }
 
       update(v: ViewUpdate) {
         // update the decoration pos if content changes
         // for example: after clicking `Add use {db};` button to insert new content before the widget
         this.decorations = this.decorations.map(v.changes)
+      }
+
+      destroy() {
+        document.removeEventListener(
+          'dismiss_ai_widget',
+          this.dismissEventListener
+        )
       }
     },
     {
