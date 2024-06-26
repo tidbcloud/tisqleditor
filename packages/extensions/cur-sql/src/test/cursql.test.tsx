@@ -1,33 +1,12 @@
 import '@testing-library/jest-dom'
-import { render } from '@testing-library/react'
-import React, { useEffect, useRef } from 'react'
 
-import { createSQLEditorInstance, EditorCache } from '../../../../core'
+import { createSQLEditorInstance } from '../../../../core'
 
-const cache = new EditorCache()
-const Codemirror = () => {
-  const editorContainerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const editor = createSQLEditorInstance({
-      editorId: 'curSqlTestCodemirror',
-      doc: ``
-    })
-    cache.addEditor(editor.editorId, editor)
-    editorContainerRef.current?.appendChild(editor.editorView.dom)
-  }, [])
-
-  return <div className="cur-sql-test" ref={editorContainerRef} />
-}
-
-test('cur sql extension', () => {
-  render(<Codemirror />)
-
-  const editor = cache.getEditor('curSqlTestCodemirror')
-  expect(editor).not.toBeUndefined()
-  if (!editor) return
-
-  editor.editorView.focus()
+test('cur sql extension with empty doc', () => {
+  const editor = createSQLEditorInstance({
+    editorId: 'curSqlTestCodemirror1',
+    doc: ``
+  })
 
   const line1 = 'USE game;'
   const line2 = `SELECT
