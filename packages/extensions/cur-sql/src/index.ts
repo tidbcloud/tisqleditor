@@ -87,6 +87,19 @@ export function getCurStatements(state: EditorState) {
   return state.field(curStatementsField)
 }
 
+export function getCurDatabase(state: EditorState) {
+  const curStatements = getCurStatements(state)
+  if (curStatements.length === 0)
+    throw new Error('curStatements must not be empty')
+  return curStatements[0].database
+}
+
+// ai-widget extension use this function to get the first non-use statement
+// if there is no non-use statement, not should the tooltip hint and hotkey should not trigger widget
+export function getFirstNonUseTypeStatement(state: EditorState) {
+  return getCurStatements(state).find((s) => s.type !== 'use')
+}
+
 //-------------------
 
 export function curSql() {

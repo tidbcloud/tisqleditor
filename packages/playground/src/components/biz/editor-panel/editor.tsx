@@ -12,10 +12,15 @@ import {
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
 import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
+import {
+  aiWidget,
+  isUnifiedMergeViewActive
+} from '@tidbcloud/codemirror-extension-ai-widget'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
 import { SchemaRes, useSchemaContext } from '@/contexts/schema-context'
+import { delay } from '@/lib/delay'
 
 function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
   const schema: any = {}
@@ -74,8 +79,8 @@ export function Editor() {
         }),
         autoCompletion(),
         curSqlGutter({
-          whenHide: (_view) => {
-            return false
+          whenHide: (view) => {
+            return isUnifiedMergeViewActive(view.state)
           }
         }),
         useDbLinter({
@@ -83,7 +88,17 @@ export function Editor() {
             return false
           }
         }),
-        fullWidthCharLinter()
+        fullWidthCharLinter(),
+        aiWidget({
+          chat: async () => {
+            await delay(2000)
+            return { status: 'success', message: 'select * from test;' }
+          },
+          cancelChat: () => {},
+          getDbList: () => {
+            return ['test1', 'test2']
+          }
+        })
       ]
     }
     return []
