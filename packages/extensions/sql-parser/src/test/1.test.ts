@@ -16,11 +16,13 @@ const DOC = `\n${LINE_1}\n\n${LINE_2}\n\n`
 test('test getSqlStatements', () => {
   const editorView = new EditorView({
     state: EditorState.create({
+      doc: DOC,
       extensions: [sql({ dialect: MySQL }), sqlParser()]
     })
   })
 
-  editorView.dispatch({ changes: { from: 0, insert: DOC } })
+  // dispatch any a transaction to trigger update event for editor
+  editorView.dispatch({ selection: { anchor: 0, head: 0 } })
 
   const allStatements = getSqlStatements(editorView.state)
   expect(allStatements.length).toBe(2)
@@ -47,11 +49,13 @@ test('test getSqlStatements', () => {
 test('test getNearbyStatement', () => {
   const editorView = new EditorView({
     state: EditorState.create({
+      doc: DOC,
       extensions: [sql({ dialect: MySQL }), sqlParser()]
     })
   })
 
-  editorView.dispatch({ changes: { from: 0, insert: DOC } })
+  // dispatch any a transaction to trigger update event for editor
+  editorView.dispatch({ selection: { anchor: 0, head: 0 } })
 
   let nearestStatement = getNearbyStatement(editorView.state, 0)
   expect(nearestStatement?.content).toBe(LINE_1)
