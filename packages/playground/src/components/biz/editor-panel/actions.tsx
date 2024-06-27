@@ -66,7 +66,7 @@ export function EditorActions() {
         )}
         Run
       </Button>
-      <Button variant="outline" className="mr-2">
+      <Button variant="outline" size="sm" className="mr-2">
         <a href={`/?example=all&with_select`} target="_blank">
           Example
         </a>

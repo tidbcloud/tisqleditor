@@ -226,7 +226,11 @@ class PromptInputWidget extends WidgetType {
     const { cancelChat, onEvent } = aiWidgetOptions
 
     onEvent?.(view, 'close', { by })
-    cancelChat(this.chatId)
+
+    // chat maybe canceled before close
+    if (this.chatId) {
+      cancelChat(this.chatId)
+    }
 
     if (isUnifiedMergeViewActive(view.state)) {
       rejectChunks(view)
@@ -398,6 +402,10 @@ class PromptInputWidget extends WidgetType {
       onEvent?.(view, 'req.send', { chatReq: this.chatReq })
       const start = performance.now()
       const res = await chat(view, this.chatId, this.chatReq)
+      // this request maybe canceled before returning
+      if (this.chatId === '') {
+        return
+      }
       const duration = performance.now() - start
       this.chatRes = res
 
@@ -439,6 +447,9 @@ class PromptInputWidget extends WidgetType {
         cancelChat(this.chatId)
         normalStatus()
         recoverSelection(view, this.oriSelPos)
+
+        // reset
+        this.chatId = ''
         this.chatRes = null
       } else {
         form.requestSubmit()
