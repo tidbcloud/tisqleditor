@@ -18,7 +18,7 @@ export default async (req: Request, _context: Context) => {
     return new Response(
       JSON.stringify({
         code: 400,
-        message: 'bad request params, database or question should not empty.',
+        message: 'bad request, database or question should not empty.',
         data: {}
       }),
       { status: 400 }
