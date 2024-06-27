@@ -8,7 +8,11 @@ const LINE_2 = `SELECT * from companies LIMIT 10;`
 
 const INIT_DOC = `\n${LINE_1}\n\n`
 
-test('test auto save after content changes without any delay', () => {
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+test('test auto save after content changes without any delay', async () => {
   let latestContent = ''
   const editorView = new EditorView({
     state: EditorState.create({
@@ -27,9 +31,10 @@ test('test auto save after content changes without any delay', () => {
   // dispatch a change transaction to update the content
   editorView.dispatch({ changes: { from: 0, insert: LINE_2 } })
 
-  setTimeout(() => {
-    expect(latestContent).toBe(`${LINE_2}${INIT_DOC}`)
-  }, 0)
+  expect(latestContent).toBe(``)
+
+  await delay(0)
+  expect(latestContent).toBe(`${LINE_2}${INIT_DOC}`)
 })
 
 test('test auto save after content changes without 1s delay', async () => {
@@ -51,12 +56,13 @@ test('test auto save after content changes without 1s delay', async () => {
   // dispatch a change transaction to update the content
   editorView.dispatch({ changes: { from: 0, insert: LINE_2 } })
 
-  setTimeout(() => {
-    expect(latestContent).toBe(`${INIT_DOC}`)
-  }, 0)
-  setTimeout(() => {
-    expect(latestContent).toBe(`${LINE_2}${INIT_DOC}`)
-  }, 1000)
+  expect(latestContent).toBe(``)
+
+  await delay(100)
+  expect(latestContent).toBe(``)
+
+  await delay(1000)
+  expect(latestContent).toBe(`${LINE_2}${INIT_DOC}`)
 })
 
 test('test turn off auto save', async () => {
@@ -79,9 +85,8 @@ test('test turn off auto save', async () => {
   // dispatch a change transaction to update the content
   editorView.dispatch({ changes: { from: 0, insert: LINE_2 } })
 
-  setTimeout(() => {
-    expect(latestContent).toBe(`${INIT_DOC}`)
-  }, 0)
+  await delay(100)
+  expect(latestContent).toBe(``)
 })
 
 test('test manual save with default hotkey', () => {
