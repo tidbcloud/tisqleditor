@@ -45,9 +45,14 @@ export default async (req: Request, _context: Context) => {
     body: JSON.stringify(data)
   }
 
-  const res = await fetch(url, fetchOptions).then((res) => res.json())
+  let statusCode = 200
+  const res = await fetch(url, fetchOptions).then((res) => {
+    console.log(res.status)
+    statusCode = res.status
+    return res.json()
+  })
 
-  return new Response(JSON.stringify(res))
+  return new Response(JSON.stringify(res), { status: statusCode })
 }
 
 export const config: Config = { path: '/api/chat2data' }
