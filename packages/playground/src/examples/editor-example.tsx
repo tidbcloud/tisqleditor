@@ -59,7 +59,11 @@ export function EditorExample({
         return aiWidget({
           chat: async () => {
             await delay(2000)
-            return { status: 'success', message: 'select * from test;' }
+            return {
+              status: 'success',
+              message:
+                'select * from test;\n-- the data is mocked, replace by your own api when using'
+            }
           },
           cancelChat: () => {},
           getDbList: () => {
