@@ -1,10 +1,15 @@
 # @tidbcloud/codemirror-extension-ai-widget
 
-// TODO: video
+This extension provides a widget to chat with AI to help you write or refine SQL by human language.
+
+https://github.com/tidbcloud/tisqleditor/assets/1284531/46684333-7efa-4925-bf58-9ab3fb45f692
 
 ## Features
 
-// TODO
+- Show placeholder when doc is empty or starting write a new SQL statement
+- Show tooltip hint when select content
+- Easy to use prompt input widget to chat with AI
+- Show diff view to compare the result and the original content
 
 ## Installation
 
@@ -51,13 +56,13 @@ const editorView = new EditorView({
 type ChatReq = {
   prompt: string
   refContent: string
-  extra?: {}
+  extra?: any
 }
 
 type ChatRes = {
   status: 'success' | 'error'
   message: string
-  extra?: {}
+  extra?: any
 }
 
 type AiWidgetOptions = {
@@ -88,7 +93,7 @@ type AiWidgetOptions = {
   chat: (view: EditorView, chatId: string, req: ChatReq) => Promise<ChatRes>
   cancelChat: (chatId: string) => void
 
-  /* event call, for telemetry if you need */
+  /* event callback, for telemetry if you need */
   onEvent?: (view: EditorView, type: EventType, payload?: {}) => void
 
   /* for auto add `use {db};` statement if miss it */
@@ -99,8 +104,10 @@ function aiWidget(options: AiWidgetOptions): Extension
 
 /* check whether prompt input widget is active */
 function isPromptInputActive(state: EditorState): boolean
+
 /* check whether diff view is active */
 function isUnifiedMergeViewActive(state: EditorState): boolean
+
 /* trigger the prompt input widget to show */
 function activePromptInput(
   view: EditorView,

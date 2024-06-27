@@ -10,7 +10,10 @@ import {
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
 import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
-import { aiWidget } from '@tidbcloud/codemirror-extension-ai-widget'
+import {
+  aiWidget,
+  isUnifiedMergeViewActive
+} from '@tidbcloud/codemirror-extension-ai-widget'
 import { delay } from '@/lib/delay'
 
 const EXAMPLE_SQL = `
@@ -75,7 +78,11 @@ export function EditorExample({
         return autoCompletion()
       }
       if (item === 'cur-sql-gutter') {
-        return curSqlGutter()
+        return curSqlGutter({
+          whenHide(view) {
+            return isUnifiedMergeViewActive(view.state)
+          }
+        })
       }
       if (item === 'use-db-linter') {
         return useDbLinter()

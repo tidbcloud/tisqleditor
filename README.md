@@ -2,16 +2,19 @@
 
 TiSQLEditor is a CodeMirror6 based SQL code editor which is used in TiDB Cloud Console.
 
-[Try Playground](https://tisqleditor-playground.netlify.app/)
+- [Try Playground](https://tisqleditor-playground.netlify.app/)
+- [Try Example](https://tisqleditor-playground.netlify.app/?example=all)
 
-![image](./packages/playground/public/playground.png)
+![image](./packages/playground/public/playground-2.png)
+
+https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-26479bd59d11
 
 ## Features
 
 - Support edit multiple SQL files
 - Supply React component (Vue component wip)
 - Out of box extensions
-- AI Widget (wip)
+- AI Widget to chat with AI to help write or refine SQL
 
 ## Packages
 
@@ -19,11 +22,12 @@ TiSQLEditor is a CodeMirror6 based SQL code editor which is used in TiDB Cloud C
 | ---------------------------------------------- | ------------------------------------------------------------------------- |
 | @tidbcloud/tisqleditor                         | SQLEditorInstance with pre-configured extensions                          |
 | @tidbcloud/tisqleditor-react                   | React component wrapper                                                   |
+| @tidbcloud/codemirror-extension-ai-widget      | a widget to chat with AI to help write or refine SQL by human language    |
 | @tidbcloud/codemirror-extension-sql-parser     | parse the editor content to SQL statements                                |
 | @tidbcloud/codemirror-extension-cur-sql        | get the selected SQL statements                                           |
 | @tidbcloud/codemirror-extension-cur-sql-gutter | show gutter for the selected SQL statements                               |
 | @tidbcloud/codemirror-extension-save-helper    | save the editor content if it changes                                     |
-| @tidbcloud/codemirror-extension-autocomplete   |                                                                           |
+| @tidbcloud/codemirror-extension-autocomplete   | refine the original @codemirror/autocomplete to provides better style     |
 | @tidbcloud/codemirror-extension-linters        |                                                                           |
 | @tidbcloud/codemirror-extension-events         |                                                                           |
 | @tidbcloud/codemirror-extension-themes         | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
@@ -43,6 +47,10 @@ import {
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
 import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
+import {
+  aiWidget,
+  isUnifiedMergeViewActive
+} from '@tidbcloud/codemirror-extension-ai-widget'
 
 export function Editor() {
   const {
@@ -57,6 +65,12 @@ export function Editor() {
     () => convertSchemaToSQLConfig(schema ?? []),
     [schema]
   )
+  const getDbListRef = useRef<() => string[]>()
+  getDbListRef.current = () => {
+    return schema?.map((d) => d.name) || []
+  }
+
+  const chatCtx = useChatContext()
 
   const activeFile = useMemo(
     () => openedFiles.find((f) => f.id === activeFileId),
@@ -72,9 +86,25 @@ export function Editor() {
           }
         }),
         autoCompletion(),
-        curSqlGutter(),
+        curSqlGutter({
+          whenHide: (view) => {
+            return isUnifiedMergeViewActive(view.state)
+          }
+        }),
         useDbLinter(),
-        fullWidthCharLinter()
+        fullWidthCharLinter(),
+        aiWidget({
+          chat(view, chatId, req) {
+            const db = getCurDatabase(view.state)
+            req['extra']['db'] = db
+            return chatCtx.chat(chatId, { ...req })
+          },
+          cancelChat: chatCtx.cancelChat,
+          onEvent(_view, type, payload) {
+            chatCtx.onEvent(type, payload)
+          },
+          getDbList: getDbListRef.current!
+        })
       ]
     }
     return []
