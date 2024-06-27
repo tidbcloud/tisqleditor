@@ -29,7 +29,7 @@ export default async (req: Request, _context: Context) => {
   }
 
   let statusCode = 200
-  const res = await fetch(url, fetchOptions).then((res) => {
+  const res = await fetch(jobStatusUrl, fetchOptions).then((res) => {
     console.log(res.status)
     statusCode = res.status
     return res.json()
