@@ -66,6 +66,11 @@ export function EditorActions() {
         )}
         Run
       </Button>
+      <Button variant="outline" size="sm" className="mr-2">
+        <a href={`/?example=all&with_select`} target="_blank">
+          Example
+        </a>
+      </Button>
       <DarkModeToggle />
       <Button variant="ghost" size="icon">
         <a href="https://github.com/tidbcloud/tisqleditor" target="_blank">

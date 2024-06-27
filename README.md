@@ -2,12 +2,15 @@
 
 TiSQLEditor is a CodeMirror6 based SQL code editor which is used in TiDB Cloud Console.
 
-- [Try Playground](https://tisqleditor-playground.netlify.app/)
-- [Try Example](https://tisqleditor-playground.netlify.app/?example=all)
+- [Try Full Featured Playground](https://tisqleditor-playground.netlify.app/)
 
 ![image](./packages/playground/public/playground-2.png)
 
 https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-26479bd59d11
+
+- [Try Simple Example](https://tisqleditor-playground.netlify.app/?example=all&with_select)
+
+![image](./packages/playground/public/example.png)
 
 ## Features
 
