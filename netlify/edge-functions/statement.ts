@@ -6,14 +6,16 @@ type StatementReq = {
   sql: string
 }
 
+// url:
+// mysql://[user]:[pwd]@[host]/
+// database is skipped and its default value is `test`
+const DATABASE_URL = Netlify.env.get('TIDBCLOUD_DATABASE_URL')
+
 export default async (req: Request, _context: Context) => {
   const body: StatementReq = await req.json()
 
-  // url:
-  // mysql://[user]:[pwd]@[host]/
-  // database is skipped and its default value is `test`
   const conn = connect({
-    url: Netlify.env.get('TIDBCLOUD_DATABASE_URL') + body.database
+    url: DATABASE_URL + body.database
   })
 
   if (body.sql.trim().toLowerCase().startsWith('select')) {

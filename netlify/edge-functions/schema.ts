@@ -12,12 +12,14 @@ type SchemaRes = {
   }[]
 }[]
 
+// url:
+// mysql://[user]:[pwd]@[host]/
+// database is skipped and its default value is `test`
+const DATABASE_URL = Netlify.env.get('TIDBCLOUD_DATABASE_URL')
+
 export default async () => {
-  // url:
-  // mysql://[user]:[pwd]@[host]/
-  // database is skipped and its default value is `test`
   const conn = connect({
-    url: Netlify.env.get('TIDBCLOUD_DATABASE_URL')
+    url: DATABASE_URL
   })
 
   let schema: SchemaRes = []
