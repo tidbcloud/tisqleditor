@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
+
 import { EditorView, placeholder } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { SQLConfig } from '@codemirror/lang-sql'
@@ -16,11 +17,12 @@ import {
   aiWidget,
   isUnifiedMergeViewActive
 } from '@tidbcloud/codemirror-extension-ai-widget'
+import { getCurDatabase } from '@tidbcloud/codemirror-extension-cur-sql'
 
 import { useFilesContext } from '@/contexts/files-context'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
 import { SchemaRes, useSchemaContext } from '@/contexts/schema-context'
-import { delay } from '@/lib/delay'
+import { useChatContext } from '@/contexts/chat-context'
 
 function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
   const schema: any = {}
@@ -63,6 +65,12 @@ export function Editor() {
     () => convertSchemaToSQLConfig(schema ?? []),
     [schema]
   )
+  const getDbListRef = useRef<() => string[]>()
+  getDbListRef.current = () => {
+    return schema?.map((d) => d.name) || []
+  }
+
+  const chatCtx = useChatContext()
 
   const activeFile = useMemo(
     () => openedFiles.find((f) => f.id === activeFileId),
@@ -90,14 +98,16 @@ export function Editor() {
         }),
         fullWidthCharLinter(),
         aiWidget({
-          chat: async () => {
-            await delay(2000)
-            return { status: 'success', message: 'select * from test;' }
+          chat(view, chatId, req) {
+            const db = getCurDatabase(view.state)
+            req['extra']['db'] = db
+            return chatCtx.chat(chatId, { ...req })
           },
-          cancelChat: () => {},
-          getDbList: () => {
-            return ['test1', 'test2']
-          }
+          cancelChat: chatCtx.cancelChat,
+          onEvent(_view, type, payload) {
+            chatCtx.onEvent(type, payload)
+          },
+          getDbList: getDbListRef.current!
         })
       ]
     }

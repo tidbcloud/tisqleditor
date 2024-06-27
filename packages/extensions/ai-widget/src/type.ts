@@ -3,16 +3,16 @@ import { EditorView } from '@codemirror/view'
 export type ChatReq = {
   prompt: string
   refContent: string
-  extra?: {}
+  extra?: any
 }
 
 export type ChatRes = {
   status: 'success' | 'error'
   message: string
-  extra?: {}
+  extra?: any
 }
 
-type EventType =
+export type EventType =
   | 'widget.open' // {source: 'hotkey' | 'placeholder' | 'fix_sql_button' | ...}
   | 'no_use_db.error'
   | 'req.send' // {chatReq}

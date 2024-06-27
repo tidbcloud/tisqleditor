@@ -9,6 +9,7 @@ import { FilesProvider } from '@/contexts/files-context-provider'
 import { SchemaProvider } from '@/contexts/schema-context-provider'
 
 import { EditorExample } from '@/examples/editor-example'
+import { ChatProvider } from './contexts/chat-context-provider'
 
 const queryClient = new QueryClient()
 
@@ -20,7 +21,9 @@ function Full() {
           <StatementProvider>
             <SchemaProvider>
               <FilesProvider>
-                <Panels />
+                <ChatProvider>
+                  <Panels />
+                </ChatProvider>
               </FilesProvider>
             </SchemaProvider>
           </StatementProvider>

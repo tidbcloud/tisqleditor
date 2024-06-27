@@ -426,6 +426,9 @@ importers:
       '@tidbcloud/codemirror-extension-autocomplete':
         specifier: workspace:^
         version: link:../extensions/autocomplete
+      '@tidbcloud/codemirror-extension-cur-sql':
+        specifier: workspace:^
+        version: link:../extensions/cur-sql
       '@tidbcloud/codemirror-extension-cur-sql-gutter':
         specifier: workspace:^
         version: link:../extensions/cur-sql-gutter
