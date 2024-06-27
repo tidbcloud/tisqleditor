@@ -28,6 +28,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@codemirror/lang-sql": "^6.6.4",
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.26.3",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -36,6 +37,7 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
+    "@codemirror/lang-sql": "^6.6.4",
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.26.3"
   },
