@@ -1,7 +1,7 @@
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 
-import { saveHelper } from '../'
+import { saveHelper } from '..'
 
 const LINE_1 = `USE sp500insight;`
 const LINE_2 = `SELECT * from companies LIMIT 10;`

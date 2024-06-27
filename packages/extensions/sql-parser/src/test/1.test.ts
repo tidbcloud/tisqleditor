@@ -2,7 +2,7 @@ import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import { MySQL, sql } from '@codemirror/lang-sql'
 
-import { sqlParser, getSqlStatements, getNearbyStatement } from '../'
+import { sqlParser, getSqlStatements, getNearbyStatement } from '..'
 
 const LINE_1 = `USE sp500insight;`
 const LINE_2 = `SELECT sector, industry, COUNT(*) AS companies
