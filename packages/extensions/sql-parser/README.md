@@ -13,7 +13,7 @@ npm install @tidbcloud/codemirror-extension-sql-parser
 You need to install its peer dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/state @codemirror/language
+npm install @codemirror/view @codemirror/state @codemirror/language @codemirror/lang-sql
 ```
 
 ## Usage
@@ -21,12 +21,13 @@ npm install @codemirror/view @codemirror/state @codemirror/language
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
+import { sql, MySQL } from '@codemirror/lang-sql'
 import { sqlParser } from '@tidbcloud/codemirror-extension-sql-parser'
 
 const editorView = new EditorView({
   state: EditorState.create({
     doc,
-    extensions: [sqlParser()]
+    extensions: [sql({ dialect: MySQL }), sqlParser()]
   })
 })
 ```
