@@ -40,7 +40,11 @@ export function isPromptInputActive(state: EditorState) {
 }
 
 export function isUnifiedMergeViewActive(state: EditorState) {
-  return (unifiedMergeViewCompartment.get(state) as Extension[]).length > 0
+  const mergeViewExt = unifiedMergeViewCompartment.get(state)
+  if (mergeViewExt) {
+    return (mergeViewExt as Extension[]).length > 0
+  }
+  return false
 }
 
 // this method triggers the AI widget to show.

@@ -86,6 +86,8 @@ export function OpenedFilesTabs() {
 }
 ```
 
+> **Notice: if you don't need to support multiple CodeMirror instances, aka you don't need to edit multiple SQL files at the same time, then you don't need to use the `<EditorCacheProvider>`, just to use `<SQLEditor>` component.**
+
 ## API
 
 ### EditorCacheProvider

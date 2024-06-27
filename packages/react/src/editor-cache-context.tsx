@@ -7,9 +7,22 @@ const EditorCacheContext = createContext<EditorCacheCtxValue | null>(null)
 
 export const useEditorCacheContext = () => {
   const context = useContext(EditorCacheContext)
+  const cacheRef = useRef<EditorCache>(new EditorCache())
 
+  useEffect(() => {
+    return () => {
+      cacheRef.current.clearEditors()
+    }
+  }, [])
+
+  // if you don't need to edit multiple SQL files,
+  // then you don't need to use EditorCacheProvider in the top
   if (!context) {
-    throw new Error('useEditorCacheContext must be used within a provider')
+    // throw new Error('useEditorCacheContext must be used within a provider')
+    console.warn(
+      `useEditorCacheContext: no find EditorCacheProvider, so the cache is not shared, can't support multiple CodeMirror instances`
+    )
+    return cacheRef.current
   }
 
   return context

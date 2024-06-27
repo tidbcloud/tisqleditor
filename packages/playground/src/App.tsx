@@ -10,10 +10,17 @@ import { SchemaProvider } from '@/contexts/schema-context-provider'
 
 import { EditorExample } from '@/examples/editor-example'
 import { ChatProvider } from './contexts/chat-context-provider'
+import { EditorExampleWithSelect } from './examples/editor-example-with-select'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  }
+})
 
-function Full() {
+function FullPlayground() {
   return (
     <QueryClientProvider client={queryClient}>
       <EditorCacheProvider>
@@ -37,16 +44,21 @@ function App() {
   const params = new URLSearchParams(window.location.search)
   const example = params.get('example')
   const isDark = params.get('theme') === 'dark'
+  const withSelect = params.get('with_select')
 
   if (example !== null) {
-    return (
-      <EditorCacheProvider>
-        <EditorExample example={example} isDark={isDark} />
-      </EditorCacheProvider>
-    )
+    if (withSelect !== null) {
+      return (
+        <ThemeProvider>
+          <EditorExampleWithSelect initExample={example} />
+        </ThemeProvider>
+      )
+    }
+
+    return <EditorExample example={example} isDark={isDark} />
   }
 
-  return <Full />
+  return <FullPlayground />
 }
 
 export default App
