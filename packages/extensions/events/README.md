@@ -1,6 +1,9 @@
 # @tidbcloud/codemirror-extension-events
 
 Events extensions for CodeMirror6. This extension provides 3 default events: onChange, onFocusChange and onSelectionChange.
+onChange: any doc change will trigger this event
+onFocusChange: while the cursor change will trigger this event
+onSelectionChange: while selection content change will trigger this event
 
 ## Installation
 

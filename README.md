@@ -21,20 +21,21 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 
 ## Packages
 
+All the extensions as below:
+
 | package                                        | desc                                                                      |
 | ---------------------------------------------- | ------------------------------------------------------------------------- |
 | @tidbcloud/tisqleditor                         | SQLEditorInstance with pre-configured extensions                          |
 | @tidbcloud/tisqleditor-react                   | React component wrapper                                                   |
-| @tidbcloud/codemirror-extension-ai-widget      | a widget to chat with AI to help write or refine SQL by human language    |
 | @tidbcloud/codemirror-extension-sql-parser     | parse the editor content to SQL statements                                |
 | @tidbcloud/codemirror-extension-cur-sql        | get the selected SQL statements                                           |
 | @tidbcloud/codemirror-extension-cur-sql-gutter | show gutter for the selected SQL statements                               |
 | @tidbcloud/codemirror-extension-save-helper    | save the editor content if it changes                                     |
-| @tidbcloud/codemirror-extension-autocomplete   | refine the original @codemirror/autocomplete to provides better style     |
-| @tidbcloud/codemirror-extension-linters        |                                                                           |
-| @tidbcloud/codemirror-extension-events         |                                                                           |
+| @tidbcloud/codemirror-extension-autocomplete   | SQL keyword and database schema autocomplete tips                         |
+| @tidbcloud/codemirror-extension-linters        | Full-width characters, regular expression, or use statements linter       |
+| @tidbcloud/codemirror-extension-events         | 3 normal event extension                                                  |
 | @tidbcloud/codemirror-extension-themes         | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
-| @tidbcloud/codemirror-extension-basic-setup    |                                                                           |
+| @tidbcloud/codemirror-extension-basic-setup    | Basic configuration for the CodeMirror6 code editor                       |
 
 ## Usage
 
@@ -56,89 +57,33 @@ import {
 } from '@tidbcloud/codemirror-extension-ai-widget'
 
 export function Editor() {
-  const {
-    api: { saveFile },
-    state: { activeFileId, openedFiles }
-  } = useFilesContext()
-
-  const { isDark } = useTheme()
-
-  const { schema } = useSchemaContext()
-  const sqlConfig = useMemo(
-    () => convertSchemaToSQLConfig(schema ?? []),
-    [schema]
-  )
-  const getDbListRef = useRef<() => string[]>()
-  getDbListRef.current = () => {
-    return schema?.map((d) => d.name) || []
-  }
-
-  const chatCtx = useChatContext()
-
-  const activeFile = useMemo(
-    () => openedFiles.find((f) => f.id === activeFileId),
-    [activeFileId, openedFiles]
-  )
-
-  const extraExts = useMemo(() => {
-    if (activeFile && activeFile.status === 'loaded') {
-      return [
-        saveHelper({
-          save: (view: EditorView) => {
-            saveFile(activeFile.id, view.state.doc.toString())
-          }
-        }),
-        autoCompletion(),
-        curSqlGutter({
-          whenHide: (view) => {
-            return isUnifiedMergeViewActive(view.state)
-          }
-        }),
-        useDbLinter(),
-        fullWidthCharLinter(),
-        aiWidget({
-          chat(view, chatId, req) {
-            const db = getCurDatabase(view.state)
-            req['extra']['db'] = db
-            return chatCtx.chat(chatId, { ...req })
-          },
-          cancelChat: chatCtx.cancelChat,
-          onEvent(_view, type, payload) {
-            chatCtx.onEvent(type, payload)
-          },
-          getDbList: getDbListRef.current!
-        })
-      ]
-    }
-    return []
-  }, [activeFile])
-
-  if (!activeFile) {
-    return (
-      <div className="h-full flex items-center justify-center">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-          TiSQLEditor
-        </h1>
-      </div>
-    )
-  }
-
-  if (activeFile.status === 'loading') {
-    return (
-      <SQLEditor
-        className="h-full"
-        editorId="loading"
-        doc=""
-        theme={isDark ? oneDark : bbedit}
-        extraExts={[
-          placeholder('loading...'),
-          // both needed to prevent user from typing
-          EditorView.editable.of(false),
-          EditorState.readOnly.of(true)
-        ]}
-      />
-    )
-  }
+  const extraExts = [
+    saveHelper({
+      save: (view: EditorView) => {
+        saveFile(activeFile.id, view.state.doc.toString())
+      }
+    }),
+    autoCompletion(),
+    curSqlGutter({
+      whenHide: (view) => {
+        return isUnifiedMergeViewActive(view.state)
+      }
+    }),
+    useDbLinter(),
+    fullWidthCharLinter(),
+    aiWidget({
+      chat(view, chatId, req) {
+        const db = getCurDatabase(view.state)
+        req['extra']['db'] = db
+        return chatCtx.chat(chatId, { ...req })
+      },
+      cancelChat: chatCtx.cancelChat,
+      onEvent(_view, type, payload) {
+        chatCtx.onEvent(type, payload)
+      },
+      getDbList: getDbListRef.current!
+    })
+  ]
 
   return (
     <SQLEditor
@@ -146,7 +91,8 @@ export function Editor() {
       editorId={activeFile.id}
       doc={activeFile.content}
       sqlConfig={sqlConfig}
-      theme={isDark ? oneDark : bbedit}
+      theme={oneDark}
+      // theme={bbedit}
       extraExts={extraExts}
     />
   )

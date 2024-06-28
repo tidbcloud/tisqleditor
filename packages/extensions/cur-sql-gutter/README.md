@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-cur-sql-gutter
 
-This extension listens the editor selection change, and shows gutter for the selected statements to make it highlight.
+This extension listens the editor selection change, and shows gutter for the SQL statement around the cursor position to make it highlight.
 
 ## Installation
 
@@ -35,13 +35,10 @@ const editorView = new EditorView({
 interface CurSqlGutterConfig {
   /* gutter background */
   backgroundColor?: string
-
   /* gutter width */
   width?: number
-
   /* gutter extra css class */
   className?: string
-
   /* control gutter to hide when some cases happen */
   whenHide?: (view: EditorView) => boolean
 }
