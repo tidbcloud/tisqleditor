@@ -28,14 +28,18 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@codemirror/lang-sql": "^6.6.4",
     "@codemirror/view": "^6.26.3",
+    "@codemirror/state": "^6.4.1",
     "@rollup/plugin-typescript": "^11.1.6",
     "rollup": "^4.18.0",
     "tslib": "^2.6.3",
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "@codemirror/view": "^6.26.3"
+    "@codemirror/lang-sql": "^6.6.4",
+    "@codemirror/view": "^6.26.3",
+    "@codemirror/state": "^6.4.1"
   },
   "dependencies": {
     "@tidbcloud/codemirror-extension-cur-sql": "workspace:^",

@@ -3,9 +3,7 @@ import { EditorView, ViewUpdate } from '@codemirror/view'
 import { getCurStatements } from '@tidbcloud/codemirror-extension-cur-sql'
 import { SqlStatement } from '@tidbcloud/codemirror-extension-sql-parser'
 
-type FocusChangeHelperOptions = {
-  onFocusChange: (curSql: SqlStatement[]) => void
-}
+type FocusChangeHelperOptions = (curSql: SqlStatement[]) => void
 
 const focusChangeHandler = (change: (curSql: SqlStatement[]) => void) => {
   let timer: number | undefined
@@ -28,8 +26,6 @@ const focusChangeHandler = (change: (curSql: SqlStatement[]) => void) => {
   })
 }
 
-export const focusChangeHelper = ({
-  onFocusChange
-}: FocusChangeHelperOptions) => {
-  return [focusChangeHandler(onFocusChange)]
+export const onFocusChange = (onFocusChangeCb: FocusChangeHelperOptions) => {
+  return [focusChangeHandler(onFocusChangeCb)]
 }
