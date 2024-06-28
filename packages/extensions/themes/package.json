@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/codemirror-extension-themes",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "tisqleditor extensions",
   "type": "module",
   "main": "dist/index.js",
