@@ -19,8 +19,17 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
 
+      - name: Creating .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            @tidbcloud:registry=https://npm.pkg.github.com
+            //npm.pkg.github.com/:_authToken=$PKG_TOKEN
+          EOF
+        env:
+          PKG_TOKEN: ${{ secrets.PKG_TOKEN }}
+
       - name: Install Dependencies
         run: pnpm i
 
-      - name: Build Package
+      - name: Build Playground
         run: pnpm build:playground
