@@ -1,15 +1,13 @@
-name: Build & Test
+name: Test Published Packages
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - test-published-packages
 
 jobs:
   build_test:
-    if: github.event.pull_request.head.ref != 'test-published-packages'
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -25,7 +23,4 @@ jobs:
         run: pnpm i
 
       - name: Build Package
-        run: pnpm build
-
-      - name: Test
-        run: pnpm test
+        run: pnpm build:playground
