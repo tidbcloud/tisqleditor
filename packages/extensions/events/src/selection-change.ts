@@ -5,9 +5,11 @@ export interface SelectionRange {
   to: number
 }
 
-type SelectionChangeHelperOptions = (curSql: SelectionRange[]) => void
+type SelectionChangeHelperOptions = (selectionRange: SelectionRange[]) => void
 
-const selectionChangeHandler = (change: (curSql: SelectionRange[]) => void) => {
+const selectionChangeHandler = (
+  change: (selectionRange: SelectionRange[]) => void
+) => {
   let timer: number | undefined
   let first = true
 
