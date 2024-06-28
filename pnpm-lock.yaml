@@ -430,32 +430,32 @@ importers:
         specifier: ^5.45.1
         version: 5.45.1(react@18.3.1)
       '@tidbcloud/codemirror-extension-ai-widget':
-        specifier: workspace:^
-        version: link:../extensions/ai-widget
+        specifier: ^0.0.2
+        version: 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/merge@6.6.3)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
       '@tidbcloud/codemirror-extension-autocomplete':
-        specifier: workspace:^
-        version: link:../extensions/autocomplete
+        specifier: ^0.0.2
+        version: 0.0.2(@codemirror/autocomplete@6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
       '@tidbcloud/codemirror-extension-cur-sql':
-        specifier: workspace:^
-        version: link:../extensions/cur-sql
+        specifier: ^0.0.2
+        version: 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
       '@tidbcloud/codemirror-extension-cur-sql-gutter':
-        specifier: workspace:^
-        version: link:../extensions/cur-sql-gutter
+        specifier: ^0.0.2
+        version: 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
       '@tidbcloud/codemirror-extension-linters':
-        specifier: workspace:^
-        version: link:../extensions/linters
+        specifier: ^0.0.2
+        version: 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.0)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
       '@tidbcloud/codemirror-extension-save-helper':
-        specifier: workspace:^
-        version: link:../extensions/save-helper
+        specifier: ^0.0.2
+        version: 0.0.2(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
       '@tidbcloud/codemirror-extension-sql-parser':
-        specifier: workspace:^
-        version: link:../extensions/sql-parser
+        specifier: ^0.0.2
+        version: 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
       '@tidbcloud/codemirror-extension-themes':
-        specifier: workspace:^
-        version: link:../extensions/themes
+        specifier: ^0.0.2
+        version: 0.0.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/highlight@1.2.0)
       '@tidbcloud/tisqleditor-react':
-        specifier: workspace:^
-        version: link:../react
+        specifier: ^0.0.2
+        version: 0.0.2(@codemirror/autocomplete@6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/highlight@1.2.0)(react@18.3.1)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -2371,6 +2371,90 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
+
+  '@tidbcloud/codemirror-extension-ai-widget@0.0.2':
+    resolution: {integrity: sha512-2kxFcv2f8i3VqF6lwoIVl8ka3ehjH7lnWU8CBx32BqvUiNZT9Pcw4YHRQws/UUjVCYMT66CQ+mlemJMa3aRJJA==, tarball: https://npm.pkg.github.com/download/@tidbcloud/codemirror-extension-ai-widget/0.0.2/49d7e25b978f36689e04a313ad4f8402c033ad3e}
+    peerDependencies:
+      '@codemirror/merge': ^6.6.3
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
+
+  '@tidbcloud/codemirror-extension-autocomplete@0.0.2':
+    resolution: {integrity: sha512-4HyW2WHGxX+QwuKyITGRz68gmnZqQ5J1jAIFa2dHR5hflUR3SIizBWg+sSAzn2ruqcF+psR2cuKWQTgeCPDGkA==, tarball: https://npm.pkg.github.com/download/@tidbcloud/codemirror-extension-autocomplete/0.0.2/4cc6dd63c6bf1bbb0af56a30ae2dfcba34a8aa33}
+    peerDependencies:
+      '@codemirror/autocomplete': ^6.16.2
+      '@codemirror/commands': 6.3.3
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
+
+  '@tidbcloud/codemirror-extension-basic-setup@0.0.2':
+    resolution: {integrity: sha512-cSstQiALxHxEE8yWfkCS1onYAVhXGxFwwSzvf+ZszPibBmUh5IMov+3txDkU0xXP4ZRzlgN4KYPLiRsMIcQXRA==, tarball: https://npm.pkg.github.com/download/@tidbcloud/codemirror-extension-basic-setup/0.0.2/8fdf31a7e2ac0bc63e04bfb290ce3bbe39df52a9}
+    peerDependencies:
+      '@codemirror/autocomplete': ^6.16.2
+      '@codemirror/commands': 6.3.3
+      '@codemirror/lang-sql': ^6.6.4
+      '@codemirror/language': ^6.10.2
+      '@codemirror/lint': ^6.8.0
+      '@codemirror/search': ^6.5.6
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
+      '@lezer/highlight': ^1.2.0
+
+  '@tidbcloud/codemirror-extension-cur-sql-gutter@0.0.2':
+    resolution: {integrity: sha512-mWsPYYThHfAevFaUergfQErPNiriebbMS+dr3+Tdl5My+/TL4b46S6+7ijfSSSrgB3KACPK4AibDPKH32ZjuVw==, tarball: https://npm.pkg.github.com/download/@tidbcloud/codemirror-extension-cur-sql-gutter/0.0.2/d646b11c6b8fa2a55da1b48ca89a669ec04b6cee}
+    peerDependencies:
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
+
+  '@tidbcloud/codemirror-extension-cur-sql@0.0.2':
+    resolution: {integrity: sha512-jBfTpRNKlZxVYvKtncm9h84k6gUVXMu94bJ2595JEwCHSPFXvU4Z/vXRTaujx2Ip4xqPVbZ6MQ97pbAwK6dcpQ==, tarball: https://npm.pkg.github.com/download/@tidbcloud/codemirror-extension-cur-sql/0.0.2/8bee22fbfd93f8c4877f62ddc9e713c60ed8831d}
+    peerDependencies:
+      '@codemirror/lang-sql': ^6.6.4
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
+
+  '@tidbcloud/codemirror-extension-linters@0.0.2':
+    resolution: {integrity: sha512-q/n9/KWPjCY7b9RpcWmLHeuc/CEVImV9QI5GisZj5LhdhoY1kE2OEHLtxoSctyeuO9NOhmh1SAQOVAsFcltz9g==, tarball: https://npm.pkg.github.com/download/@tidbcloud/codemirror-extension-linters/0.0.2/59b6ae26c61ccede745ce413e2bae327e7910575}
+    peerDependencies:
+      '@codemirror/lint': ^6.8.0
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
+
+  '@tidbcloud/codemirror-extension-save-helper@0.0.2':
+    resolution: {integrity: sha512-e5wG46MnzToVnn6i+HaIjfB3cXdTSQRQLVPl7/w5nO4btvi/FerqwUCEia06Vy/kd3mdRrEsKn7Q1BfW6H/4Mg==, tarball: https://npm.pkg.github.com/download/@tidbcloud/codemirror-extension-save-helper/0.0.2/1d8728d8ea1b6b2c1abc8f839563f797f68bc323}
+    peerDependencies:
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
+
+  '@tidbcloud/codemirror-extension-sql-parser@0.0.2':
+    resolution: {integrity: sha512-tXW14wxm9R+1sOzS6TRHBUzHBdSi0yVM8+nSO4nDetpMRtGpfRdYdSUOWpurffG4Q9xPK184rIt4BnAc65BrCA==, tarball: https://npm.pkg.github.com/download/@tidbcloud/codemirror-extension-sql-parser/0.0.2/1b3ba80eed58ed6ce3b88df521c1e220bb71de40}
+    peerDependencies:
+      '@codemirror/lang-sql': ^6.6.4
+      '@codemirror/language': ^6.10.2
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
+
+  '@tidbcloud/codemirror-extension-themes@0.0.2':
+    resolution: {integrity: sha512-tUZQJnPmNgucd0jJnN76derKAxe4ppLE1WlhAV9An4rpmr6dljBKKEBTGcTXEXfunT+xwj3AhS3P3eMHQjkMCQ==, tarball: https://npm.pkg.github.com/download/@tidbcloud/codemirror-extension-themes/0.0.2/1225a9bd56d98aadfa6d136328bd2be5986064c5}
+    peerDependencies:
+      '@codemirror/language': ^6.10.2
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
+      '@lezer/highlight': ^1.2.0
+
+  '@tidbcloud/tisqleditor-react@0.0.2':
+    resolution: {integrity: sha512-bx3Uh2S9ONe7Q9Oa4wg5Cpg8lt4087PPmX7plmAko0orf5iWVn1xX1mjJOQqlsApmkmkZVUqdHLbopkpfMXP7w==, tarball: https://npm.pkg.github.com/download/@tidbcloud/tisqleditor-react/0.0.2/716a56674e10c5edfd356b371fdfcde56bf4abfd}
+    peerDependencies:
+      react: ^18.3.1
+
+  '@tidbcloud/tisqleditor@0.0.2':
+    resolution: {integrity: sha512-PQCSwFmDDVnHWeuGoTkOzJDc+wwVtsnHRbRlmnt1bc2XWzxvLCk99xe5vAm3O9Mb5WBxTAQVsbRcJ15OcurNZw==, tarball: https://npm.pkg.github.com/download/@tidbcloud/tisqleditor/0.0.2/dea848796d3e82b4301294af3bc56efd665f6f3e}
+    peerDependencies:
+      '@codemirror/lang-sql': ^6.6.4
+      '@codemirror/language': ^6.10.2
+      '@codemirror/search': ^6.5.6
+      '@codemirror/state': ^6.4.1
+      '@codemirror/view': ^6.26.3
 
   '@tootallnate/once@2.0.0':
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
@@ -7183,6 +7267,114 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
+
+  '@tidbcloud/codemirror-extension-ai-widget@0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/merge@6.6.3)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)':
+    dependencies:
+      '@codemirror/merge': 6.6.3
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+      '@tidbcloud/codemirror-extension-cur-sql': 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
+    transitivePeerDependencies:
+      - '@codemirror/lang-sql'
+      - '@codemirror/language'
+
+  '@tidbcloud/codemirror-extension-autocomplete@0.0.2(@codemirror/autocomplete@6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)':
+    dependencies:
+      '@codemirror/autocomplete': 6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1)
+      '@codemirror/commands': 6.3.3
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+
+  '@tidbcloud/codemirror-extension-basic-setup@0.0.2(@codemirror/autocomplete@6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/highlight@1.2.0)':
+    dependencies:
+      '@codemirror/autocomplete': 6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1)
+      '@codemirror/commands': 6.3.3
+      '@codemirror/lang-sql': 6.6.4(@codemirror/view@6.26.3)
+      '@codemirror/language': 6.10.2
+      '@codemirror/lint': 6.8.0
+      '@codemirror/search': 6.5.6
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+      '@lezer/highlight': 1.2.0
+
+  '@tidbcloud/codemirror-extension-cur-sql-gutter@0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)':
+    dependencies:
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+      '@tidbcloud/codemirror-extension-cur-sql': 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
+      '@tidbcloud/codemirror-extension-sql-parser': 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
+    transitivePeerDependencies:
+      - '@codemirror/lang-sql'
+      - '@codemirror/language'
+
+  '@tidbcloud/codemirror-extension-cur-sql@0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)':
+    dependencies:
+      '@codemirror/lang-sql': 6.6.4(@codemirror/view@6.26.3)
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+      '@tidbcloud/codemirror-extension-sql-parser': 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
+    transitivePeerDependencies:
+      - '@codemirror/language'
+
+  '@tidbcloud/codemirror-extension-linters@0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.0)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)':
+    dependencies:
+      '@codemirror/lint': 6.8.0
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+      '@tidbcloud/codemirror-extension-sql-parser': 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
+    transitivePeerDependencies:
+      - '@codemirror/lang-sql'
+      - '@codemirror/language'
+
+  '@tidbcloud/codemirror-extension-save-helper@0.0.2(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)':
+    dependencies:
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+
+  '@tidbcloud/codemirror-extension-sql-parser@0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)':
+    dependencies:
+      '@codemirror/lang-sql': 6.6.4(@codemirror/view@6.26.3)
+      '@codemirror/language': 6.10.2
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+
+  '@tidbcloud/codemirror-extension-themes@0.0.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/highlight@1.2.0)':
+    dependencies:
+      '@codemirror/language': 6.10.2
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+      '@lezer/highlight': 1.2.0
+
+  '@tidbcloud/tisqleditor-react@0.0.2(@codemirror/autocomplete@6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/highlight@1.2.0)(react@18.3.1)':
+    dependencies:
+      '@tidbcloud/tisqleditor': 0.0.2(@codemirror/autocomplete@6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/highlight@1.2.0)
+      react: 18.3.1
+    transitivePeerDependencies:
+      - '@codemirror/autocomplete'
+      - '@codemirror/commands'
+      - '@codemirror/lang-sql'
+      - '@codemirror/language'
+      - '@codemirror/lint'
+      - '@codemirror/search'
+      - '@codemirror/state'
+      - '@codemirror/view'
+      - '@lezer/highlight'
+
+  '@tidbcloud/tisqleditor@0.0.2(@codemirror/autocomplete@6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/highlight@1.2.0)':
+    dependencies:
+      '@codemirror/lang-sql': 6.6.4(@codemirror/view@6.26.3)
+      '@codemirror/language': 6.10.2
+      '@codemirror/search': 6.5.6
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.3
+      '@tidbcloud/codemirror-extension-basic-setup': 0.0.2(@codemirror/autocomplete@6.16.2(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)(@lezer/highlight@1.2.0)
+      '@tidbcloud/codemirror-extension-cur-sql': 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
+      '@tidbcloud/codemirror-extension-sql-parser': 0.0.2(@codemirror/lang-sql@6.6.4(@codemirror/view@6.26.3))(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.26.3)
+    transitivePeerDependencies:
+      - '@codemirror/autocomplete'
+      - '@codemirror/commands'
+      - '@codemirror/lint'
+      - '@lezer/highlight'
 
   '@tootallnate/once@2.0.0': {}
 
