@@ -5,9 +5,7 @@ export interface SelectionRange {
   to: number
 }
 
-type SelectionChangeHelperOptions = {
-  onFocusChange: (curSql: SelectionRange[]) => void
-}
+type SelectionChangeHelperOptions = (curSql: SelectionRange[]) => void
 
 const selectionChangeHandler = (change: (curSql: SelectionRange[]) => void) => {
   let timer: number | undefined
@@ -36,8 +34,8 @@ const selectionChangeHandler = (change: (curSql: SelectionRange[]) => void) => {
   })
 }
 
-export const onSelectionChange = ({
-  onFocusChange
-}: SelectionChangeHelperOptions) => {
-  return [selectionChangeHandler(onFocusChange)]
+export const onSelectionChange = (
+  onSelectionChange: SelectionChangeHelperOptions
+) => {
+  return [selectionChangeHandler(onSelectionChange)]
 }

@@ -1,8 +1,6 @@
 import { EditorView, ViewUpdate } from '@codemirror/view'
 
-type ChangeHelperOptions = {
-  onChange: (sql: string, view?: EditorView) => void
-}
+type ChangeHelperOptions = (sql: string, view?: EditorView) => void
 
 const changeHandler = (change: (sql: string, view?: EditorView) => void) => {
   return EditorView.updateListener.of((update: ViewUpdate) => {
@@ -13,6 +11,6 @@ const changeHandler = (change: (sql: string, view?: EditorView) => void) => {
   })
 }
 
-export const onChange = ({ onChange }: ChangeHelperOptions) => {
+export const onChange = (onChange: ChangeHelperOptions) => {
   return [changeHandler(onChange)]
 }
