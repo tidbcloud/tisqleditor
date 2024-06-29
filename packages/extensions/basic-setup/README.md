@@ -11,7 +11,7 @@ npm install @tidbcloud/codemirror-extension-basic-setup
 You need to install its peer dependencies as well:
 
 ```shell
-npm install @codemirror/autocomplete @codemirror/commands @codemirror/lang-sql @codemirror/language  @codemirror/lint @codemirror/search @codemirror/state @codemirror/view  @lezer/highlight
+npm install @codemirror/autocomplete @codemirror/commands @codemirror/language  @codemirror/lint @codemirror/search @codemirror/state @codemirror/view
 ```
 
 ## Usage
@@ -19,10 +19,7 @@ npm install @codemirror/autocomplete @codemirror/commands @codemirror/lang-sql @
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import {
-  BasicSetupOptions,
-  basicSetup
-} from '@tidbcloud/codemirror-extension-basic-setup'
+import { basicSetup } from '@tidbcloud/codemirror-extension-basic-setup'
 
 const editorView = new EditorView({
   state: EditorState.create({
@@ -42,7 +39,7 @@ const editorView = new EditorView({
 ## API
 
 ```ts
-export interface MinimalSetupOptions {
+interface MinimalSetupOptions {
   highlightSpecialChars?: boolean
   history?: boolean
   drawSelection?: boolean
@@ -52,7 +49,7 @@ export interface MinimalSetupOptions {
   historyKeymap?: boolean
 }
 
-export interface BasicSetupOptions extends MinimalSetupOptions {
+interface BasicSetupOptions extends MinimalSetupOptions {
   lineNumbers?: boolean
   highlightActiveLineGutter?: boolean
   foldGutter?: boolean
@@ -74,5 +71,6 @@ export interface BasicSetupOptions extends MinimalSetupOptions {
   lintKeymap?: boolean
 }
 
-function minimalSetup(options?: MinimalSetupOptions) => Extension[]
+const basicSetup: (options?: BasicSetupOptions) => Extension[]
+const minimalSetup: (options?: MinimalSetupOptions) => Extension[]
 ```
