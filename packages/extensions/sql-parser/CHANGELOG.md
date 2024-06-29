@@ -1,5 +1,11 @@
 # @tidbcloud/codemirror-extension-sql-parser
 
+## 0.0.3
+
+### Patch Changes
+
+- 2dc625f: bump version
+
 ## 0.0.2
 
 ### Patch Changes

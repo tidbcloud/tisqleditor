@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/codemirror-extension-cur-sql",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "codemirror extension to get current selected sql",
   "type": "module",
   "main": "dist/index.js",

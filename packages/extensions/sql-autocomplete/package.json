@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/codemirror-extension-sql-autocomplete",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "codemiror extension for SQL keyword and database schema autocompletion with customized style",
   "type": "module",
   "main": "dist/index.js",

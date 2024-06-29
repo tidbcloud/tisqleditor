@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/codemirror-extension-linters",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "codemirror linter extensions",
   "type": "module",
   "main": "dist/index.js",
