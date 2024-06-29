@@ -2,7 +2,7 @@
   "name": "tisqleditor",
   "private": "true",
   "version": "0.0.1",
-  "description": "a SQL editor based codemirror6",
+  "description": "a SQL code editor based codemirror6",
   "main": "index.js",
   "scripts": {
     "prepare": "husky",

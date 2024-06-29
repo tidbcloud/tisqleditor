@@ -10,7 +10,8 @@
     "dist/*.js",
     "dist/*.ts",
     "package.json",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "tsc:watch": "tsc --watch",
