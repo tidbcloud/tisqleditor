@@ -1,3 +1,2 @@
-export * from './change'
-export * from './focus-change'
+export * from './doc-change'
 export * from './selection-change'

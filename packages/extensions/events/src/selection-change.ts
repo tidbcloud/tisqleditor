@@ -1,3 +1,4 @@
+import { Extension } from '@codemirror/state'
 import { EditorView, ViewUpdate } from '@codemirror/view'
 
 export interface SelectionRange {
@@ -5,11 +6,12 @@ export interface SelectionRange {
   to: number
 }
 
-type SelectionChangeHelperOptions = (selectionRange: SelectionRange[]) => void
+type SelectionChangeHandler = (
+  view: EditorView,
+  selRanges: SelectionRange[]
+) => void
 
-const selectionChangeHandler = (
-  change: (selectionRange: SelectionRange[]) => void
-) => {
+const selectionChangeListener = (handler: SelectionChangeHandler) => {
   let timer: number | undefined
   let first = true
 
@@ -23,8 +25,11 @@ const selectionChangeHandler = (
     timer && clearTimeout(timer)
     timer = window.setTimeout(
       () => {
-        first && (first = false)
-        change(
+        if (first) {
+          first = false
+        }
+        handler(
+          v.view,
           v.state.selection.ranges.map((r) => ({
             from: r.from,
             to: r.to
@@ -36,8 +41,6 @@ const selectionChangeHandler = (
   })
 }
 
-export const onSelectionChange = (
-  onSelectionChange: SelectionChangeHelperOptions
-) => {
-  return [selectionChangeHandler(onSelectionChange)]
+export function onSelectionChange(handler: SelectionChangeHandler): Extension {
+  return selectionChangeListener(handler)
 }
