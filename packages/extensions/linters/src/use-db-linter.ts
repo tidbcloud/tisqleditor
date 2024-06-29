@@ -16,6 +16,8 @@ const databaseLinter = (config: DBLinterOptions) =>
   linter((view) => {
     const diagnostics: Diagnostic[] = []
 
+    // console.log('diagnostic count:', diagnosticCount(view.state))
+
     if (config.whenDisable && config.whenDisable(view)) {
       return diagnostics
     }
