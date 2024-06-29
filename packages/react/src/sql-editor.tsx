@@ -1,3 +1,6 @@
+// @ts-ignore
+// to make the test pass, else it will report `React is not defined` error
+import React from 'react'
 import { useEffect, useLayoutEffect, useRef } from 'react'
 
 import { useEditorCacheContext } from './editor-cache-context'
