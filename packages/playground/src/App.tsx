@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
   }
 })
 
-function FullPlayground() {
+function FullFeaturedPlayground() {
   return (
     <QueryClientProvider client={queryClient}>
       <EditorCacheProvider>
@@ -43,22 +43,18 @@ function FullPlayground() {
 function App() {
   const params = new URLSearchParams(window.location.search)
   const example = params.get('example')
-  const isDark = params.get('theme') === 'dark'
+  const theme = params.get('theme') ?? 'bbedit'
   const withSelect = params.get('with_select')
 
   if (example !== null) {
     if (withSelect !== null) {
-      return (
-        <ThemeProvider>
-          <EditorExampleWithSelect initExample={example} />
-        </ThemeProvider>
-      )
+      return <EditorExampleWithSelect defExample={example} defTheme={theme} />
     }
 
-    return <EditorExample example={example} isDark={isDark} />
+    return <EditorExample example={example} theme={theme} />
   }
 
-  return <FullPlayground />
+  return <FullFeaturedPlayground />
 }
 
 export default App
