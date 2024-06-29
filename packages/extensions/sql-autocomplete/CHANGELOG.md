@@ -1,5 +1,11 @@
 # @tidbcloud/codemirror-extension-sql-autocomplete
 
+## 0.0.3
+
+### Patch Changes
+
+- 2dc625f: rename package name from `@tidblcoud/codemirror-extension-autocomplete` to `@tidbcloud/codemirror-extension-sql-autocomplete`
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/codemirror-extension-themes",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "2 simple codemirror themes",
   "type": "module",
   "main": "dist/index.js",

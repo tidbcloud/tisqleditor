@@ -1,5 +1,14 @@
 # @tidbcloud/codemirror-extension-cur-sql-gutter
 
+## 0.0.3
+
+### Patch Changes
+
+- 2dc625f: bump version
+- Updated dependencies [2dc625f]
+  - @tidbcloud/codemirror-extension-cur-sql@0.0.3
+  - @tidbcloud/codemirror-extension-sql-parser@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
