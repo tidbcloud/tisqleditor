@@ -1,4 +1,4 @@
-# @tidbcloud/codemirror-extension-autocomplete
+# @tidbcloud/codemirror-extension-sql-autocomplete
 
 ## 0.0.2
 

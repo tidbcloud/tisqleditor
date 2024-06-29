@@ -9,7 +9,7 @@ import {
   useDbLinter,
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
-import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
+import { autoCompletion } from '@tidbcloud/codemirror-extension-sql-autocomplete'
 import {
   aiWidget,
   isUnifiedMergeViewActive

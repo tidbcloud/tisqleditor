@@ -1,11 +1,11 @@
-# @tidbcloud/codemirror-extension-autocomplete
+# @tidbcloud/codemirror-extension-sql-autocomplete
 
 This extension implements the SQL autocompletion based @codemirror/autocomplete for the CodeMirror6 editor.
 
 ## Installation
 
 ```shell
-npm install @tidbcloud/codemirror-extension-autocomplete
+npm install @tidbcloud/codemirror-extension-sql-autocomplete
 ```
 
 You need to install its peer dependencies as well:
@@ -19,7 +19,7 @@ npm install @codemirror/view @codemirror/state @codemirror/autocomplete @codemir
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { autoCompletion, AutoCompletionConfig } from '@tidbcloud/codemirror-extension-autocomplete'
+import { autoCompletion, AutoCompletionConfig } from '@tidbcloud/codemirror-extension-sql-autocomplete'
 
 const autoCompleteConfig = {
   acceptKey: 'Tab',
