@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-linters
 
-This extension provides 3 linters:
+3 linter codemirror extensions:
 
 - useDbLinter: use statement linter, the first statement should be `use ${dbName};`
 - fullWidthCharLinter: lint all the full width characters

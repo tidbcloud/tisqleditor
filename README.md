@@ -29,12 +29,12 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 | @tidbcloud/codemirror-extension-sql-parser       | parse the editor content to SQL statements                                |
 | @tidbcloud/codemirror-extension-cur-sql          | get the selected SQL statements                                           |
 | @tidbcloud/codemirror-extension-cur-sql-gutter   | show gutter for the selected SQL statements                               |
-| @tidbcloud/codemirror-extension-sql-autocomplete | SQL keyword and database schema autocomplete tips                         |
+| @tidbcloud/codemirror-extension-sql-autocomplete | SQL keyword and database schema autocomplete                              |
 | @tidbcloud/codemirror-extension-linters          | use db statement, full width chars, and regular expression linters        |
 | @tidbcloud/codemirror-extension-save-helper      | save the editor content if it changes                                     |
 | @tidbcloud/codemirror-extension-events           | 2 normal kinds of event listener: doc change, selection change            |
 | @tidbcloud/codemirror-extension-themes           | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
-| @tidbcloud/codemirror-extension-basic-setup      | basic configuration for the CodeMirror6 code editor                       |
+| @tidbcloud/codemirror-extension-basic-setup      | basic configuration for codemirror                                        |
 
 ## Usage
 

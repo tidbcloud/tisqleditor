@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-sql-autocomplete
 
-This extension implements the SQL keyword and database schema autocompletion based `@codemirror/autocomplete` for the CodeMirror6 editor, with a customized style.
+A codemirror extension implements the SQL keyword and database schema autocompletion based `@codemirror/autocomplete`, with a customized style.
 
 ## Try it
 

@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-basic-setup
 
-Default basic configuration for the CodeMirror6 code editor.
+Default basic configuration for codemirror.
 
 ## Installation
 

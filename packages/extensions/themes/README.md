@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-themes
 
-This extension provides 2 simple and out of box editor themes to use, `bbedit` is for light mode and `oneDark` is for dark mode.
+Codemirror theme extensions, provide 2 simple and out of box editor themes to use, `bbedit` is for light mode and `oneDark` is for dark mode.
 
 If these 2 themes are not suitable for you, you can choose other themes from third-party libraries or customized a theme by yourself.
 

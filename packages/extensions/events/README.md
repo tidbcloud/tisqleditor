@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-events
 
-2 normal kinds of event listener: doc change, selection change
+2 normal kinds of codemirror event listener: doc change, selection change
 
 - onDocChange: triggered when doc changes
 - onSelectionChange: triggered when selection changes

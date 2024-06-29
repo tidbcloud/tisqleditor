@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-save-helper
 
-This extension listens the editor doc changes, if changes, it will call the save handler in delay time, or, you can press the defined hotkey (default is `Mod-s`) to call save handler immediately.
+A codemirror extension listens the editor doc changes, if changes, it will call the save handler in delay time, or, you can press the defined hotkey (default is `Mod-s`) to call save handler immediately.
 
 ## Try it
 

@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-cur-sql-gutter
 
-This extension listens the editor selection change, and shows gutter for the SQL statements around the cursor position to make it highlight.
+A codemirror extension listens the editor selection change, and shows gutter for the SQL statements around the cursor position to make it highlight.
 
 ## Try it
 
