@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-ai-widget
 
-This extension provides a widget to chat with AI to help you write or refine SQL. (work with other language wip)
+This extension provides a widget to chat with AI to help you write or refine SQL. (work with other languages wip)
 
 https://github.com/tidbcloud/tisqleditor/assets/1284531/46684333-7efa-4925-bf58-9ab3fb45f692
 
