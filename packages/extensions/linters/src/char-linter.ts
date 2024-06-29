@@ -1,3 +1,4 @@
+import { Extension } from '@codemirror/state'
 import { linter, Diagnostic } from '@codemirror/lint'
 
 import { hintEle, linterBaseTheme } from './lint-style'
@@ -40,6 +41,6 @@ const fullWidthCharChecker = (config: charLinterConfig) =>
     return diagnostics
   })
 
-export const fullWidthCharLinter = (config: charLinterConfig = {}) => {
+export function fullWidthCharLinter(config: charLinterConfig = {}): Extension {
   return [fullWidthCharChecker(config), linterBaseTheme]
 }

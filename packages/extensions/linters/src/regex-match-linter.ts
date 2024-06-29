@@ -1,4 +1,6 @@
+import { Extension } from '@codemirror/state'
 import { linter, Diagnostic } from '@codemirror/lint'
+
 import { hintEle, linterBaseTheme } from './lint-style'
 
 export interface RegexpItem {
@@ -49,6 +51,6 @@ const regexMatchParser = (regs: RegexpItem[]) =>
     return diagnostics
   })
 
-export const regexMatchLinter = (config: RegexpItem[]) => {
+export function regexMatchLinter(config: RegexpItem[]): Extension {
   return [regexMatchParser(config), linterBaseTheme]
 }

@@ -1,4 +1,4 @@
-import { EditorState } from '@codemirror/state'
+import { EditorState, Extension } from '@codemirror/state'
 import { EditorView, Rect, keymap } from '@codemirror/view'
 import {
   acceptCompletion,
@@ -352,6 +352,8 @@ const autoCompleteTab = (config: AutoCompletionConfig) => {
   ])
 }
 
-export function sqlAutoCompletion(config: AutoCompletionConfig = {}) {
+export function sqlAutoCompletion(
+  config: AutoCompletionConfig = {}
+): Extension {
   return [baseTheme, customAutoCompletion(config), autoCompleteTab(config)]
 }

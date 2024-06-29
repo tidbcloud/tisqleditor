@@ -1,5 +1,10 @@
 import { ensureSyntaxTree } from '@codemirror/language'
-import { StateField, StateEffect, EditorState } from '@codemirror/state'
+import {
+  StateField,
+  StateEffect,
+  EditorState,
+  Extension
+} from '@codemirror/state'
 import { EditorView, ViewUpdate } from '@codemirror/view'
 
 export type SqlStatement = {
@@ -121,6 +126,6 @@ export function getNearbyStatement(state: EditorState, pos: number) {
 
 //-------------------
 
-export function sqlParser() {
+export function sqlParser(): Extension {
   return [statementsField, statementsParser()]
 }

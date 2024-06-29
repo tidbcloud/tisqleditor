@@ -1,4 +1,9 @@
-import { StateField, StateEffect, EditorState } from '@codemirror/state'
+import {
+  StateField,
+  StateEffect,
+  EditorState,
+  Extension
+} from '@codemirror/state'
 import { EditorView, ViewUpdate } from '@codemirror/view'
 
 import {
@@ -102,6 +107,6 @@ export function getFirstNonUseTypeStatement(state: EditorState) {
 
 //-------------------
 
-export function curSql() {
+export function curSql(): Extension {
   return [curStatementsField, curStatements()]
 }
