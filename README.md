@@ -10,7 +10,7 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 
 - [Try Simple Example](https://tisqleditor-playground.netlify.app/?example=all&with_select)
 
-![image](./packages/playground/public/example.png)
+![image](./packages/playground/public/example-2.png)
 
 ## Features
 
@@ -21,19 +21,18 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 
 ## Packages
 
-All the extensions as below:
-
 | package                                        | desc                                                                      |
 | ---------------------------------------------- | ------------------------------------------------------------------------- |
 | @tidbcloud/tisqleditor                         | SQLEditorInstance with pre-configured extensions                          |
 | @tidbcloud/tisqleditor-react                   | React component wrapper                                                   |
+| @tidbcloud/codemirror-extension-ai-widget      | a widget to chat with AI to help write or refine SQL                      |
 | @tidbcloud/codemirror-extension-sql-parser     | parse the editor content to SQL statements                                |
 | @tidbcloud/codemirror-extension-cur-sql        | get the selected SQL statements                                           |
 | @tidbcloud/codemirror-extension-cur-sql-gutter | show gutter for the selected SQL statements                               |
 | @tidbcloud/codemirror-extension-save-helper    | save the editor content if it changes                                     |
 | @tidbcloud/codemirror-extension-autocomplete   | SQL keyword and database schema autocomplete tips                         |
-| @tidbcloud/codemirror-extension-linters        | Full-width characters, regular expression, or use statements linter       |
-| @tidbcloud/codemirror-extension-events         | 3 normal event extension                                                  |
+| @tidbcloud/codemirror-extension-linters        | use db statement, full width chars, and regular expression linters        |
+| @tidbcloud/codemirror-extension-events         | 3 normal kinds of event listener                                          |
 | @tidbcloud/codemirror-extension-themes         | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
 | @tidbcloud/codemirror-extension-basic-setup    | Basic configuration for the CodeMirror6 code editor                       |
 
@@ -43,8 +42,8 @@ See [editor.tsx](./packages/playground/src/components/biz/editor-panel/editor.ts
 
 ```tsx
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
-import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
 import { bbedit, oneDark } from '@tidbcloud/codemirror-extension-themes'
+import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
 import { curSqlGutter } from '@tidbcloud/codemirror-extension-cur-sql-gutter'
 import {
   useDbLinter,
@@ -73,9 +72,7 @@ export function Editor() {
     fullWidthCharLinter(),
     aiWidget({
       chat(view, chatId, req) {
-        const db = getCurDatabase(view.state)
-        req['extra']['db'] = db
-        return chatCtx.chat(chatId, { ...req })
+        return chatCtx.chat(chatId, req)
       },
       cancelChat: chatCtx.cancelChat,
       onEvent(_view, type, payload) {
