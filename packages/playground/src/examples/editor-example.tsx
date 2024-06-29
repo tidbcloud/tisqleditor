@@ -17,9 +17,10 @@ import {
 import { delay } from '@/lib/delay'
 import { Extension } from '@codemirror/state'
 
-const EXAMPLE_SQL = `
-USE sp500insight;
-
+const DOC_1 = `USE sp500insight;`
+const DOC_2 = `-- USE sp500insight;`
+const DOC_3 = `-- USE sp500insight；`
+const DOC_4 = `
 SELECT sector, industry, COUNT(*) AS companies
 FROM companies c
 WHERE c.stock_symbol IN (SELECT stock_symbol FROM index_compositions WHERE index_symbol = "SP500")
@@ -73,6 +74,11 @@ const THEME_EXTS: { [key: string]: Extension } = {
   oneDark: oneDark
 }
 
+const EXAMPLE_DOCS: { [key: string]: string } = {
+  'use-db-linter': DOC_2,
+  'full-width-char-linter': DOC_3
+}
+
 export function EditorExample({
   example = '',
   theme = ''
@@ -80,25 +86,34 @@ export function EditorExample({
   example?: string
   theme?: string
 }) {
-  const extraExts = useMemo(() => {
+  const exampleArr = useMemo(() => {
     let exampleArr = example.split(',')
     if (exampleArr.includes('all')) {
       exampleArr = ALL_EXAMPLES
-    } else if (exampleArr.includes('linters')) {
-      exampleArr = exampleArr.concat([
-        'use-db-linter',
-        'full-width-char-linter'
-      ])
     }
-    exampleArr = [...new Set(exampleArr)]
-    return exampleArr.map((item) => EXAMPLE_EXTS[item])
+    return [...new Set(exampleArr)]
   }, [example])
+
+  const extraExts = useMemo(() => {
+    return exampleArr.map((item) => EXAMPLE_EXTS[item])
+  }, [exampleArr])
+
+  const doc = useMemo(() => {
+    let str = exampleArr
+      .map((item) => EXAMPLE_DOCS[item])
+      .filter((s) => !!s)
+      .join('\n')
+    if (str === '') {
+      str = DOC_1
+    }
+    return [str, DOC_4].join('\n')
+  }, [exampleArr])
 
   return (
     <SQLEditor
       className="h-full"
       editorId={example || 'default'}
-      doc={EXAMPLE_SQL}
+      doc={doc}
       theme={THEME_EXTS[theme]}
       extraExts={extraExts}
     />
