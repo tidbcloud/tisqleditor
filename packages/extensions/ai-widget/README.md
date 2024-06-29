@@ -25,7 +25,7 @@ npm install @tidbcloud/codemirror-extension-ai-widget
 You need to install its peer dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/state @codemirror/merge
+npm install @codemirror/view @codemirror/state @codemirror/merge @codemirror/lang-sql
 ```
 
 ## Usage
@@ -33,12 +33,19 @@ npm install @codemirror/view @codemirror/state @codemirror/merge
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
+import { sql, MySQL } from '@codemirror/lang-sql'
+import { sqlParser } from '@tidbcloud/codemirror-extension-sql-parser'
+import { curSql } from '@tidbcloud/codemirror-extension-cur-sql'
 import { aiWidget } from '@tidbcloud/codemirror-extension-ai-widget'
 
 const editorView = new EditorView({
   state: EditorState.create({
     doc,
     extensions: [
+      sql({ dialect: MySQL }),
+      sqlParser(),
+      curSql(),
+
       aiWidget({
         chat: async () => {
           // replace it by yourself chat to AI api in production

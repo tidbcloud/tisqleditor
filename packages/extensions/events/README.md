@@ -46,3 +46,20 @@ const editorView = new EditorView({
   })
 })
 ```
+
+## API
+
+```ts
+type DocChangeHandler = (view: EditorView, content: string) => void
+function onDocChange(handler: DocChangeHandler): Extension
+
+type SelectionRange = {
+  from: number
+  to: number
+}
+type SelectionChangeHandler = (
+  view: EditorView,
+  selRanges: SelectionRange[]
+) => void
+function onSelectionChange(handler: SelectionChangeHandler): Extension
+```

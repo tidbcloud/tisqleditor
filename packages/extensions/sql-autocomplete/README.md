@@ -16,7 +16,7 @@ npm install @tidbcloud/codemirror-extension-sql-autocomplete
 You need to install its peer dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/state @codemirror/autocomplete @codemirror/commands
+npm install @codemirror/view @codemirror/state @codemirror/autocomplete @codemirror/commands @codemirror/lang-sql
 ```
 
 ## Usage
@@ -24,12 +24,15 @@ npm install @codemirror/view @codemirror/state @codemirror/autocomplete @codemir
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
+import { sql, MySQL } from '@codemirror/lang-sql'
 import { sqlAutoCompletion } from '@tidbcloud/codemirror-extension-sql-autocomplete'
 
 const editorView = new EditorView({
   state: EditorState.create({
     doc,
     extensions: [
+      sql({ dialect: MySQL }),
+
       sqlAutoCompletion({
         acceptKey: 'Tab',
         autocompleteItemClassName: 'autocomplete-item-test'

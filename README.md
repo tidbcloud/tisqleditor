@@ -96,6 +96,10 @@ export function Editor() {
 }
 ```
 
+## Documentation
+
+// TODO: add documentation link from https://tidbcloud-uikit.netlify.app/
+
 ## Development
 
 ### Setup

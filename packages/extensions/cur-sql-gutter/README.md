@@ -16,7 +16,7 @@ npm install @tidbcloud/codemirror-extension-cur-sql-gutter
 You need to install its peer dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/state
+npm install @codemirror/view @codemirror/state @codemirror/lang-sql
 ```
 
 ## Usage
@@ -24,12 +24,15 @@ npm install @codemirror/view @codemirror/state
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
+import { sql, MySQL } from '@codemirror/lang-sql'
+import { sqlParser } from '@tidbcloud/codemirror-extension-sql-parser'
+import { curSql } from '@tidbcloud/codemirror-extension-cur-sql'
 import { curSqlGutter } from '@tidbcloud/codemirror-extension-cur-sql-gutter'
 
 const editorView = new EditorView({
   state: EditorState.create({
     doc,
-    extensions: [curSqlGutter()]
+    extensions: [sql({ dialect: MySQL }), sqlParser(), curSql(), curSqlGutter()]
   })
 })
 ```

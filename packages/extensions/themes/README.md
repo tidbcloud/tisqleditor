@@ -2,7 +2,7 @@
 
 This extension provides 2 simple and out of box editor themes to use, `bbedit` is for light mode and `oneDark` is for dark mode.
 
-If these 2 themes is not suitable for you, you can use other themes from third-party libraries or customized a theme by yourself.
+If these 2 themes are not suitable for you, you can choose other themes from third-party libraries or customized a theme by yourself.
 
 ## Installation
 

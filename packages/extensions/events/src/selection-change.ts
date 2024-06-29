@@ -1,7 +1,7 @@
 import { Extension } from '@codemirror/state'
 import { EditorView, ViewUpdate } from '@codemirror/view'
 
-export interface SelectionRange {
+export type SelectionRange = {
   from: number
   to: number
 }
