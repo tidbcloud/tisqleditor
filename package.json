@@ -2,7 +2,7 @@
   "name": "tisqleditor",
   "private": "true",
   "version": "0.0.1",
-  "description": "a SQL code editor based codemirror6",
+  "description": "a SQL code editor based codemirror",
   "main": "index.js",
   "scripts": {
     "prepare": "husky",
@@ -12,9 +12,10 @@
     "release": "changeset publish"
   },
   "keywords": [
+    "tidbcloud",
     "sql",
     "editor",
-    "codemirror6"
+    "codemirror"
   ],
   "author": "",
   "license": "MIT",

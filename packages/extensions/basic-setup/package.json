@@ -1,7 +1,7 @@
 {
   "name": "@tidbcloud/codemirror-extension-basic-setup",
   "version": "0.0.2",
-  "description": "basic setup extension for codemirror editor",
+  "description": "basic setup extension for codemirror",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",

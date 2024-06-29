@@ -1,7 +1,7 @@
 {
   "name": "@tidbcloud/tisqleditor-react",
   "version": "0.0.2",
-  "description": "",
+  "description": "tisqleditor react component",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -19,7 +19,13 @@
     "dev": "concurrently --kill-others \"pnpm tsc:watch\" \"pnpm rollup:watch\"",
     "build": "tsc && rollup -c"
   },
-  "keywords": [],
+  "keywords": [
+    "tidbcloud",
+    "sql",
+    "editor",
+    "codemirror",
+    "react component"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {

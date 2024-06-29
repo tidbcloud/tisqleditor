@@ -1,7 +1,7 @@
 {
   "name": "@tidbcloud/codemirror-extension-ai-widget",
   "version": "0.0.2",
-  "description": "tisqleditor extensions",
+  "description": "ai widget extension for codemirror",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -19,7 +19,15 @@
     "dev": "concurrently --kill-others \"pnpm tsc:watch\" \"pnpm rollup:watch\"",
     "build": "tsc && rollup -c"
   },
-  "keywords": [],
+  "keywords": [
+    "tidbcloud",
+    "sql",
+    "editor",
+    "codemirror",
+    "extension",
+    "ai",
+    "widget"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {

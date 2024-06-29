@@ -1,7 +1,7 @@
 {
   "name": "@tidbcloud/codemirror-extension-sql-parser",
   "version": "0.0.2",
-  "description": "tisqleditor extensions",
+  "description": "codemiror extension to parser editor content to SQL statements",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -23,7 +23,8 @@
     "tidbcloud",
     "sql",
     "editor",
-    "extensions",
+    "codemirror",
+    "extension",
     "sql parser"
   ],
   "author": "",
