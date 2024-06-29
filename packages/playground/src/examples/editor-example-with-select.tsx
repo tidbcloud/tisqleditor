@@ -13,9 +13,6 @@ import {
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 
-import { DarkModeToggle } from '@/components/darkmode-toggle/toggle'
-import { useTheme } from '@/components/darkmode-toggle/theme-provider'
-
 import { EditorExample } from './editor-example'
 
 function ExampleSelect({
@@ -27,7 +24,7 @@ function ExampleSelect({
 }) {
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className="w-[200px]">
+      <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select an extension" />
       </SelectTrigger>
       <SelectContent>
@@ -48,22 +45,55 @@ function ExampleSelect({
   )
 }
 
-export function EditorExampleWithSelect({
-  initExample
+function ThemeSelect({
+  value,
+  onChange
 }: {
-  initExample: string
+  value: string
+  onChange: (v: string) => void
 }) {
-  const [example, setExample] = useState(initExample)
-  const { isDark } = useTheme()
+  return (
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger className="w-[120px]">
+        <SelectValue placeholder="Select a theme" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Themes</SelectLabel>
+          <SelectItem value="bbedit">bbedit</SelectItem>
+          <SelectItem value="oneDark">oneDark</SelectItem>
+          <SelectItem value="default">default</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  )
+}
 
-  function onSelectValueChange(v: string) {
+function updateUrlParam(key: string, value: string) {
+  const url = new URL(window.location.href)
+  const params = new URLSearchParams(url.search)
+  params.set(key, value)
+  window.history.replaceState({}, '', `${url.pathname}?${params.toString()}`)
+}
+
+export function EditorExampleWithSelect({
+  defExample,
+  defTheme
+}: {
+  defExample: string
+  defTheme: string
+}) {
+  const [example, setExample] = useState(defExample)
+  const [theme, setTheme] = useState(defTheme)
+
+  function onExampleChange(v: string) {
     setExample(v)
+    updateUrlParam('example', v)
+  }
 
-    // update url
-    const url = new URL(window.location.href)
-    const params = new URLSearchParams(url.search)
-    params.set('example', v)
-    window.history.replaceState({}, '', `${url.pathname}?${params.toString()}`)
+  function onThemeChange(v: string) {
+    setTheme(v)
+    updateUrlParam('theme', v)
   }
 
   return (
@@ -74,25 +104,22 @@ export function EditorExampleWithSelect({
             TiSQLEditor
           </h1>
 
-          <div className="mt-10 flex items-center">
-            <ExampleSelect value={example} onChange={onSelectValueChange} />
-            <Button variant="ghost" size="icon" className="ml-2">
-              <a
-                href={`/?example=${example}&theme=${isDark ? 'dark' : 'light'}`}
-                target="_blank"
-              >
+          <div className="mt-10 flex items-center gap-1">
+            <ExampleSelect value={example} onChange={onExampleChange} />
+            <ThemeSelect value={theme} onChange={onThemeChange} />
+            <Button variant="ghost" size="icon">
+              <a href={`/?example=${example}&theme=${theme}`} target="_blank">
                 <EnterFullScreenIcon className="h-4 w-4" />
               </a>
             </Button>
 
             <div className="mr-auto"></div>
 
-            <Button variant="outline" className="mr-2">
+            <Button variant="outline">
               <a href={`/?`} target="_blank">
                 Playground
               </a>
             </Button>
-            <DarkModeToggle />
             <Button variant="ghost" size="icon">
               <a
                 href="https://github.com/tidbcloud/tisqleditor"
@@ -104,7 +131,7 @@ export function EditorExampleWithSelect({
           </div>
 
           <div className="mt-2 text-left border-2 h-[400px]">
-            <EditorExample example={example} isDark={isDark} />
+            <EditorExample example={example} theme={theme} />
           </div>
         </div>
       </div>
