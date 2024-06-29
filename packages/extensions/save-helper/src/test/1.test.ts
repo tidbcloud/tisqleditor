@@ -8,9 +8,7 @@ const LINE_2 = `SELECT * from companies LIMIT 10;`
 
 const INIT_DOC = `\n${LINE_1}\n\n`
 
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
+jest.useFakeTimers()
 
 test('test auto save after content changes without any delay', async () => {
   let latestContent = ''
@@ -33,7 +31,7 @@ test('test auto save after content changes without any delay', async () => {
 
   expect(latestContent).toBe(``)
 
-  await delay(0)
+  await jest.advanceTimersByTime(0)
   expect(latestContent).toBe(`${LINE_2}${INIT_DOC}`)
 })
 
@@ -58,10 +56,10 @@ test('test auto save after content changes without 1s delay', async () => {
 
   expect(latestContent).toBe(``)
 
-  await delay(100)
+  await jest.advanceTimersByTime(100)
   expect(latestContent).toBe(``)
 
-  await delay(1000)
+  await jest.advanceTimersByTime(1000)
   expect(latestContent).toBe(`${LINE_2}${INIT_DOC}`)
 })
 
@@ -85,7 +83,7 @@ test('test turn off auto save', async () => {
   // dispatch a change transaction to update the content
   editorView.dispatch({ changes: { from: 0, insert: LINE_2 } })
 
-  await delay(100)
+  await jest.advanceTimersByTime(100)
   expect(latestContent).toBe(``)
 })
 
