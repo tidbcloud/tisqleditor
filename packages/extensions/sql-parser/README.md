@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-sql-parser
 
-This extension listens the editor doc change, return all the parsed statements.
+A codemirror extension listens the editor doc change, parses the content to SQL statements.
 
 This extension is installed internally inside the `SQLEditorInstance`.
 

@@ -35,12 +35,12 @@ const saveKeymap = (key: string, save: (view: EditorView) => void) => {
   )
 }
 
-export const saveHelper = ({
+export function saveHelper({
   delay = 5000,
   auto = true,
   hotkey = 'Mod-s',
   save
-}: SaveHelperOptions) => {
+}: SaveHelperOptions): Extension {
   const exts: Extension[] = []
 
   if (auto) {

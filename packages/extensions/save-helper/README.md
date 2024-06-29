@@ -1,6 +1,11 @@
 # @tidbcloud/codemirror-extension-save-helper
 
-This extension listens the editor doc changes, if changes, it will call the save handler in delay time, or, you can press the defined hotkey (default is `Mod-s`) to call save handler immediately.
+A codemirror extension listens the editor doc changes, if changes, it will call the save handler in delay time, or, you can press the defined hotkey (default is `Mod-s`) to call save handler immediately.
+
+## Try it
+
+- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
+- [Simple Example](https://tisqleditor-playground.netlify.app/?example=save-helper&with_select)
 
 ## Installation
 
@@ -42,16 +47,13 @@ const editorView = new EditorView({
 type SaveHelperOptions = {
   /* in milliseconds, default 5000 */
   delay?: number
-
   /* default is true */
   auto?: boolean
-
   /* default is Mod-s */
   hotkey?: string
-
   /* save handler */
   save: (view: EditorView) => void
 }
 
-const saveHelper: (options: SaveHelperOptions) => Extension
+function saveHelper(options: SaveHelperOptions): Extension
 ```

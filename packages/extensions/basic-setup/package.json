@@ -1,7 +1,7 @@
 {
   "name": "@tidbcloud/codemirror-extension-basic-setup",
   "version": "0.0.2",
-  "description": "tisqleditor extensions",
+  "description": "basic setup extension for codemirror",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -10,7 +10,8 @@
     "dist/*.js",
     "dist/*.ts",
     "package.json",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "tsc:watch": "tsc --watch",
@@ -22,7 +23,8 @@
     "tidbcloud",
     "sql",
     "editor",
-    "extensions",
+    "codemirror",
+    "extension",
     "basic setup"
   ],
   "author": "",
@@ -30,7 +32,6 @@
   "devDependencies": {
     "@codemirror/autocomplete": "^6.16.2",
     "@codemirror/commands": "6.3.3",
-    "@codemirror/lang-sql": "^6.6.4",
     "@codemirror/language": "^6.10.2",
     "@codemirror/lint": "^6.8.0",
     "@codemirror/search": "^6.5.6",
@@ -44,12 +45,10 @@
   "peerDependencies": {
     "@codemirror/autocomplete": "^6.16.2",
     "@codemirror/commands": "6.3.3",
-    "@codemirror/lang-sql": "^6.6.4",
     "@codemirror/language": "^6.10.2",
     "@codemirror/lint": "^6.8.0",
     "@codemirror/search": "^6.5.6",
     "@codemirror/state": "^6.4.1",
-    "@codemirror/view": "^6.26.3",
-    "@lezer/highlight": "^1.2.0"
+    "@codemirror/view": "^6.26.3"
   }
 }

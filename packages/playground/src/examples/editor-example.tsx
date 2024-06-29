@@ -95,7 +95,7 @@ export function EditorExample({
   }, [example])
 
   const extraExts = useMemo(() => {
-    return exampleArr.map((item) => EXAMPLE_EXTS[item])
+    return exampleArr.map((item) => EXAMPLE_EXTS[item]).filter((ex) => !!ex)
   }, [exampleArr])
 
   const doc = useMemo(() => {

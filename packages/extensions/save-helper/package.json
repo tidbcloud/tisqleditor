@@ -1,7 +1,7 @@
 {
   "name": "@tidbcloud/codemirror-extension-save-helper",
   "version": "0.0.2",
-  "description": "tisqleditor extensions",
+  "description": "codemiror extension to help save editor content",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -10,7 +10,8 @@
     "dist/*.js",
     "dist/*.ts",
     "package.json",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "tsc:watch": "tsc --watch",
@@ -18,7 +19,14 @@
     "dev": "concurrently --kill-others \"pnpm tsc:watch\" \"pnpm rollup:watch\"",
     "build": "tsc && rollup -c"
   },
-  "keywords": [],
+  "keywords": [
+    "tidbcloud",
+    "sql",
+    "editor",
+    "codemirror",
+    "extension",
+    "save helper"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {

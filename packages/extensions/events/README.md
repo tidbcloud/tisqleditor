@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-events
 
-2 normal kinds of event listener: doc change, selection change
+2 normal kinds of codemirror event listener: doc change, selection change
 
 - onDocChange: triggered when doc changes
 - onSelectionChange: triggered when selection changes
@@ -45,4 +45,21 @@ const editorView = new EditorView({
     ]
   })
 })
+```
+
+## API
+
+```ts
+type DocChangeHandler = (view: EditorView, content: string) => void
+function onDocChange(handler: DocChangeHandler): Extension
+
+type SelectionRange = {
+  from: number
+  to: number
+}
+type SelectionChangeHandler = (
+  view: EditorView,
+  selRanges: SelectionRange[]
+) => void
+function onSelectionChange(handler: SelectionChangeHandler): Extension
 ```

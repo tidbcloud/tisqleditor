@@ -15,7 +15,7 @@ npm install @tidbcloud/tisqleditor
 You need to install its peer dependencies as well.
 
 ```shell
-npm install @codemirror/view @codemirror/state @codemirror/lang-sql @codemirror/language @codemirror/search
+npm install @codemirror/view @codemirror/state @codemirror/lang-sql
 ```
 
 ## Usage

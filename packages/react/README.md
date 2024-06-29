@@ -2,13 +2,18 @@
 
 This package provides a react component wrap for `SQLEditorInstance` from `@tidbcloud/tisqleditor`.
 
+## Try it
+
+- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
+- [Simple Example](https://tisqleditor-playground.netlify.app/?example&with_select)
+
 ## Installation
 
 ```shell
 npm install @tidbcloud/tisqleditor-react
 ```
 
-You need to install the its peer dependencies manually as well, likes `@codemirror/view`, `@codemirror/state`.
+You need to install all its peer dependencies manually as well, such as `@codemirror/view`, `@codemirror/state`.
 
 ## Usage
 
@@ -86,7 +91,7 @@ export function OpenedFilesTabs() {
 }
 ```
 
-> **Notice: if you don't need to support multiple CodeMirror instances, aka you don't need to edit multiple SQL files at the same time, then you don't need to use the `<EditorCacheProvider>`, just to use `<SQLEditor>` component.**
+> **Notice:** if you don't need to support multiple CodeMirror instances, aka you don't need to edit multiple SQL files at the same time, then you don't need to use the `<EditorCacheProvider>`, just to use `<SQLEditor>` component.
 
 ## API
 
