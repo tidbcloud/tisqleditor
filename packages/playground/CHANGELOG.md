@@ -6,7 +6,6 @@
 
 - 2dc625f: bump version
 - Updated dependencies [2dc625f]
-- Updated dependencies [2dc625f]
   - @tidbcloud/codemirror-extension-sql-autocomplete@0.0.3
   - @tidbcloud/codemirror-extension-ai-widget@0.0.3
   - @tidbcloud/codemirror-extension-cur-sql@0.0.3
