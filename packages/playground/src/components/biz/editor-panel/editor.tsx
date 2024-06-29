@@ -12,7 +12,7 @@ import {
   useDbLinter,
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
-import { autoCompletion } from '@tidbcloud/codemirror-extension-sql-autocomplete'
+import { sqlAutoCompletion } from '@tidbcloud/codemirror-extension-sql-autocomplete'
 import {
   aiWidget,
   isUnifiedMergeViewActive
@@ -85,7 +85,7 @@ export function Editor() {
             saveFile(activeFile.id, view.state.doc.toString())
           }
         }),
-        autoCompletion(),
+        sqlAutoCompletion(),
         curSqlGutter({
           whenHide: (view) => {
             return isUnifiedMergeViewActive(view.state)

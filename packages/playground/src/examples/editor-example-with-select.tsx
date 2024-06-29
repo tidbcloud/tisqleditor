@@ -31,13 +31,13 @@ function ExampleSelect({
         <SelectGroup>
           <SelectLabel>Extensions</SelectLabel>
           <SelectItem value="ai-widget">AI Widget</SelectItem>
-          <SelectItem value="save-helper">Save Helper</SelectItem>
-          <SelectItem value="autocomplete">AutoComplete</SelectItem>
+          <SelectItem value="sql-autocomplete">SQL AutoComplete</SelectItem>
           <SelectItem value="cur-sql-gutter">CurSqlGutter</SelectItem>
           <SelectItem value="use-db-linter">UseDb Linter</SelectItem>
           <SelectItem value="full-width-char-linter">
             FullWidthChar Linter
           </SelectItem>
+          <SelectItem value="save-helper">Save Helper</SelectItem>
           <SelectItem value="all">All</SelectItem>
         </SelectGroup>
       </SelectContent>
