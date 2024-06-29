@@ -1,10 +1,9 @@
 # @tidbcloud/codemirror-extension-events
 
-Events extensions for CodeMirror6. This extension provides 3 events: onChange, onFocusChange and onSelectionChange.
+2 normal kinds of event listener: doc change, selection change
 
-- onChange: any doc change will trigger this event
-- onFocusChange: while the cursor change will trigger this event
-- onSelectionChange: while selection content change will trigger this event
+- onDocChange: triggered when doc changes
+- onSelectionChange: triggered when selection changes
 
 ## Installation
 
@@ -24,33 +23,25 @@ npm install @codemirror/view @codemirror/state
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 import {
-  onChange,
-  onFocusChange,
-  onSelectionChange
+  onDocChange,
+  onSelectionChange,
+  SelectionRange
 } from '@tidbcloud/codemirror-extension-events'
 
-const onChangeHandler = (sql: string, view: EditorView) => {
-  console.log(sql, view)
+const docChangeHandler = (view: EditorView, doc: string) => {
+  console.log(doc)
 }
 
-const onFocusChangeHandler = (sql: string) => {
-  console.log(sql)
-}
-
-const onSelectionChangeHandler = (selectedRange: {
-  from: number
-  to: numer
-}) => {
-  console.log(selectedRange.from, selectedRange.to)
+const selectionChangeHandler = (view: EditorView, ranges: SelectionRange[]) => {
+  console.log(ranges)
 }
 
 const editorView = new EditorView({
   state: EditorState.create({
     doc,
     extensions: [
-      onChange(onChangeHandler),
-      focusChangeHelper(onFocusChangeHandler),
-      onSelectionChange(onSelectionChangeHandler)
+      onDocChange(docChangeHandler),
+      onSelectionChange(selectionChangeHandler)
     ]
   })
 })

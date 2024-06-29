@@ -1,7 +1,7 @@
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
 
-import { onChange } from '..'
+import { onDocChange } from '..'
 
 const LINE_1 = 'USE game;'
 const LINE_2 = `SELECT
@@ -14,24 +14,24 @@ LIMIT
 const DOC = `${LINE_1}\n${LINE_2}`
 
 test('test change event', () => {
-  let curSql = ''
+  let doc = ''
 
   const editorView = new EditorView({
     state: EditorState.create({
       doc: '',
       extensions: [
-        onChange((sql) => {
-          curSql = sql
+        onDocChange((_view, content) => {
+          doc = content
         })
       ]
     })
   })
 
   editorView.dispatch({ changes: { from: 0, insert: LINE_1 } })
-  expect(curSql).toBe(LINE_1)
+  expect(doc).toBe(LINE_1)
 
   editorView.dispatch({
     changes: { from: LINE_1.length, insert: `\n${LINE_2}` }
   })
-  expect(curSql).toBe(DOC)
+  expect(doc).toBe(DOC)
 })
