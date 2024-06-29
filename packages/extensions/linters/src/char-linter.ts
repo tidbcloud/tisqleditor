@@ -3,12 +3,12 @@ import { linter, Diagnostic } from '@codemirror/lint'
 
 import { hintEle, linterBaseTheme } from './lint-style'
 
-export interface charLinterConfig {
+export interface CharLinterConfig {
   title?: string
   message?: string
 }
 
-const fullWidthCharChecker = (config: charLinterConfig) =>
+const fullWidthCharChecker = (config: CharLinterConfig) =>
   linter((view) => {
     const diagnostics: Diagnostic[] = []
 
@@ -41,6 +41,6 @@ const fullWidthCharChecker = (config: charLinterConfig) =>
     return diagnostics
   })
 
-export function fullWidthCharLinter(config: charLinterConfig = {}): Extension {
+export function fullWidthCharLinter(config: CharLinterConfig = {}): Extension {
   return [fullWidthCharChecker(config), linterBaseTheme]
 }

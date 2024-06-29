@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-ai-widget
 
-This extension provides a widget to chat with AI to help you write or refine SQL by human language.
+This extension provides a widget to chat with AI to help you write or refine SQL. (work with other language wip)
 
 https://github.com/tidbcloud/tisqleditor/assets/1284531/46684333-7efa-4925-bf58-9ab3fb45f692
 
@@ -10,6 +10,11 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/46684333-7efa-4925-bf58-
 - Show tooltip hint when select content
 - Easy to use prompt input widget to chat with AI
 - Show diff view to compare the result and the original content
+
+## Try it
+
+- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
+- [Simple Example](https://tisqleditor-playground.netlify.app/?example=ai-widget&with_select)
 
 ## Installation
 
@@ -120,7 +125,3 @@ function activePromptInput(
   pos?: Pos
 ): void
 ```
-
-## Try it
-
-Try it in [playground](https://tisqleditor-playground.netlify.app/) or [example](https://tisqleditor-playground.netlify.app/?example=ai-widget)

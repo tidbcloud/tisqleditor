@@ -10,6 +10,7 @@ export type DBLinterOptions = {
   level?: 'error' | 'warning'
   title?: string
   message?: string
+  /* control to disable the lint when some cases happen in run time */
   whenDisable?: (view: EditorView) => boolean
 }
 

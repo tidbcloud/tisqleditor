@@ -2,6 +2,11 @@
 
 This extension implements the SQL keyword and database schema autocompletion based `@codemirror/autocomplete` for the CodeMirror6 editor, with a customized style.
 
+## Try it
+
+- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
+- [Simple Example](https://tisqleditor-playground.netlify.app/?example=sql-autocomplete&with_select)
+
 ## Installation
 
 ```shell
@@ -19,18 +24,18 @@ npm install @codemirror/view @codemirror/state @codemirror/autocomplete @codemir
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { sqlAutoCompletion, AutoCompletionConfig } from '@tidbcloud/codemirror-extension-sql-autocomplete'
-
-const autoCompleteConfig = {
-  acceptKey: 'Tab',
-  autocompleteItemClassName: 'autocomplete-item-test',
-  ...
-}: AutoCompletionConfig
+import { sqlAutoCompletion } from '@tidbcloud/codemirror-extension-sql-autocomplete'
 
 const editorView = new EditorView({
   state: EditorState.create({
     doc,
-    extensions: [sqlAutoCompletion(autoCompleteConfig)]
+    extensions: [
+      sqlAutoCompletion({
+        acceptKey: 'Tab',
+        autocompleteItemClassName: 'autocomplete-item-test'
+        // ...
+      })
+    ]
   })
 })
 ```

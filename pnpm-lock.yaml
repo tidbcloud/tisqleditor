@@ -78,12 +78,6 @@ importers:
       '@codemirror/lang-sql':
         specifier: ^6.6.4
         version: 6.6.4(@codemirror/view@6.26.3)
-      '@codemirror/language':
-        specifier: ^6.10.2
-        version: 6.10.2
-      '@codemirror/search':
-        specifier: ^6.5.6
-        version: 6.5.6
       '@codemirror/state':
         specifier: ^6.4.1
         version: 6.4.1

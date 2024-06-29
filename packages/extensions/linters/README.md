@@ -2,9 +2,14 @@
 
 This extension provides 3 linters:
 
-- fullWidthCharLinter: lint all the chinese characters
-- useDbLinter: use statement linter, the first statement should be use dbName;
+- useDbLinter: use statement linter, the first statement should be `use ${dbName};`
+- fullWidthCharLinter: lint all the full width characters
 - regexMatchLinter: configurable by regular expression
+
+## Try it
+
+- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
+- [Simple Example](https://tisqleditor-playground.netlify.app/?example=use-db-linter&with_select)
 
 ## Installation
 
@@ -23,37 +28,11 @@ npm install @codemirror/view @codemirror/state @codemirror/lint
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { fullWidthCharLinter } from '@tidbcloud/codemirror-extension-linters'
-
-interface charLinterConfig {
-  title?: string
-  message?: string
-}
-
-const editorView = new EditorView({
-  state: EditorState.create({
-    doc,
-    extensions: [
-      fullWidthCharLinter({
-        title: 'the title when error',
-        message: 'error content'
-      })
-    ]
-  })
-})
-```
-
-```ts
-import { EditorView } from '@codemirror/view'
-import { EditorState } from '@codemirror/state'
-import { useDbLinter } from '@tidbcloud/codemirror-extension-linters'
-
-type DBLinterOptions = {
-  level?: 'error' | 'warning'
-  title?: string
-  message?: string
-  whenDisable?: (view: EditorView) => boolean // the linter will be hidden when return false
-}
+import {
+  useDbLinter,
+  fullWidthCharLinter,
+  regexMatchLinter
+} from '@tidbcloud/codemirror-extension-linters'
 
 const editorView = new EditorView({
   state: EditorState.create({
@@ -63,27 +42,11 @@ const editorView = new EditorView({
         level: 'warning',
         title: 'the title when error',
         message: 'error content'
-      })
-    ]
-  })
-})
-```
-
-```ts
-import { EditorView } from '@codemirror/view'
-import { EditorState } from '@codemirror/state'
-import { regexMatchLinter } from '@tidbcloud/codemirror-extension-linters'
-
-interface RegexpItem {
-  reg: RegExp
-  title: string
-  message: string
-}
-
-const editorView = new EditorView({
-  state: EditorState.create({
-    doc,
-    extensions: [
+      }),
+      fullWidthCharLinter({
+        title: 'the title when error',
+        message: 'error content'
+      }),
       regexMatchLinter([
         {
           reg: /[a-z]/,
@@ -99,7 +62,25 @@ const editorView = new EditorView({
 ## API
 
 ```ts
-function fullWidthCharLinter(config?: charLinterConfig): Extension
+type DBLinterOptions = {
+  level?: 'error' | 'warning'
+  title?: string
+  message?: string
+  /* control to disable the lint when some cases happen in run time */
+  whenDisable?: (view: EditorView) => boolean
+}
 function useDbLinter(config?: DBLinterOptions): Extension
-function regexMatchLinter(config?: RegexpItem[]): Extension
+
+interface CharLinterConfig {
+  title?: string
+  message?: string
+}
+function fullWidthCharLinter(config?: charLinterConfig): Extension
+
+interface RegexpItem {
+  reg: RegExp
+  title: string
+  message: string
+}
+function regexMatchLinter(config: RegexpItem[]): Extension
 ```

@@ -2,6 +2,11 @@
 
 This extension listens the editor selection change, and shows gutter for the SQL statements around the cursor position to make it highlight.
 
+## Try it
+
+- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
+- [Simple Example](https://tisqleditor-playground.netlify.app/?example=cur-sql-gutter&with_select)
+
 ## Installation
 
 ```shell
