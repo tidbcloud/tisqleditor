@@ -1,7 +1,6 @@
 import { EditorView } from '@codemirror/view'
 import { Compartment, EditorState, Extension } from '@codemirror/state'
 import { SQLConfig, sql, MySQL } from '@codemirror/lang-sql'
-import { search } from '@codemirror/search'
 
 import {
   BasicSetupOptions,
@@ -102,9 +101,6 @@ export const createSQLEditorInstance = ({
       searchKeymap: true,
       autocompletion: false,
       ...basicSetupOptions
-    }),
-    search({
-      top: true
     }),
 
     themeCompartment.of(theme),

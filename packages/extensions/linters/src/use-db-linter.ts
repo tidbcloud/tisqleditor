@@ -1,4 +1,5 @@
 import { EditorView } from '@codemirror/view'
+import { Extension } from '@codemirror/state'
 import { linter, Diagnostic } from '@codemirror/lint'
 
 import { getSqlStatements } from '@tidbcloud/codemirror-extension-sql-parser'
@@ -9,6 +10,7 @@ export type DBLinterOptions = {
   level?: 'error' | 'warning'
   title?: string
   message?: string
+  /* control to disable the lint when some cases happen in run time */
   whenDisable?: (view: EditorView) => boolean
 }
 
@@ -43,6 +45,6 @@ const databaseLinter = (config: DBLinterOptions) =>
     return diagnostics
   })
 
-export function useDbLinter(config: DBLinterOptions = {}) {
+export function useDbLinter(config: DBLinterOptions = {}): Extension {
   return [databaseLinter(config), linterBaseTheme]
 }

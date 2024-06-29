@@ -9,16 +9,18 @@ import {
   useDbLinter,
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
-import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
+import { sqlAutoCompletion } from '@tidbcloud/codemirror-extension-sql-autocomplete'
 import {
   aiWidget,
   isUnifiedMergeViewActive
 } from '@tidbcloud/codemirror-extension-ai-widget'
 import { delay } from '@/lib/delay'
+import { Extension } from '@codemirror/state'
 
-const EXAMPLE_SQL = `
-USE sp500insight;
-
+const DOC_1 = `USE sp500insight;`
+const DOC_2 = `-- USE sp500insight;`
+const DOC_3 = `-- USE sp500insight；`
+const DOC_4 = `
 SELECT sector, industry, COUNT(*) AS companies
 FROM companies c
 WHERE c.stock_symbol IN (SELECT stock_symbol FROM index_compositions WHERE index_symbol = "SP500")
@@ -29,81 +31,90 @@ ORDER BY sector, companies DESC;
 const ALL_EXAMPLES = [
   'ai-widget',
   'save-helper',
-  'autocomplete',
+  'sql-autocomplete',
   'cur-sql-gutter',
   'use-db-linter',
   'full-width-char-linter'
 ]
 
+const EXAMPLE_EXTS: { [key: string]: Extension } = {
+  'ai-widget': aiWidget({
+    chat: async () => {
+      await delay(2000)
+      return {
+        status: 'success',
+        message:
+          'select * from test;\n-- the data is mocked, replace by your own api when using'
+      }
+    },
+    cancelChat: () => {},
+    getDbList: () => {
+      return ['test1', 'test2']
+    }
+  }),
+  'save-helper': saveHelper({
+    save: (view: EditorView) => {
+      console.log('save content:', view.state.doc.toString())
+    }
+  }),
+  'sql-autocomplete': sqlAutoCompletion(),
+  'cur-sql-gutter': curSqlGutter({
+    whenHide(view) {
+      return isUnifiedMergeViewActive(view.state)
+    }
+  }),
+  'use-db-linter': useDbLinter(),
+  'full-width-char-linter': fullWidthCharLinter()
+}
+
+const THEME_EXTS: { [key: string]: Extension } = {
+  light: bbedit,
+  bbedit: bbedit,
+  dark: oneDark,
+  oneDark: oneDark
+}
+
+const EXAMPLE_DOCS: { [key: string]: string } = {
+  'use-db-linter': DOC_2,
+  'full-width-char-linter': DOC_3
+}
+
 export function EditorExample({
   example = '',
-  isDark = false
+  theme = ''
 }: {
   example?: string
-  isDark?: boolean
+  theme?: string
 }) {
-  const extraExts = useMemo(() => {
+  const exampleArr = useMemo(() => {
     let exampleArr = example.split(',')
     if (exampleArr.includes('all')) {
       exampleArr = ALL_EXAMPLES
-    } else if (exampleArr.includes('linters')) {
-      exampleArr = exampleArr.concat([
-        'use-db-linter',
-        'full-width-char-linter'
-      ])
     }
-    exampleArr = [...new Set(exampleArr)]
-
-    return exampleArr.map((item) => {
-      if (item === 'ai-widget') {
-        return aiWidget({
-          chat: async () => {
-            await delay(2000)
-            return {
-              status: 'success',
-              message:
-                'select * from test;\n-- the data is mocked, replace by your own api when using'
-            }
-          },
-          cancelChat: () => {},
-          getDbList: () => {
-            return ['test1', 'test2']
-          }
-        })
-      }
-      if (item === 'save-helper') {
-        return saveHelper({
-          save: (view: EditorView) => {
-            console.log('save content:', view.state.doc.toString())
-          }
-        })
-      }
-      if (item === 'autocomplete') {
-        return autoCompletion()
-      }
-      if (item === 'cur-sql-gutter') {
-        return curSqlGutter({
-          whenHide(view) {
-            return isUnifiedMergeViewActive(view.state)
-          }
-        })
-      }
-      if (item === 'use-db-linter') {
-        return useDbLinter()
-      }
-      if (item === 'full-width-char-linter') {
-        return fullWidthCharLinter()
-      }
-      return []
-    })
+    return [...new Set(exampleArr)]
   }, [example])
+
+  const extraExts = useMemo(() => {
+    return exampleArr.map((item) => EXAMPLE_EXTS[item]).filter((ex) => !!ex)
+  }, [exampleArr])
+
+  const doc = useMemo(() => {
+    let str = exampleArr
+      .map((item) => EXAMPLE_DOCS[item])
+      .filter((s) => !!s)
+      .join('\n')
+    if (str === '') {
+      str = DOC_1
+    }
+    return [str, DOC_4].join('\n')
+  }, [exampleArr])
 
   return (
     <SQLEditor
       className="h-full"
       editorId={example || 'default'}
-      doc={EXAMPLE_SQL}
-      theme={isDark ? oneDark : bbedit}
+      doc={doc}
+      theme={THEME_EXTS[theme]}
       extraExts={extraExts}
     />
   )

@@ -1,7 +1,7 @@
 {
   "name": "@tidbcloud/codemirror-extension-cur-sql",
-  "version": "0.0.2",
-  "description": "tisqleditor extensions",
+  "version": "0.0.3",
+  "description": "codemirror extension to get current selected sql",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -10,7 +10,8 @@
     "dist/*.js",
     "dist/*.ts",
     "package.json",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "tsc:watch": "tsc --watch",
@@ -22,7 +23,8 @@
     "tidbcloud",
     "sql",
     "editor",
-    "extensions",
+    "codemirror",
+    "extension",
     "cur sql"
   ],
   "author": "",

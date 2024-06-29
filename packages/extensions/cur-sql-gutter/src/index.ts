@@ -1,4 +1,4 @@
-import { RangeSet } from '@codemirror/state'
+import { Extension, RangeSet } from '@codemirror/state'
 import { EditorView, gutter, GutterMarker } from '@codemirror/view'
 import { getCurStatements } from '@tidbcloud/codemirror-extension-cur-sql'
 import { getNearbyStatement } from '@tidbcloud/codemirror-extension-sql-parser'
@@ -74,7 +74,7 @@ const sqlGutter = (curSqlMarker: GutterMarker, config: CurSqlGutterConfig) => {
   })
 }
 
-export const curSqlGutter = (config: CurSqlGutterConfig = {}) => {
+export function curSqlGutter(config: CurSqlGutterConfig = {}): Extension {
   const curSqlMarker = new (class extends GutterMarker {
     toDOM() {
       const el = document.createElement('div')

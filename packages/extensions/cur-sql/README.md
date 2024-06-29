@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-cur-sql
 
-This extension listens the editor selection change, return the selected statements.
+A codemirror extension listens the editor selection change, returns the complete SQL statements around the cursor position.
 
 This extension is installed internally inside the `SQLEditorInstance`.
 

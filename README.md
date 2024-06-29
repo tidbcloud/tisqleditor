@@ -10,7 +10,7 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 
 - [Try Simple Example](https://tisqleditor-playground.netlify.app/?example=all&with_select)
 
-![image](./packages/playground/public/example.png)
+![image](./packages/playground/public/example-2.png)
 
 ## Features
 
@@ -21,20 +21,20 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 
 ## Packages
 
-| package                                        | desc                                                                      |
-| ---------------------------------------------- | ------------------------------------------------------------------------- |
-| @tidbcloud/tisqleditor                         | SQLEditorInstance with pre-configured extensions                          |
-| @tidbcloud/tisqleditor-react                   | React component wrapper                                                   |
-| @tidbcloud/codemirror-extension-ai-widget      | a widget to chat with AI to help write or refine SQL by human language    |
-| @tidbcloud/codemirror-extension-sql-parser     | parse the editor content to SQL statements                                |
-| @tidbcloud/codemirror-extension-cur-sql        | get the selected SQL statements                                           |
-| @tidbcloud/codemirror-extension-cur-sql-gutter | show gutter for the selected SQL statements                               |
-| @tidbcloud/codemirror-extension-save-helper    | save the editor content if it changes                                     |
-| @tidbcloud/codemirror-extension-autocomplete   | refine the original @codemirror/autocomplete to provides better style     |
-| @tidbcloud/codemirror-extension-linters        |                                                                           |
-| @tidbcloud/codemirror-extension-events         |                                                                           |
-| @tidbcloud/codemirror-extension-themes         | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
-| @tidbcloud/codemirror-extension-basic-setup    |                                                                           |
+| package                                          | desc                                                                      |
+| ------------------------------------------------ | ------------------------------------------------------------------------- |
+| @tidbcloud/tisqleditor                           | SQLEditorInstance with pre-configured extensions                          |
+| @tidbcloud/tisqleditor-react                     | React component wrapper                                                   |
+| @tidbcloud/codemirror-extension-ai-widget        | a widget to chat with AI to help write or refine SQL                      |
+| @tidbcloud/codemirror-extension-sql-parser       | parse the editor content to SQL statements                                |
+| @tidbcloud/codemirror-extension-cur-sql          | get the selected SQL statements                                           |
+| @tidbcloud/codemirror-extension-cur-sql-gutter   | show gutter for the selected SQL statements                               |
+| @tidbcloud/codemirror-extension-sql-autocomplete | SQL keyword and database schema autocomplete                              |
+| @tidbcloud/codemirror-extension-linters          | use db statement, full width chars, and regular expression linters        |
+| @tidbcloud/codemirror-extension-save-helper      | save the editor content if it changes                                     |
+| @tidbcloud/codemirror-extension-events           | 2 normal kinds of event listener: doc change, selection change            |
+| @tidbcloud/codemirror-extension-themes           | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
+| @tidbcloud/codemirror-extension-basic-setup      | basic configuration for codemirror                                        |
 
 ## Usage
 
@@ -42,103 +42,45 @@ See [editor.tsx](./packages/playground/src/components/biz/editor-panel/editor.ts
 
 ```tsx
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
-import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
 import { bbedit, oneDark } from '@tidbcloud/codemirror-extension-themes'
+import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
 import { curSqlGutter } from '@tidbcloud/codemirror-extension-cur-sql-gutter'
 import {
   useDbLinter,
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
-import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
+import { sqlAutoCompletion } from '@tidbcloud/codemirror-extension-sql-autocomplete'
 import {
   aiWidget,
   isUnifiedMergeViewActive
 } from '@tidbcloud/codemirror-extension-ai-widget'
 
 export function Editor() {
-  const {
-    api: { saveFile },
-    state: { activeFileId, openedFiles }
-  } = useFilesContext()
-
-  const { isDark } = useTheme()
-
-  const { schema } = useSchemaContext()
-  const sqlConfig = useMemo(
-    () => convertSchemaToSQLConfig(schema ?? []),
-    [schema]
-  )
-  const getDbListRef = useRef<() => string[]>()
-  getDbListRef.current = () => {
-    return schema?.map((d) => d.name) || []
-  }
-
-  const chatCtx = useChatContext()
-
-  const activeFile = useMemo(
-    () => openedFiles.find((f) => f.id === activeFileId),
-    [activeFileId, openedFiles]
-  )
-
-  const extraExts = useMemo(() => {
-    if (activeFile && activeFile.status === 'loaded') {
-      return [
-        saveHelper({
-          save: (view: EditorView) => {
-            saveFile(activeFile.id, view.state.doc.toString())
-          }
-        }),
-        autoCompletion(),
-        curSqlGutter({
-          whenHide: (view) => {
-            return isUnifiedMergeViewActive(view.state)
-          }
-        }),
-        useDbLinter(),
-        fullWidthCharLinter(),
-        aiWidget({
-          chat(view, chatId, req) {
-            const db = getCurDatabase(view.state)
-            req['extra']['db'] = db
-            return chatCtx.chat(chatId, { ...req })
-          },
-          cancelChat: chatCtx.cancelChat,
-          onEvent(_view, type, payload) {
-            chatCtx.onEvent(type, payload)
-          },
-          getDbList: getDbListRef.current!
-        })
-      ]
-    }
-    return []
-  }, [activeFile])
-
-  if (!activeFile) {
-    return (
-      <div className="h-full flex items-center justify-center">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-          TiSQLEditor
-        </h1>
-      </div>
-    )
-  }
-
-  if (activeFile.status === 'loading') {
-    return (
-      <SQLEditor
-        className="h-full"
-        editorId="loading"
-        doc=""
-        theme={isDark ? oneDark : bbedit}
-        extraExts={[
-          placeholder('loading...'),
-          // both needed to prevent user from typing
-          EditorView.editable.of(false),
-          EditorState.readOnly.of(true)
-        ]}
-      />
-    )
-  }
+  const extraExts = [
+    saveHelper({
+      save: (view: EditorView) => {
+        saveFile(activeFile.id, view.state.doc.toString())
+      }
+    }),
+    sqlAutoCompletion(),
+    curSqlGutter({
+      whenHide: (view) => {
+        return isUnifiedMergeViewActive(view.state)
+      }
+    }),
+    useDbLinter(),
+    fullWidthCharLinter(),
+    aiWidget({
+      chat(view, chatId, req) {
+        return chatCtx.chat(chatId, req)
+      },
+      cancelChat: chatCtx.cancelChat,
+      onEvent(_view, type, payload) {
+        chatCtx.onEvent(type, payload)
+      },
+      getDbList: getDbListRef.current!
+    })
+  ]
 
   return (
     <SQLEditor
@@ -146,12 +88,17 @@ export function Editor() {
       editorId={activeFile.id}
       doc={activeFile.content}
       sqlConfig={sqlConfig}
-      theme={isDark ? oneDark : bbedit}
+      theme={oneDark}
+      // theme={bbedit}
       extraExts={extraExts}
     />
   )
 }
 ```
+
+## Documentation
+
+// TODO: add documentation link from https://tidbcloud-uikit.netlify.app/
 
 ## Development
 

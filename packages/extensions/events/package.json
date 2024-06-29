@@ -1,7 +1,7 @@
 {
   "name": "@tidbcloud/codemirror-extension-events",
-  "version": "0.0.2",
-  "description": "tisqleditor extensions",
+  "version": "0.0.3",
+  "description": "codemirror extension to listen doc and selection changes event",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -10,7 +10,8 @@
     "dist/*.js",
     "dist/*.ts",
     "package.json",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "tsc:watch": "tsc --watch",
@@ -22,27 +23,22 @@
     "tidbcloud",
     "sql",
     "editor",
-    "extensions",
+    "codemirror",
+    "extension",
     "events"
   ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@codemirror/lang-sql": "^6.6.4",
-    "@codemirror/view": "^6.26.3",
     "@codemirror/state": "^6.4.1",
+    "@codemirror/view": "^6.26.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "rollup": "^4.18.0",
     "tslib": "^2.6.3",
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "@codemirror/lang-sql": "^6.6.4",
-    "@codemirror/view": "^6.26.3",
-    "@codemirror/state": "^6.4.1"
-  },
-  "dependencies": {
-    "@tidbcloud/codemirror-extension-cur-sql": "workspace:^",
-    "@tidbcloud/codemirror-extension-sql-parser": "workspace:^"
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/view": "^6.26.3"
   }
 }

@@ -55,7 +55,7 @@ export function EditorActions() {
     <div className="flex-none flex items-center px-2 border-b">
       <Button
         size="sm"
-        className="mr-2"
+        className="mr-2 dark:text-foreground"
         onClick={() => runSQLMut.mutate()}
         disabled={runSQLMut.isPending}
       >
