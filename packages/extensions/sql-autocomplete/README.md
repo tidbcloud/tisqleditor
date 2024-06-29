@@ -1,11 +1,11 @@
-# @tidbcloud/codemirror-extension-autocomplete
+# @tidbcloud/codemirror-extension-sql-autocomplete
 
-This extension implements the SQL autocompletion based @codemirror/autocomplete for the CodeMirror6 editor.
+This extension implements the SQL keyword and database schema autocompletion based `@codemirror/autocomplete` for the CodeMirror6 editor, with a customized style.
 
 ## Installation
 
 ```shell
-npm install @tidbcloud/codemirror-extension-autocomplete
+npm install @tidbcloud/codemirror-extension-sql-autocomplete
 ```
 
 You need to install its peer dependencies as well:
@@ -19,7 +19,7 @@ npm install @codemirror/view @codemirror/state @codemirror/autocomplete @codemir
 ```ts
 import { EditorView } from '@codemirror/view'
 import { EditorState } from '@codemirror/state'
-import { autoCompletion, AutoCompletionConfig } from '@tidbcloud/codemirror-extension-autocomplete'
+import { sqlAutoCompletion, AutoCompletionConfig } from '@tidbcloud/codemirror-extension-sql-autocomplete'
 
 const autoCompleteConfig = {
   acceptKey: 'Tab',
@@ -30,7 +30,7 @@ const autoCompleteConfig = {
 const editorView = new EditorView({
   state: EditorState.create({
     doc,
-    extensions: [autoCompletion(autoCompleteConfig)]
+    extensions: [sqlAutoCompletion(autoCompleteConfig)]
   })
 })
 ```
@@ -38,8 +38,7 @@ const editorView = new EditorView({
 ## API
 
 ```ts
-// DefaultCompletionConfig configs please refer to: https://codemirror.net/docs/ref/#autocomplete.autocompletion
-
+/* DefaultCompletionConfig configs please refer to: https://codemirror.net/docs/ref/#autocomplete.autocompletion */
 interface AutoCompletionConfig extends DefaultCompletionConfig {
   /**
   accept the completion by pressing the key, defult is Tab
@@ -59,5 +58,5 @@ interface AutoCompletionConfig extends DefaultCompletionConfig {
   renderIconMap?: Record<string, string>
 }
 
-function autoCompletion(config?: AutoCompletionConfig): Extension
+function sqlAutoCompletion(config?: AutoCompletionConfig): Extension
 ```

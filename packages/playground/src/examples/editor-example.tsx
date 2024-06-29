@@ -9,7 +9,7 @@ import {
   useDbLinter,
   fullWidthCharLinter
 } from '@tidbcloud/codemirror-extension-linters'
-import { autoCompletion } from '@tidbcloud/codemirror-extension-autocomplete'
+import { sqlAutoCompletion } from '@tidbcloud/codemirror-extension-sql-autocomplete'
 import {
   aiWidget,
   isUnifiedMergeViewActive
@@ -31,7 +31,7 @@ ORDER BY sector, companies DESC;
 const ALL_EXAMPLES = [
   'ai-widget',
   'save-helper',
-  'autocomplete',
+  'sql-autocomplete',
   'cur-sql-gutter',
   'use-db-linter',
   'full-width-char-linter'
@@ -57,7 +57,7 @@ const EXAMPLE_EXTS: { [key: string]: Extension } = {
       console.log('save content:', view.state.doc.toString())
     }
   }),
-  autocomplete: autoCompletion(),
+  'sql-autocomplete': sqlAutoCompletion(),
   'cur-sql-gutter': curSqlGutter({
     whenHide(view) {
       return isUnifiedMergeViewActive(view.state)

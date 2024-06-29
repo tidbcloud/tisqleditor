@@ -8,7 +8,7 @@
 - Updated dependencies [ba42e29]
   - @tidbcloud/codemirror-extension-ai-widget@0.0.2
   - @tidbcloud/tisqleditor-react@0.0.2
-  - @tidbcloud/codemirror-extension-autocomplete@0.0.2
+  - @tidbcloud/codemirror-extension-sql-autocomplete@0.0.2
   - @tidbcloud/codemirror-extension-cur-sql@0.0.2
   - @tidbcloud/codemirror-extension-cur-sql-gutter@0.0.2
   - @tidbcloud/codemirror-extension-linters@0.0.2
