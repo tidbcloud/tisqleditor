@@ -33,6 +33,14 @@ const editorInst = createSQLEditorInstance({
 cache.addEditor(editorId, editorInst)
 ```
 
+The extension installs the cur-sql and sql-parser extensions default, can use the methods default.
+
+```ts
+const curSql = editorInst.getCurStatements()
+const allSqls = editorInst.getAllStatements()
+const nearbySql = editorInst.getNearbyStatement()
+```
+
 ## API
 
 ### createSQLEditorInstance

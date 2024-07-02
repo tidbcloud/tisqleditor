@@ -54,9 +54,17 @@ const editorView = new EditorView({
       }),
       regexMatchLinter([
         {
-          reg: /[a-z]/,
-          title: 'test reg error',
-          message: 'test reg error content'
+          reg: /\$\{page\}/g,
+          level: 'warning',
+          title: 'Code Error',
+          message: pageTips
+        },
+        {
+          reg: /\$\{page_size\}/g,
+          level: 'error',
+          title: 'Code Error',
+          message:
+            '<b>page</b> and <b>page_size</b> are built-in paging variables in the system, please replace the name of parameters.'
         }
       ])
     ]
