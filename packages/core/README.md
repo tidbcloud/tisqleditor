@@ -2,7 +2,7 @@
 
 This package provides the `SQLEditorInstance` and `EditorCache` implementation.
 
-`SQLEditorInstance` creates EditorView instance with pre-configured extensions to make it available to edit SQL code.
+`SQLEditorInstance` creates EditorView instance with pre-configured extensions to make it available to edit SQL code, likes `@codemirror/lang-sql`, `@tidbcloud/codemirror-extension-sql-parser`, `@tidbcloud/codemirror-extension-cur-sql`.
 
 `EditorCache` stores the `SQLEditorInstance` in a map.
 

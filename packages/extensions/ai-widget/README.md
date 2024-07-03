@@ -1,6 +1,6 @@
 # @tidbcloud/codemirror-extension-ai-widget
 
-A codemirror extension provides a widget to chat with AI to help you write or refine SQL. (work with other languages wip)
+A codemirror extension provides a widget to chat with AI to help you write or refine SQL. (will support to work with other languages later)
 
 https://github.com/tidbcloud/tisqleditor/assets/1284531/46684333-7efa-4925-bf58-9ab3fb45f692
 
@@ -22,10 +22,10 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/46684333-7efa-4925-bf58-
 npm install @tidbcloud/codemirror-extension-ai-widget
 ```
 
-You need to install its peer dependencies as well:
+You need to install its dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/state @codemirror/merge @codemirror/lang-sql
+npm install @codemirror/view @codemirror/state @codemirror/merge @codemirror/lang-sql @tidbcloud/codemirror-extension-sql-parser @tidbcloud/codemirror-extension-cur-sql
 ```
 
 ## Usage

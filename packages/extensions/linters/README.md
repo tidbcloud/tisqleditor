@@ -17,10 +17,10 @@
 npm install @tidbcloud/codemirror-extension-linters
 ```
 
-You need to install its peer dependencies as well:
+You need to install its dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/state @codemirror/lint @codemirror/lang-sql
+npm install @codemirror/view @codemirror/state @codemirror/lint @codemirror/lang-sql @tidbcloud/codemirror-extension-sql-parser
 ```
 
 ## Usage
