@@ -41,14 +41,13 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 See [editor.tsx](./packages/playground/src/components/biz/editor-panel/editor.tsx) or [editor-example.tsx](./packages/playground/src/examples/editor-example.tsx) to get more details.
 
 ```shell
-pnpm add @tidbcloud/tisqleditor-react @tidbcloud/codemirror-extension-themes @tidbcloud/codemirror-extension-cur-sql-gutter @tidbcloud/codemirror-extension-basic-setup
+pnpm add @tidbcloud/tisqleditor-react @tidbcloud/codemirror-extension-themes @tidbcloud/codemirror-extension-cur-sql-gutter
 ```
 
 ```tsx
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 import { oneDark } from '@tidbcloud/codemirror-extension-themes'
 import { curSqlGutter } from '@tidbcloud/codemirror-extension-cur-sql-gutter'
-import { basicSetup } from '@tidbcloud/codemirror-extension-basic-setup'
 
 export function Editor() {
   return (
@@ -56,8 +55,10 @@ export function Editor() {
       editorId="MySQLEditor"
       doc={'sele'}
       theme={oneDark}
+      basicSetupOptions={{
+        autocompletion: true
+      }}
       extraExts={[
-        basicSetup(),
         curSqlGutter()
         // here you can add some other extensions as you need
       ]}
