@@ -1,5 +1,13 @@
 # @tidbcloud/codemirror-extension-linters
 
+## 0.0.5
+
+### Patch Changes
+
+- 59c7868: fix autocomplete icon ui
+- Updated dependencies [59c7868]
+  - @tidbcloud/codemirror-extension-sql-parser@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes

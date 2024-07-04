@@ -1,5 +1,13 @@
 # @tidbcloud/tisqleditor-react
 
+## 0.0.5
+
+### Patch Changes
+
+- 59c7868: fix autocomplete icon ui
+- Updated dependencies [59c7868]
+  - @tidbcloud/tisqleditor@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes
