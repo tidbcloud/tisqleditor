@@ -32,7 +32,8 @@ export function OpenedFilesTabs() {
       if (next.length > 0) {
         setActiveFileId(next[0].id)
       } else {
-        setActiveFileId(null)
+        // setActiveFileId(null)
+        setActiveFileId('')
       }
     }
   }

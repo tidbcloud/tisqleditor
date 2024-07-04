@@ -26,6 +26,12 @@ export function FilesList() {
     setAllFiles(filesData ?? [])
   }, [filesData])
 
+  useEffect(() => {
+    if (activeFileId === null && allFiles.length > 0) {
+      handleOpenFile(allFiles[0])
+    }
+  }, [allFiles, activeFileId])
+
   async function handleOpenFile(file: IFile) {
     setActiveFileId(file.id)
 

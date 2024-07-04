@@ -12,16 +12,16 @@ export function LeftPanel() {
       </div>
 
       <div className="p-2 pt-0">
-        <Tabs defaultValue="schemas">
+        <Tabs defaultValue="sql-files">
           <TabsList>
-            <TabsTrigger value="schemas">Schemas</TabsTrigger>
             <TabsTrigger value="sql-files">SQL Files</TabsTrigger>
+            <TabsTrigger value="schemas">Schemas</TabsTrigger>
           </TabsList>
-          <TabsContent value="schemas">
-            <SchemasPanel />
-          </TabsContent>
           <TabsContent value="sql-files">
             <FilesPanel />
+          </TabsContent>
+          <TabsContent value="schemas">
+            <SchemasPanel />
           </TabsContent>
         </Tabs>
       </div>
