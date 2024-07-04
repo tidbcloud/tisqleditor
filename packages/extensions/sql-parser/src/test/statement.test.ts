@@ -60,7 +60,7 @@ describe('test getSqlStatements', () => {
   })
 })
 
-test('test getNearbyStatement', () => {
+describe('test getNearbyStatement', () => {
   let editorView: EditorView = new EditorView()
 
   beforeAll(() => {
@@ -75,42 +75,48 @@ test('test getNearbyStatement', () => {
     editorView.dispatch({ selection: { anchor: 0, head: 0 } })
   })
 
-  expect(getNearbyStatement(editorView.state, 0)?.content).toBe(LINE_1)
+  test('getNearbyStatement works well', () => {
+    expect(getNearbyStatement(editorView.state, 0)?.content).toBe(LINE_1)
 
-  expect(getNearbyStatement(editorView.state, 10)?.content).toBe(LINE_1)
+    expect(getNearbyStatement(editorView.state, 10)?.content).toBe(LINE_1)
 
-  // 18
-  expect(getNearbyStatement(editorView.state, 1 + LINE_1.length)?.content).toBe(
-    LINE_1
-  )
+    // 18
+    expect(
+      getNearbyStatement(editorView.state, 1 + LINE_1.length)?.content
+    ).toBe(LINE_1)
 
-  // 19
-  expect(
-    getNearbyStatement(editorView.state, 1 + LINE_1.length + 1)?.content
-  ).toBe(LINE_1)
+    // 19
+    expect(
+      getNearbyStatement(editorView.state, 1 + LINE_1.length + 1)?.content
+    ).toBe(LINE_1)
 
-  // 28
-  expect(
-    getNearbyStatement(editorView.state, 1 + LINE_1.length + 10)?.content
-  ).toBe(LINE_1)
+    // 28
+    expect(
+      getNearbyStatement(editorView.state, 1 + LINE_1.length + 10)?.content
+    ).toBe(LINE_1)
 
-  // 241
-  expect(
-    getNearbyStatement(editorView.state, 1 + LINE_1.length + 2 + LINE_2.length)
-      ?.content
-  ).toBe(LINE_2)
+    // 241
+    expect(
+      getNearbyStatement(
+        editorView.state,
+        1 + LINE_1.length + 2 + LINE_2.length
+      )?.content
+    ).toBe(LINE_2)
 
-  // 241
-  expect(
-    getNearbyStatement(editorView.state, 1 + LINE_1.length + 2 + LINE_2.length)
-      ?.content
-  ).toBe(LINE_2)
+    // 241
+    expect(
+      getNearbyStatement(
+        editorView.state,
+        1 + LINE_1.length + 2 + LINE_2.length
+      )?.content
+    ).toBe(LINE_2)
 
-  // 243
-  expect(
-    getNearbyStatement(
-      editorView.state,
-      1 + LINE_1.length + 2 + LINE_2.length + 2
-    )?.content
-  ).toBe(LINE_2)
+    // 243
+    expect(
+      getNearbyStatement(
+        editorView.state,
+        1 + LINE_1.length + 2 + LINE_2.length + 2
+      )?.content
+    ).toBe(LINE_2)
+  })
 })
