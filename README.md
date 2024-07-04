@@ -53,7 +53,7 @@ export function Editor() {
   return (
     <SQLEditor
       editorId="MySQLEditor"
-      doc={'sele'}
+      doc={'USE game;\n'}
       theme={oneDark}
       basicSetupOptions={{
         autocompletion: true
