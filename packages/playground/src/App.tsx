@@ -24,7 +24,7 @@ function FullFeaturedPlayground() {
   return (
     <QueryClientProvider client={queryClient}>
       <EditorCacheProvider>
-        <ThemeProvider>
+        <ThemeProvider defaultTheme="dark">
           <StatementProvider>
             <SchemaProvider>
               <FilesProvider>
