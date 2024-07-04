@@ -17,10 +17,10 @@
 npm install @tidbcloud/codemirror-extension-linters
 ```
 
-You need to install its peer dependencies as well:
+You need to install its dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/state @codemirror/lint @codemirror/lang-sql
+npm install @codemirror/view @codemirror/state @codemirror/lint @codemirror/lang-sql @tidbcloud/codemirror-extension-sql-parser
 ```
 
 ## Usage
@@ -54,9 +54,17 @@ const editorView = new EditorView({
       }),
       regexMatchLinter([
         {
-          reg: /[a-z]/,
-          title: 'test reg error',
-          message: 'test reg error content'
+          reg: /\$\{page\}/g,
+          level: 'warning',
+          title: 'Code Error',
+          message: pageTips
+        },
+        {
+          reg: /\$\{page_size\}/g,
+          level: 'error',
+          title: 'Code Error',
+          message:
+            '<b>page</b> and <b>page_size</b> are built-in paging variables in the system, please replace the name of parameters.'
         }
       ])
     ]

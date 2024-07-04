@@ -1,5 +1,13 @@
 # @tidbcloud/codemirror-extension-cur-sql
 
+## 0.0.4
+
+### Patch Changes
+
+- 122f217: fix: update readme & some config params
+- Updated dependencies [122f217]
+  - @tidbcloud/codemirror-extension-sql-parser@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

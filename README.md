@@ -40,57 +40,28 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 
 See [editor.tsx](./packages/playground/src/components/biz/editor-panel/editor.tsx) or [editor-example.tsx](./packages/playground/src/examples/editor-example.tsx) to get more details.
 
+```shell
+pnpm add @tidbcloud/tisqleditor-react @tidbcloud/codemirror-extension-themes @tidbcloud/codemirror-extension-cur-sql-gutter
+```
+
 ```tsx
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
-import { bbedit, oneDark } from '@tidbcloud/codemirror-extension-themes'
-import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
+import { oneDark } from '@tidbcloud/codemirror-extension-themes'
 import { curSqlGutter } from '@tidbcloud/codemirror-extension-cur-sql-gutter'
-import {
-  useDbLinter,
-  fullWidthCharLinter
-} from '@tidbcloud/codemirror-extension-linters'
-import { sqlAutoCompletion } from '@tidbcloud/codemirror-extension-sql-autocomplete'
-import {
-  aiWidget,
-  isUnifiedMergeViewActive
-} from '@tidbcloud/codemirror-extension-ai-widget'
 
 export function Editor() {
-  const extraExts = [
-    saveHelper({
-      save: (view: EditorView) => {
-        saveFile(activeFile.id, view.state.doc.toString())
-      }
-    }),
-    sqlAutoCompletion(),
-    curSqlGutter({
-      whenHide: (view) => {
-        return isUnifiedMergeViewActive(view.state)
-      }
-    }),
-    useDbLinter(),
-    fullWidthCharLinter(),
-    aiWidget({
-      chat(view, chatId, req) {
-        return chatCtx.chat(chatId, req)
-      },
-      cancelChat: chatCtx.cancelChat,
-      onEvent(_view, type, payload) {
-        chatCtx.onEvent(type, payload)
-      },
-      getDbList: getDbListRef.current!
-    })
-  ]
-
   return (
     <SQLEditor
-      className="h-full"
-      editorId={activeFile.id}
-      doc={activeFile.content}
-      sqlConfig={sqlConfig}
+      editorId="MySQLEditor"
+      doc={'USE game;\n'}
       theme={oneDark}
-      // theme={bbedit}
-      extraExts={extraExts}
+      basicSetupOptions={{
+        autocompletion: true
+      }}
+      extraExts={[
+        curSqlGutter()
+        // here you can add some other extensions as you need
+      ]}
     />
   )
 }
@@ -126,6 +97,10 @@ Before you create a pull request, please check whether your commits comply with 
 - fix: changes that fix a bug (ideally you will additionally reference an issue if present)
 - refactor: any code related change that is not a fix nor a feature
 - chore: all changes to the repository that do not fit into any of the above categories
+
+### Test
+
+To run the test, execute the command `pnpm test`
 
 ### Release
 

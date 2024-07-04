@@ -2,7 +2,7 @@
 
 This package provides the `SQLEditorInstance` and `EditorCache` implementation.
 
-`SQLEditorInstance` creates EditorView instance with pre-configured extensions to make it available to edit SQL code.
+`SQLEditorInstance` creates EditorView instance with pre-configured extensions to make it available to edit SQL code, likes `@codemirror/lang-sql`, `@tidbcloud/codemirror-extension-sql-parser`, `@tidbcloud/codemirror-extension-cur-sql`.
 
 `EditorCache` stores the `SQLEditorInstance` in a map.
 
@@ -31,6 +31,14 @@ const editorInst = createSQLEditorInstance({
 })
 
 cache.addEditor(editorId, editorInst)
+```
+
+The package installs the cur-sql and sql-parser extensions default, can use the following methods:
+
+```ts
+const curSql = editorInst.getCurStatements()
+const allSqls = editorInst.getAllStatements()
+const nearbySql = editorInst.getNearbyStatement()
 ```
 
 ## API

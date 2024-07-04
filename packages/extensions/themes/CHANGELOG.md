@@ -1,5 +1,11 @@
 # @tidbcloud/codemirror-extension-themes
 
+## 0.0.4
+
+### Patch Changes
+
+- 122f217: fix: update readme & some config params
+
 ## 0.0.3
 
 ### Patch Changes

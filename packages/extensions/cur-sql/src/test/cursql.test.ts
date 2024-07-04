@@ -16,22 +16,31 @@ LIMIT
 
 const DOC = `${LINE_1}\n${LINE_2}`
 
-test('test getCurStatements', () => {
-  const editorView = new EditorView({
-    state: EditorState.create({
-      doc: DOC,
-      extensions: [sqlParser(), sql({ dialect: MySQL }), curSql()]
+describe('test getCurStatements', () => {
+  let editorView: EditorView = new EditorView()
+
+  beforeAll(() => {
+    editorView = new EditorView({
+      state: EditorState.create({
+        doc: DOC,
+        extensions: [sqlParser(), sql({ dialect: MySQL }), curSql()]
+      })
     })
   })
 
-  editorView.dispatch({ selection: { anchor: 0, head: 0 } })
+  test('select 0 to 0, the firstSqlStatement should to be LINE_1', () => {
+    editorView.dispatch({ selection: { anchor: 0, head: 0 } })
 
-  const firstSqlStatement = getCurStatements(editorView.state)
-  expect(firstSqlStatement[0].content).toBe(LINE_1)
-
-  editorView.dispatch({
-    selection: { anchor: DOC.length, head: DOC.length }
+    const firstSqlStatement = getCurStatements(editorView.state)
+    expect(firstSqlStatement[0].content).toBe(LINE_1)
   })
-  const lastSqlStatement = getCurStatements(editorView.state)
-  expect(lastSqlStatement[0].content).toBe(LINE_2)
+
+  test('select from DOC.length to DOC.length, the lastSqlStatement should to be LINE_2', () => {
+    editorView.dispatch({
+      selection: { anchor: DOC.length, head: DOC.length }
+    })
+
+    const lastSqlStatement = getCurStatements(editorView.state)
+    expect(lastSqlStatement[0].content).toBe(LINE_2)
+  })
 })

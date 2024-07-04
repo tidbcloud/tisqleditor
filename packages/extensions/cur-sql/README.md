@@ -10,12 +10,10 @@ This extension is installed internally inside the `SQLEditorInstance`.
 npm install @tidbcloud/codemirror-extension-cur-sql
 ```
 
-It will auto install `@tidbcloud/codemirror-extension-sql-parser` as its dependency.
-
-You need to install its peer dependencies as well:
+You need to install its dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/state @codemirror/language @codemirro/lang-sql
+npm install @codemirror/view @codemirror/state @codemirror/language @codemirror/lang-sql @tidbcloud/codemirror-extension-sql-parser
 ```
 
 ## Usage

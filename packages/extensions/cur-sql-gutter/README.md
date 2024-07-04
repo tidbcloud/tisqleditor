@@ -13,10 +13,10 @@ A codemirror extension listens the editor selection change, and shows gutter for
 npm install @tidbcloud/codemirror-extension-cur-sql-gutter
 ```
 
-You need to install its peer dependencies as well:
+You need to install its dependencies as well:
 
 ```shell
-npm install @codemirror/view @codemirror/state @codemirror/lang-sql
+npm install @codemirror/view @codemirror/state @codemirror/lang-sql @tidbcloud/codemirror-extension-sql-parser @tidbcloud/codemirror/extension-cur-sql
 ```
 
 ## Usage

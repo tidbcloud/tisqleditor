@@ -13,25 +13,50 @@ LIMIT
 
 const DOC = `${LINE_1}\n${LINE_2}`
 
-test('test change event', () => {
-  let doc = ''
+describe('test change event', () => {
+  describe('a empty doc, insert LINE_1', () => {
+    let doc = '',
+      editorView: EditorView = new EditorView()
 
-  const editorView = new EditorView({
-    state: EditorState.create({
-      doc: '',
-      extensions: [
-        onDocChange((_view, content) => {
-          doc = content
+    beforeAll(() => {
+      editorView = new EditorView({
+        state: EditorState.create({
+          doc: '',
+          extensions: [
+            onDocChange((_view, content) => {
+              doc = content
+            })
+          ]
         })
-      ]
+      })
+
+      editorView.dispatch({ changes: { from: 0, insert: LINE_1 } })
     })
+
+    test('doc should to be LINE_1', () => expect(doc).toBe(LINE_1))
   })
 
-  editorView.dispatch({ changes: { from: 0, insert: LINE_1 } })
-  expect(doc).toBe(LINE_1)
+  describe('a doc has LINE_1 and insert LINE_2 after LINE_1', () => {
+    let doc = '',
+      editorView: EditorView = new EditorView()
 
-  editorView.dispatch({
-    changes: { from: LINE_1.length, insert: `\n${LINE_2}` }
+    beforeAll(() => {
+      editorView = new EditorView({
+        state: EditorState.create({
+          doc: LINE_1,
+          extensions: [
+            onDocChange((_view, content) => {
+              doc = content
+            })
+          ]
+        })
+      })
+
+      editorView.dispatch({
+        changes: { from: LINE_1.length, insert: `\n${LINE_2}` }
+      })
+    })
+
+    test('doc should to be DOC', () => expect(doc).toBe(DOC))
   })
-  expect(doc).toBe(DOC)
 })

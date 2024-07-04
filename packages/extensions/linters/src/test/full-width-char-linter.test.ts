@@ -7,36 +7,49 @@ import { sqlParser } from '@tidbcloud/codemirror-extension-sql-parser'
 
 import { fullWidthCharLinter } from '..'
 
-jest.useFakeTimers()
-
 const LINE_1 = 'SELECT * from test LIMIT 1；\n'
 const LINE_2 = 'USE game;\n'
 
-test('test full width char linter', async () => {
-  const container = document.createElement('div')
-  container.style.height = '100px'
-  const editorView = new EditorView({
-    state: EditorState.create({
-      doc: '',
-      extensions: [sql({ dialect: MySQL }), sqlParser(), fullWidthCharLinter()]
-    }),
-    parent: container
+describe('test full width char linter', () => {
+  let container: HTMLDivElement,
+    editorView: EditorView = new EditorView()
+
+  beforeAll(() => {
+    jest.useFakeTimers()
+
+    container = document.createElement('div')
+    container.style.height = '100px'
+
+    editorView = new EditorView({
+      state: EditorState.create({
+        doc: '',
+        extensions: [
+          sql({ dialect: MySQL }),
+          sqlParser(),
+          fullWidthCharLinter()
+        ]
+      }),
+      parent: container
+    })
   })
 
-  editorView.dispatch({ changes: { from: 0, insert: LINE_1 } })
-  await jest.advanceTimersByTime(1000)
-  expect(diagnosticCount(editorView.state)).toBe(0)
+  afterAll(() => jest.useRealTimers())
 
-  // dispatch changes transaction to make `diagnosticCount(editorView.state)` update
-  editorView.dispatch({ changes: { from: LINE_1.length, insert: LINE_2 } })
-  await jest.advanceTimersByTime(1000)
-  // TODO: fix
-  // don't why, diagnosticCount should expect to be 1, but always get 0
-  // expect(diagnosticCount(editorView.state)).toBe(1)
-  expect(diagnosticCount(editorView.state)).toBe(0)
-  forEachDiagnostic(editorView.state, (d, from, to) => {
-    expect(d.severity).toBe('error')
-    expect(from).toBe(26)
-    expect(to).toBe(27)
+  test('add LINE_1', async () => {
+    editorView.dispatch({ changes: { from: 0, insert: LINE_1 } })
+    await jest.advanceTimersByTime(1000)
+    expect(diagnosticCount(editorView.state)).toBe(0)
+  })
+
+  test('add LINE_2 after LINE_1', async () => {
+    // dispatch changes transaction to make `diagnosticCount(editorView.state)` update
+    editorView.dispatch({ changes: { from: LINE_1.length, insert: LINE_2 } })
+    await jest.advanceTimersByTime(1000)
+    expect(diagnosticCount(editorView.state)).toBe(1)
+    forEachDiagnostic(editorView.state, (d, from, to) => {
+      expect(d.severity).toBe('error')
+      expect(from).toBe(26)
+      expect(to).toBe(27)
+    })
   })
 })

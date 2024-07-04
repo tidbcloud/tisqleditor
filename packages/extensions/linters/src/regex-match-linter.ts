@@ -7,6 +7,7 @@ export interface RegexpItem {
   reg: RegExp
   title: string
   message: string
+  level?: 'error' | 'warning'
 }
 
 const regexMatchParser = (regs: RegexpItem[]) =>
@@ -18,6 +19,7 @@ const regexMatchParser = (regs: RegexpItem[]) =>
       const matches: {
         title: string
         message: string
+        level?: 'error' | 'warning'
         matchArr: RegExpMatchArray
       }[] = []
 
@@ -27,6 +29,7 @@ const regexMatchParser = (regs: RegexpItem[]) =>
           ...cur.map((item) => ({
             title: reg.title,
             message: reg.message,
+            level: reg.level,
             matchArr: item
           }))
         )
@@ -38,7 +41,7 @@ const regexMatchParser = (regs: RegexpItem[]) =>
           diagnostics.push({
             from: index,
             to: index + match.matchArr[0].length,
-            severity: 'error',
+            severity: match.level || 'error',
             renderMessage: () => {
               return hintEle(match.title, match.message)
             },
