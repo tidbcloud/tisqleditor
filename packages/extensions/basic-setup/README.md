@@ -1,7 +1,7 @@
 # @tidbcloud/codemirror-extension-basic-setup
 
 Default basic configuration for codemirror.
-This package depends on most of the core library packages and exports extension bundles to help set up a simple editor in a few lines of code.
+This package depends on most of the codemirror core library packages and exports extension bundles to help set up a simple editor in a few lines of code.
 
 ## Installation
 
@@ -37,7 +37,7 @@ const editorView = new EditorView({
 })
 ```
 
-If you have used @tidbcloud/tisqleditor extension, as it used baisc-setup and has some default config values, to override the default values, you can use basicSetupOptions, it has a higher priority, and can config it like this:
+If you have used @tidbcloud/tisqleditor component, as it used baisc-setup and has some default config values, to override the default values, you can use basicSetupOptions, it has a higher priority, and can config it like this:
 
 ```ts
 import { EditorView } from '@codemirror/view'
