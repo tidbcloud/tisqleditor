@@ -1,5 +1,13 @@
 # @tidbcloud/tisqleditor-react
 
+## 0.0.4
+
+### Patch Changes
+
+- 122f217: fix: update readme & some config params
+- Updated dependencies [122f217]
+  - @tidbcloud/tisqleditor@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

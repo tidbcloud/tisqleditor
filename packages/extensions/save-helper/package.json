@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/codemirror-extension-save-helper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "codemiror extension to help save editor content",
   "type": "module",
   "main": "dist/index.js",
