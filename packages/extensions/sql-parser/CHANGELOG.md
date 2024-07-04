@@ -1,5 +1,11 @@
 # @tidbcloud/codemirror-extension-sql-parser
 
+## 0.0.5
+
+### Patch Changes
+
+- 59c7868: fix autocomplete icon ui
+
 ## 0.0.4
 
 ### Patch Changes

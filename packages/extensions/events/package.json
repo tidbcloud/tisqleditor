@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/codemirror-extension-events",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "codemirror extension to listen doc and selection changes event",
   "type": "module",
   "main": "dist/index.js",
