@@ -209,7 +209,9 @@ const baseTheme = EditorView.baseTheme({
     alignItems: 'center'
   },
   '.cm-autocomplete-item > div.icon': {
-    marginRight: '10px',
+    marginRight: '10px'
+  },
+  '.cm-autocomplete-item > div.icon svg': {
     verticalAlign: 'middle'
   },
   '.cm-autocomplete-item .cm-completionIcon-keyword': {
