@@ -1,5 +1,21 @@
 # @tidbcloud/tisqleditor-playground
 
+## 0.0.4
+
+### Patch Changes
+
+- 122f217: fix: update readme & some config params
+- Updated dependencies [122f217]
+  - @tidbcloud/codemirror-extension-ai-widget@0.0.4
+  - @tidbcloud/codemirror-extension-cur-sql@0.0.4
+  - @tidbcloud/codemirror-extension-cur-sql-gutter@0.0.4
+  - @tidbcloud/codemirror-extension-linters@0.0.4
+  - @tidbcloud/codemirror-extension-save-helper@0.0.4
+  - @tidbcloud/codemirror-extension-sql-autocomplete@0.0.4
+  - @tidbcloud/codemirror-extension-sql-parser@0.0.4
+  - @tidbcloud/codemirror-extension-themes@0.0.4
+  - @tidbcloud/tisqleditor-react@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
