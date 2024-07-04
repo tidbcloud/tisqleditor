@@ -127,6 +127,10 @@ Before you create a pull request, please check whether your commits comply with 
 - refactor: any code related change that is not a fix nor a feature
 - chore: all changes to the repository that do not fit into any of the above categories
 
+### Test
+
+To run the test, execute the command `pnpm test`
+
 ### Release
 
 - Checkout from the latest main branch.
