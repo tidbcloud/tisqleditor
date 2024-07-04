@@ -1,7 +1,3 @@
-// edit from
-// - https://github.com/uiwjs/react-codemirror/blob/master/extensions/basic-setup/src/index.ts
-// - https://github.com/codemirror/basic-setup/blob/main/src/codemirror.ts
-
 import {
   autocompletion,
   completionKeymap,

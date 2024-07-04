@@ -1,6 +1,7 @@
 # @tidbcloud/codemirror-extension-basic-setup
 
 Default basic configuration for codemirror.
+This package depends on most of the codemirror core library packages and exports extension bundles to help set up a simple editor in a few lines of code.
 
 ## Installation
 
@@ -8,7 +9,7 @@ Default basic configuration for codemirror.
 npm install @tidbcloud/codemirror-extension-basic-setup
 ```
 
-You need to install its peer dependencies as well:
+⚠️ You need to install its peer dependencies as well:
 
 ```shell
 npm install @codemirror/state @codemirror/view @codemirror/autocomplete @codemirror/commands @codemirror/language  @codemirror/lint @codemirror/search
@@ -33,6 +34,26 @@ const editorView = new EditorView({
       })
     ]
   })
+})
+```
+
+If you have used @tidbcloud/tisqleditor component, as it used baisc-setup and has some default config values, to override the default values, you can use basicSetupOptions, it has a higher priority, and can config it like this:
+
+```ts
+import { EditorView } from '@codemirror/view'
+import { EditorState } from '@codemirror/state'
+import { createSQLEditorInstance } from '@tidbcloud/tisqleditor'
+
+const editorInst = createSQLEditorInstance({
+  editorId,
+  doc,
+  basicSetupOptions: {
+    foldGutter: false,
+    foldKeymap: false,
+    searchKeymap: true,
+    autocompletion: false,
+    history: false
+  }
 })
 ```
 
