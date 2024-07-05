@@ -21,20 +21,20 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 
 ## Packages
 
-| package                                          | desc                                                                      |
-| ------------------------------------------------ | ------------------------------------------------------------------------- |
-| @tidbcloud/tisqleditor                           | SQLEditorInstance with pre-configured extensions                          |
-| @tidbcloud/tisqleditor-react                     | React component wrapper                                                   |
-| @tidbcloud/codemirror-extension-ai-widget        | a widget to chat with AI to help write or refine SQL                      |
-| @tidbcloud/codemirror-extension-sql-parser       | parse the editor content to SQL statements                                |
-| @tidbcloud/codemirror-extension-cur-sql          | get the selected SQL statements                                           |
-| @tidbcloud/codemirror-extension-cur-sql-gutter   | show gutter for the selected SQL statements                               |
-| @tidbcloud/codemirror-extension-sql-autocomplete | SQL keyword and database schema autocomplete                              |
-| @tidbcloud/codemirror-extension-linters          | use db statement, full width chars, and regular expression linters        |
-| @tidbcloud/codemirror-extension-save-helper      | save the editor content if it changes                                     |
-| @tidbcloud/codemirror-extension-events           | 2 normal kinds of event listener: doc change, selection change            |
-| @tidbcloud/codemirror-extension-themes           | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
-| @tidbcloud/codemirror-extension-basic-setup      | basic configuration for codemirror                                        |
+| package                                                                                              | desc                                                                      |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| [@tidbcloud/tisqleditor](./packages/core/README.md)                                                  | SQLEditorInstance with pre-configured extensions                          |
+| [@tidbcloud/tisqleditor-react](./packages/react/README.md)                                           | React component wrapper                                                   |
+| [@tidbcloud/codemirror-extension-ai-widget](./packages/extensions/ai-widget/README.md)               | a widget to chat with AI to help write or refine SQL                      |
+| [@tidbcloud/codemirror-extension-sql-parser](./packages/extensions/sql-parser/README.md)             | parse the editor content to SQL statements                                |
+| [@tidbcloud/codemirror-extension-cur-sql](./packages/extensions/cur-sql/README.md)                   | get the selected SQL statements                                           |
+| [@tidbcloud/codemirror-extension-cur-sql-gutter](./packages/extensions/cur-sql-gutter/README.md)     | show gutter for the selected SQL statements                               |
+| [@tidbcloud/codemirror-extension-sql-autocomplete](./packages/extensions/sql-autocomplete/README.md) | SQL keyword and database schema autocomplete                              |
+| [@tidbcloud/codemirror-extension-linters](./packages/extensions/linters/README.md)                   | use db statement, full width chars, and regular expression linters        |
+| [@tidbcloud/codemirror-extension-save-helper](./packages/extensions/save-helper/README.md)           | save the editor content if it changes                                     |
+| [@tidbcloud/codemirror-extension-events](./packages/extensions/events/README.md)                     | 2 normal kinds of event listener: doc change, selection change            |
+| [@tidbcloud/codemirror-extension-themes](./packages/extensions/themes/README.md)                     | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
+| [@tidbcloud/codemirror-extension-basic-setup](./packages/extensions/basic-setup/README.md)           | basic configuration for codemirror                                        |
 
 ## Usage
 
