@@ -25,7 +25,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 export function ThemeProvider({
   children,
   defaultTheme = 'system',
-  storageKey = 'tisqleditor.ui.theme',
+  storageKey = 'tisqleditor.ui.theme.v1',
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(

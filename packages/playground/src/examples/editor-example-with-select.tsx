@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { EnterFullScreenIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
 
@@ -12,6 +12,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { useTheme } from '@/components/darkmode-toggle/theme-provider'
 
 import { EditorExample } from './editor-example'
 
@@ -84,7 +85,8 @@ export function EditorExampleWithSelect({
   defTheme: string
 }) {
   const [example, setExample] = useState(defExample)
-  const [theme, setTheme] = useState(defTheme)
+  const [editorTheme, setEditorTheme] = useState(defTheme)
+  const { setTheme: setAppTheme } = useTheme()
 
   function onExampleChange(v: string) {
     setExample(v)
@@ -92,9 +94,15 @@ export function EditorExampleWithSelect({
   }
 
   function onThemeChange(v: string) {
-    setTheme(v)
+    setEditorTheme(v)
     updateUrlParam('theme', v)
   }
+
+  useEffect(() => {
+    setAppTheme(
+      editorTheme === 'oneDark' || editorTheme === 'dark' ? 'dark' : 'light'
+    )
+  }, [editorTheme])
 
   return (
     <main className="flex min-h-screen place-items-center justify-center p-4">
@@ -106,9 +114,12 @@ export function EditorExampleWithSelect({
 
           <div className="mt-10 flex items-center gap-1">
             <ExampleSelect value={example} onChange={onExampleChange} />
-            <ThemeSelect value={theme} onChange={onThemeChange} />
+            <ThemeSelect value={editorTheme} onChange={onThemeChange} />
             <Button variant="ghost" size="icon">
-              <a href={`/?example=${example}&theme=${theme}`} target="_blank">
+              <a
+                href={`/?example=${example}&theme=${editorTheme}`}
+                target="_blank"
+              >
                 <EnterFullScreenIcon className="h-4 w-4" />
               </a>
             </Button>
@@ -131,7 +142,7 @@ export function EditorExampleWithSelect({
           </div>
 
           <div className="mt-2 text-left border-2 h-[400px]">
-            <EditorExample example={example} theme={theme} />
+            <EditorExample example={example} theme={editorTheme} />
           </div>
         </div>
       </div>
