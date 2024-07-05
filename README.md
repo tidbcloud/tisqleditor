@@ -41,7 +41,7 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 See [editor.tsx](./packages/playground/src/components/biz/editor-panel/editor.tsx) or [editor-example.tsx](./packages/playground/src/examples/editor-example.tsx) to get more details.
 
 ```shell
-pnpm add @tidbcloud/tisqleditor-react @tidbcloud/codemirror-extension-themes @tidbcloud/codemirror-extension-cur-sql-gutter
+npm install @tidbcloud/tisqleditor-react @tidbcloud/codemirror-extension-themes @tidbcloud/codemirror-extension-cur-sql-gutter
 ```
 
 ```tsx
@@ -53,7 +53,7 @@ export function Editor() {
   return (
     <SQLEditor
       editorId="MySQLEditor"
-      doc={'USE game;\n'}
+      doc={'USE game;\nSELECT * from games;'}
       theme={oneDark}
       basicSetupOptions={{
         autocompletion: true
@@ -100,7 +100,7 @@ Before you create a pull request, please check whether your commits comply with 
 
 ### Test
 
-To run the test, execute the command `pnpm test`
+Run `pnpm test` to test.
 
 ### Release
 
