@@ -1,17 +1,11 @@
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { useQuery } from '@tanstack/react-query'
 
 import { Button } from '@/components/ui/button'
-import { useSchemaContext } from '@/contexts/schema-context'
 import { cn } from '@/lib/utils'
+import { useSchemaQuery } from '@/hooks/use-schema-loader'
 
 function ReloadButton() {
-  const { loadSchema } = useSchemaContext()
-
-  const { isFetching, refetch } = useQuery({
-    queryKey: ['db_schema'],
-    queryFn: loadSchema
-  })
+  const { isFetching, refetch } = useSchemaQuery()
 
   return (
     <Button
