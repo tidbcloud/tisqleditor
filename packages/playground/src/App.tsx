@@ -24,7 +24,7 @@ function FullFeaturedPlayground() {
   return (
     <QueryClientProvider client={queryClient}>
       <EditorCacheProvider>
-        <ThemeProvider>
+        <ThemeProvider defaultTheme="dark">
           <StatementProvider>
             <SchemaProvider>
               <FilesProvider>
@@ -43,15 +43,23 @@ function FullFeaturedPlayground() {
 function App() {
   const params = new URLSearchParams(window.location.search)
   const example = params.get('example')
-  const theme = params.get('theme') ?? 'bbedit'
   const withSelect = params.get('with_select')
+
+  const editorTheme = params.get('theme') ?? 'oneDark'
 
   if (example !== null) {
     if (withSelect !== null) {
-      return <EditorExampleWithSelect defExample={example} defTheme={theme} />
+      return (
+        <ThemeProvider>
+          <EditorExampleWithSelect
+            defExample={example}
+            defTheme={editorTheme}
+          />
+        </ThemeProvider>
+      )
     }
 
-    return <EditorExample example={example} theme={theme} />
+    return <EditorExample example={example} theme={editorTheme} />
   }
 
   return <FullFeaturedPlayground />

@@ -6,19 +6,11 @@ import {
 } from '@/components/ui/accordion'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useSchemaContext } from '@/contexts/schema-context'
-import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useSchemaQuery } from '@/hooks/use-schema-loader'
 
-export function SchemasTree() {
-  const { loadSchema, schema, setSchema } = useSchemaContext()
-
-  const { data: schemaData, isLoading } = useQuery({
-    queryKey: ['db_schema'],
-    queryFn: loadSchema
-  })
-  useEffect(() => {
-    setSchema(schemaData ?? null)
-  }, [schemaData])
+export function SchemaTree() {
+  const { schema } = useSchemaContext()
+  const { isLoading } = useSchemaQuery()
 
   if (isLoading) {
     return (

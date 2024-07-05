@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+
 import FilesPanel from './files-panel'
-import { SchemasPanel } from './schemas-panel'
+import { SchemaPanel } from './schema-panel'
 
 export function LeftPanel() {
   return (
@@ -12,16 +13,16 @@ export function LeftPanel() {
       </div>
 
       <div className="p-2 pt-0">
-        <Tabs defaultValue="schemas">
+        <Tabs defaultValue="sql-files">
           <TabsList>
-            <TabsTrigger value="schemas">Schemas</TabsTrigger>
             <TabsTrigger value="sql-files">SQL Files</TabsTrigger>
+            <TabsTrigger value="schemas">Schemas</TabsTrigger>
           </TabsList>
-          <TabsContent value="schemas">
-            <SchemasPanel />
-          </TabsContent>
           <TabsContent value="sql-files">
             <FilesPanel />
+          </TabsContent>
+          <TabsContent value="schemas">
+            <SchemaPanel />
           </TabsContent>
         </Tabs>
       </div>

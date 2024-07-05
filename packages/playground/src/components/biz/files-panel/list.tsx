@@ -1,30 +1,28 @@
 import { useEffect } from 'react'
 
-import { useQuery } from '@tanstack/react-query'
-
 import { IFile, useFilesContext } from '@/contexts/files-context'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useFilesQuery } from '@/hooks/use-files-loader'
 
 export function FilesList() {
   const {
     state: {
       allFiles,
-      setAllFiles,
       openedFiles,
       setOpenedFiles,
       activeFileId,
       setActiveFileId
     },
-    api: { loadFiles, openFile }
+    api: { openFile }
   } = useFilesContext()
 
-  const { data: filesData, isLoading } = useQuery({
-    queryKey: ['sql_files'],
-    queryFn: loadFiles
-  })
+  const { isLoading } = useFilesQuery()
+
   useEffect(() => {
-    setAllFiles(filesData ?? [])
-  }, [filesData])
+    if (activeFileId === null && allFiles.length > 0) {
+      handleOpenFile(allFiles[0])
+    }
+  }, [allFiles, activeFileId])
 
   async function handleOpenFile(file: IFile) {
     setActiveFileId(file.id)
