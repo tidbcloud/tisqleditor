@@ -59,7 +59,13 @@ function App() {
       )
     }
 
-    return <EditorExample example={example} theme={editorTheme} />
+    return (
+      <EditorExample
+        example={example}
+        withSelect={withSelect}
+        theme={editorTheme}
+      />
+    )
   }
 
   return <FullFeaturedPlayground />

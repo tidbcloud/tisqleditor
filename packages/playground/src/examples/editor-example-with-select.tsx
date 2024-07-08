@@ -144,7 +144,9 @@ export function EditorExampleWithSelect({
             </Button>
           </div>
 
-          <div className="mt-2 text-left border-2 h-[400px]">
+          <div
+            className={`mt-2 text-left border-2 h-[500px] ${example === 'events' ? 'overflow-y-auto' : ''}`}
+          >
             <EditorExample
               example={example}
               theme={editorTheme}

@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { EditorView } from '@codemirror/view'
 
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
@@ -26,11 +26,27 @@ const DOC_1 = `USE sp500insight;`
 const DOC_2 = `-- USE sp500insight;`
 const DOC_3 = `-- USE sp500insight；`
 const DOC_4 = `
-SELECT sector, industry, COUNT(*) AS companies
-FROM companies c
-WHERE c.stock_symbol IN (SELECT stock_symbol FROM index_compositions WHERE index_symbol = "SP500")
-GROUP BY sector, industry
-ORDER BY sector, companies DESC;
+SELECT
+  sector,
+  industry,
+  COUNT(*) AS companies
+FROM
+  companies c
+WHERE
+  c.stock_symbol IN (
+    SELECT
+      stock_symbol
+    FROM
+      index_compositions
+    WHERE
+      index_symbol = "SP500"
+  )
+GROUP BY
+  sector,
+  industry
+ORDER BY
+  sector,
+  companies DESC;
 `
 
 const ALL_EXAMPLES = [
@@ -87,10 +103,12 @@ const EXAMPLE_DOCS: { [key: string]: string } = {
 export function EditorExample({
   example = '',
   theme = '',
+  withSelect,
   docChangeHandler,
   selectionChangeHandler
 }: {
   example?: string
+  withSelect?: string | null
   theme?: string
   docChangeHandler?: (view: EditorView, doc: string) => void
   selectionChangeHandler?: (
@@ -121,21 +139,47 @@ export function EditorExample({
     return [str, DOC_4].join('\n')
   }, [exampleArr])
 
+  const [consoleContent, setConsoleContent] = useState('')
+
   return (
-    <SQLEditor
-      className="h-full"
-      editorId={example || 'default'}
-      doc={doc}
-      theme={THEME_EXTS[theme]}
-      extraExts={[
-        ...extraExts,
-        onDocChange((view, content) => {
-          docChangeHandler?.(view, content)
-        }),
-        onSelectionChange((view, selectRange) => {
-          selectionChangeHandler?.(view, selectRange)
-        })
-      ]}
-    />
+    <div className="flex flex-col h-full bg-slate-900		">
+      <SQLEditor
+        className="flex-1"
+        editorId={example || 'default'}
+        doc={doc}
+        theme={THEME_EXTS[theme]}
+        extraExts={[
+          ...extraExts,
+          onDocChange((view, content) => {
+            docChangeHandler?.(view, content)
+            console.log(view)
+            setConsoleContent(`SQL changes, current SQLs: \n${content}`)
+          }),
+          onSelectionChange((view, selectRange) => {
+            selectionChangeHandler?.(view, selectRange)
+            if (
+              selectRange.length === 0 ||
+              selectRange[0].from === selectRange[0].to
+            ) {
+              return
+            }
+
+            const content = `Selection changes, from: ${selectRange[0].from} to: ${selectRange[0].to}\nSelect SQLs: ${view.state.sliceDoc(
+              selectRange[0].from,
+              selectRange[0].to
+            )}`
+            setConsoleContent(content)
+          })
+        ]}
+      />
+
+      {example === 'events' && withSelect === null && (
+        <div className="mt-2 p-2 text-left rounded-xl h-[300px] overflow-y-auto">
+          <pre>
+            <p className="text-sm text-slate-400">{consoleContent}</p>
+          </pre>
+        </div>
+      )}
+    </div>
   )
 }
