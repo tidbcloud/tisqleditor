@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import {
   addFile,
   delFile,
@@ -18,9 +18,9 @@ function FilesLoader() {
 }
 
 export function FilesProvider(props: { children: React.ReactNode }) {
-  const [allFiles, setAllFiles] = React.useState<IFile[]>([])
-  const [openedFiles, setOpenedFiles] = React.useState<IFile[]>([])
-  const [activeFileId, setActiveFileId] = React.useState<string | null>(null)
+  const [allFiles, setAllFiles] = useState<IFile[]>([])
+  const [openedFiles, setOpenedFiles] = useState<IFile[]>([])
+  const [activeFileId, setActiveFileId] = useState<string | null>(null)
 
   const ctxValue = useMemo(
     () => ({

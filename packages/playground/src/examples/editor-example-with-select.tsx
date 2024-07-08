@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { EnterFullScreenIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
 
@@ -15,16 +15,13 @@ import { Button } from '@/components/ui/button'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
 
 import { EditorExample } from './editor-example'
+import { useExampleUrlState } from './url-state'
 
-function ExampleSelect({
-  value,
-  onChange
-}: {
-  value: string
-  onChange: (v: string) => void
-}) {
+function ExampleSelect() {
+  const { example, setExample } = useExampleUrlState()
+
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select value={example} onValueChange={setExample}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select an extension" />
       </SelectTrigger>
@@ -46,15 +43,11 @@ function ExampleSelect({
   )
 }
 
-function ThemeSelect({
-  value,
-  onChange
-}: {
-  value: string
-  onChange: (v: string) => void
-}) {
+function ThemeSelect() {
+  const { theme, setTheme } = useExampleUrlState()
+
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select value={theme} onValueChange={setTheme}>
       <SelectTrigger className="w-[120px]">
         <SelectValue placeholder="Select a theme" />
       </SelectTrigger>
@@ -70,33 +63,10 @@ function ThemeSelect({
   )
 }
 
-function updateUrlParam(key: string, value: string) {
-  const url = new URL(window.location.href)
-  const params = new URLSearchParams(url.search)
-  params.set(key, value)
-  window.history.replaceState({}, '', `${url.pathname}?${params.toString()}`)
-}
+export function EditorExampleWithSelect() {
+  const { example, theme: editorTheme } = useExampleUrlState()
 
-export function EditorExampleWithSelect({
-  defExample,
-  defTheme
-}: {
-  defExample: string
-  defTheme: string
-}) {
-  const [example, setExample] = useState(defExample)
-  const [editorTheme, setEditorTheme] = useState(defTheme)
   const { setTheme: setAppTheme } = useTheme()
-
-  function onExampleChange(v: string) {
-    setExample(v)
-    updateUrlParam('example', v)
-  }
-
-  function onThemeChange(v: string) {
-    setEditorTheme(v)
-    updateUrlParam('theme', v)
-  }
 
   useEffect(() => {
     setAppTheme(
@@ -113,8 +83,8 @@ export function EditorExampleWithSelect({
           </h1>
 
           <div className="mt-10 flex items-center gap-1">
-            <ExampleSelect value={example} onChange={onExampleChange} />
-            <ThemeSelect value={editorTheme} onChange={onThemeChange} />
+            <ExampleSelect />
+            <ThemeSelect />
             <Button variant="ghost" size="icon">
               <a
                 href={`/?example=${example}&theme=${editorTheme}`}

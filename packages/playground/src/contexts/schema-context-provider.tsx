@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import { getSchema } from '@/api/tidbcloud/schema-api'
 import { SchemaContext, SchemaRes } from './schema-context'
@@ -10,7 +10,7 @@ function SchemaLoader() {
 }
 
 export function SchemaProvider(props: { children: React.ReactNode }) {
-  const [schema, setSchema] = React.useState<SchemaRes | null>(null)
+  const [schema, setSchema] = useState<SchemaRes | null>(null)
 
   const ctxValue = useMemo(
     () => ({ loadSchema: getSchema, schema, setSchema }),
