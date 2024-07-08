@@ -14,6 +14,11 @@ import {
   aiWidget,
   isUnifiedMergeViewActive
 } from '@tidbcloud/codemirror-extension-ai-widget'
+import {
+  onDocChange,
+  onSelectionChange,
+  SelectionRange
+} from '@tidbcloud/codemirror-extension-events'
 import { delay } from '@/lib/delay'
 import { Extension } from '@codemirror/state'
 
@@ -81,10 +86,17 @@ const EXAMPLE_DOCS: { [key: string]: string } = {
 
 export function EditorExample({
   example = '',
-  theme = ''
+  theme = '',
+  docChangeHandler,
+  selectionChangeHandler
 }: {
   example?: string
   theme?: string
+  docChangeHandler?: (view: EditorView, doc: string) => void
+  selectionChangeHandler?: (
+    view: EditorView,
+    selectRange: SelectionRange[]
+  ) => void
 }) {
   const exampleArr = useMemo(() => {
     let exampleArr = example.split(',')
@@ -115,7 +127,15 @@ export function EditorExample({
       editorId={example || 'default'}
       doc={doc}
       theme={THEME_EXTS[theme]}
-      extraExts={extraExts}
+      extraExts={[
+        ...extraExts,
+        onDocChange((view, content) => {
+          docChangeHandler?.(view, content)
+        }),
+        onSelectionChange((view, selectRange) => {
+          selectionChangeHandler?.(view, selectRange)
+        })
+      ]}
     />
   )
 }

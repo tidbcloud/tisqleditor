@@ -39,6 +39,7 @@ function ExampleSelect({
             FullWidthChar Linter
           </SelectItem>
           <SelectItem value="save-helper">Save Helper</SelectItem>
+          <SelectItem value="events">Events</SelectItem>
           <SelectItem value="all">All</SelectItem>
         </SelectGroup>
       </SelectContent>
@@ -104,6 +105,8 @@ export function EditorExampleWithSelect({
     )
   }, [editorTheme])
 
+  const [consoleContent, setConsoleContent] = useState('')
+
   return (
     <main className="flex min-h-screen place-items-center justify-center p-4">
       <div className="max-w-7xl min-w-[800px]">
@@ -142,8 +145,36 @@ export function EditorExampleWithSelect({
           </div>
 
           <div className="mt-2 text-left border-2 h-[400px]">
-            <EditorExample example={example} theme={editorTheme} />
+            <EditorExample
+              example={example}
+              theme={editorTheme}
+              docChangeHandler={(view, docs) => {
+                setConsoleContent(`SQL changes, current SQLs: \n${docs}`)
+              }}
+              selectionChangeHandler={(view, selectRange) => {
+                if (
+                  selectRange.length === 0 ||
+                  selectRange[0].from === selectRange[0].to
+                ) {
+                  return
+                }
+
+                const content = `Selection changes, from: ${selectRange[0].from} to: ${selectRange[0].to}\nSelect SQLs: ${view.state.sliceDoc(
+                  selectRange[0].from,
+                  selectRange[0].to
+                )}`
+                setConsoleContent(content)
+              }}
+            />
           </div>
+
+          {example === 'events' && (
+            <div className="mt-2 p-2 text-left border-2 rounded-xl h-[300px] overflow-y-auto">
+              <pre>
+                <p className="text-sm text-slate-400">{consoleContent}</p>
+              </pre>
+            </div>
+          )}
         </div>
       </div>
     </main>

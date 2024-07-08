@@ -31,6 +31,7 @@
     "@tidbcloud/codemirror-extension-sql-parser": "workspace:^",
     "@tidbcloud/codemirror-extension-themes": "workspace:^",
     "@tidbcloud/tisqleditor-react": "workspace:^",
+    "@tidbcloud/codemirror-extension-events": "workspace:^",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
