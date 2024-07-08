@@ -149,6 +149,7 @@ export function EditorExampleWithSelect({
               example={example}
               theme={editorTheme}
               docChangeHandler={(view, docs) => {
+                console.log(view)
                 setConsoleContent(`SQL changes, current SQLs: \n${docs}`)
               }}
               selectionChangeHandler={(view, selectRange) => {
