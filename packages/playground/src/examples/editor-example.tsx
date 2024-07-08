@@ -142,9 +142,9 @@ export function EditorExample({
   const [consoleContent, setConsoleContent] = useState('')
 
   return (
-    <div className="flex flex-col h-full bg-slate-900		">
+    <div className="flex flex-col h-full bg-slate-900">
       <SQLEditor
-        className="flex-1"
+        className="flex-1 overflow-y-auto"
         editorId={example || 'default'}
         doc={doc}
         theme={THEME_EXTS[theme]}
@@ -174,7 +174,7 @@ export function EditorExample({
       />
 
       {example === 'events' && withSelect === null && (
-        <div className="mt-2 p-2 text-left rounded-xl h-[300px] overflow-y-auto">
+        <div className="mt-2 p-2 text-left rounded-xl h-[300px] overflow-y-auto shrink-0">
           <pre>
             <p className="text-sm text-slate-400">{consoleContent}</p>
           </pre>

@@ -172,7 +172,7 @@ export function EditorExampleWithSelect({
           </div>
 
           {example === 'events' && (
-            <div className="mt-2 p-2 text-left border-2 rounded-xl h-[300px] overflow-y-auto">
+            <div className="mt-2 p-2 text-left border-2 rounded-xl h-[300px] overflow-y-auto shrink-0	">
               <pre>
                 <p className="text-sm text-slate-400">{consoleContent}</p>
               </pre>
