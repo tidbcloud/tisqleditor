@@ -60,10 +60,10 @@ export function UrlStateProvider(props: {
 
 //----------------------
 
-type UrlState = Record<string, string | undefined>
-type UrlStateObj<T extends UrlState = UrlState> = Partial<{
+type UrlState = Partial<Record<string, string>>
+type UrlStateObj<T extends UrlState = UrlState> = {
   [key in keyof T]: string
-}>
+}
 
 export function useUrlState<T extends UrlState = UrlState>(): [
   UrlStateObj<T>,
