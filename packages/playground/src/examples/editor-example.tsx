@@ -20,6 +20,8 @@ import {
   onSelectionChange
 } from '@tidbcloud/codemirror-extension-events'
 
+import { Toaster } from '@/components/ui/toaster'
+import { useToast } from '@/components/ui/use-toast'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
 import { delay } from '@/lib/delay'
 import { setLocalStorageItem } from '@/lib/env-vars'
@@ -28,7 +30,8 @@ import { cn } from '@/lib/utils'
 const DOC_1 = `USE game;`
 const DOC_2 = `-- USE game;`
 const DOC_3 = `-- USE game；`
-const DOC_4 = `
+const DOC_4 = `-- press cmd+s to save content`
+const DOC_5 = `
 SELECT
   name,
   average_playtime_forever
@@ -59,7 +62,8 @@ const THEME_EXTS: { [key: string]: Extension } = {
 
 const EXAMPLE_DOCS: { [key: string]: string } = {
   'use-db-linter': DOC_2,
-  'full-width-char-linter': DOC_3
+  'full-width-char-linter': DOC_3,
+  'save-helper': DOC_4
 }
 
 export function EditorExample({
@@ -79,6 +83,8 @@ export function EditorExample({
 
   const [output, setOutput] = useState('')
 
+  const { toast } = useToast()
+
   const exampleArr = useMemo(() => {
     let exampleArr = example.split(',')
     if (exampleArr.includes('all')) {
@@ -91,8 +97,7 @@ export function EditorExample({
     setOutput('')
   }, [exampleArr])
 
-  const showOutputBox =
-    exampleArr.includes('events') || exampleArr.includes('save-helper')
+  const showOutputBox = exampleArr.includes('events')
 
   const exts: { [key: string]: Extension } = useMemo(
     () => ({
@@ -120,9 +125,7 @@ export function EditorExample({
       'full-width-char-linter': fullWidthCharLinter(),
       'save-helper': saveHelper({
         save: (view: EditorView) => {
-          const s = `Doc saved to localStorage`
-          console.log(s)
-          setOutput(s)
+          toast({ description: 'Doc has saved to local storage.' })
           setLocalStorageItem(
             'example.save_helper.doc',
             view.state.doc.toString()
@@ -160,7 +163,7 @@ export function EditorExample({
     if (str === '') {
       str = DOC_1
     }
-    return [str, DOC_4].join('\n')
+    return [str, DOC_5].join('\n')
   }, [exampleArr])
 
   return (
@@ -185,6 +188,8 @@ export function EditorExample({
           </pre>
         </div>
       )}
+
+      <Toaster />
     </div>
   )
 }

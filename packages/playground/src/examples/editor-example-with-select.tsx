@@ -90,8 +90,7 @@ export function EditorExampleWithSelect({
   const [editorTheme, setEditorTheme] = useState(defTheme)
   const { setTheme: setAppTheme } = useTheme()
 
-  const showOutputBox =
-    example === 'events' || example === 'save-helper' || example === 'all'
+  const showOutputBox = example === 'events' || example === 'all'
 
   function onExampleChange(v: string) {
     setExample(v)
