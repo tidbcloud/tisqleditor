@@ -87,6 +87,10 @@ export function EditorExample({
     return [...new Set(exampleArr)]
   }, [example])
 
+  useEffect(() => {
+    setOutput('')
+  }, [exampleArr])
+
   const showOutputBox =
     exampleArr.includes('events') || exampleArr.includes('save-helper')
 
