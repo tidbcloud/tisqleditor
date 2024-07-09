@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/codemirror-extension-ai-widget",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "ai widget extension for codemirror",
   "type": "module",
   "main": "dist/index.js",

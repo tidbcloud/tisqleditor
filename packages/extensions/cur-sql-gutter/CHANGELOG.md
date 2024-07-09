@@ -1,5 +1,14 @@
 # @tidbcloud/codemirror-extension-cur-sql-gutter
 
+## 0.0.6
+
+### Patch Changes
+
+- 438801c: prepare to public
+- Updated dependencies [438801c]
+  - @tidbcloud/codemirror-extension-cur-sql@0.0.6
+  - @tidbcloud/codemirror-extension-sql-parser@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes

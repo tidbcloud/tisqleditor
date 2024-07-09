@@ -1,5 +1,11 @@
 # @tidbcloud/codemirror-extension-sql-parser
 
+## 0.0.6
+
+### Patch Changes
+
+- 438801c: prepare to public
+
 ## 0.0.5
 
 ### Patch Changes
