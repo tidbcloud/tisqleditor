@@ -18,8 +18,6 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@tidbcloud'
 
       - name: Install Dependencies
         run: pnpm i
@@ -38,4 +36,4 @@ jobs:
           publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_REG_PUBLISH_TOKEN }}
