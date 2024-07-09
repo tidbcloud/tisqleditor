@@ -1,5 +1,6 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { EditorView } from '@codemirror/view'
+import { Extension } from '@codemirror/state'
 
 import { SQLEditor } from '@tidbcloud/tisqleditor-react'
 import { saveHelper } from '@tidbcloud/codemirror-extension-save-helper'
@@ -14,58 +15,40 @@ import {
   aiWidget,
   isUnifiedMergeViewActive
 } from '@tidbcloud/codemirror-extension-ai-widget'
-import { delay } from '@/lib/delay'
-import { Extension } from '@codemirror/state'
+import {
+  onDocChange,
+  onSelectionChange
+} from '@tidbcloud/codemirror-extension-events'
 
-const DOC_1 = `USE sp500insight;`
-const DOC_2 = `-- USE sp500insight;`
-const DOC_3 = `-- USE sp500insight；`
+import { useTheme } from '@/components/darkmode-toggle/theme-provider'
+import { delay } from '@/lib/delay'
+import { setLocalStorageItem } from '@/lib/env-vars'
+import { cn } from '@/lib/utils'
+
+const DOC_1 = `USE game;`
+const DOC_2 = `-- USE game;`
+const DOC_3 = `-- USE game；`
 const DOC_4 = `
-SELECT sector, industry, COUNT(*) AS companies
-FROM companies c
-WHERE c.stock_symbol IN (SELECT stock_symbol FROM index_compositions WHERE index_symbol = "SP500")
-GROUP BY sector, industry
-ORDER BY sector, companies DESC;
+SELECT
+  name,
+  average_playtime_forever
+FROM
+  games
+ORDER BY
+  average_playtime_forever DESC
+LIMIT
+  10;
 `
 
 const ALL_EXAMPLES = [
   'ai-widget',
-  'save-helper',
   'sql-autocomplete',
   'cur-sql-gutter',
   'use-db-linter',
-  'full-width-char-linter'
+  'full-width-char-linter',
+  'save-helper',
+  'events'
 ]
-
-const EXAMPLE_EXTS: { [key: string]: Extension } = {
-  'ai-widget': aiWidget({
-    chat: async () => {
-      await delay(2000)
-      return {
-        status: 'success',
-        message:
-          'select * from test;\n-- the data is mocked, replace by your own api when using'
-      }
-    },
-    cancelChat: () => {},
-    getDbList: () => {
-      return ['test1', 'test2']
-    }
-  }),
-  'save-helper': saveHelper({
-    save: (view: EditorView) => {
-      console.log('save content:', view.state.doc.toString())
-    }
-  }),
-  'sql-autocomplete': sqlAutoCompletion(),
-  'cur-sql-gutter': curSqlGutter({
-    whenHide(view) {
-      return isUnifiedMergeViewActive(view.state)
-    }
-  }),
-  'use-db-linter': useDbLinter(),
-  'full-width-char-linter': fullWidthCharLinter()
-}
 
 const THEME_EXTS: { [key: string]: Extension } = {
   light: bbedit,
@@ -81,11 +64,21 @@ const EXAMPLE_DOCS: { [key: string]: string } = {
 
 export function EditorExample({
   example = '',
-  theme = ''
+  theme = '',
+  withSelect = false
 }: {
   example?: string
   theme?: string
+  withSelect?: boolean
 }) {
+  const { setTheme: setAppTheme } = useTheme()
+
+  useEffect(() => {
+    setAppTheme(theme === 'oneDark' || theme === 'dark' ? 'dark' : 'light')
+  }, [theme])
+
+  const [output, setOutput] = useState('')
+
   const exampleArr = useMemo(() => {
     let exampleArr = example.split(',')
     if (exampleArr.includes('all')) {
@@ -94,8 +87,65 @@ export function EditorExample({
     return [...new Set(exampleArr)]
   }, [example])
 
+  const showOutputBox =
+    exampleArr.includes('events') || exampleArr.includes('save-helper')
+
+  const exts: { [key: string]: Extension } = useMemo(
+    () => ({
+      'ai-widget': aiWidget({
+        chat: async () => {
+          await delay(2000)
+          return {
+            status: 'success',
+            message:
+              'select * from test;\n-- the data is mocked, replace by your own api when using'
+          }
+        },
+        cancelChat: () => {},
+        getDbList: () => {
+          return ['test1', 'test2']
+        }
+      }),
+      'sql-autocomplete': sqlAutoCompletion(),
+      'cur-sql-gutter': curSqlGutter({
+        whenHide(view) {
+          return isUnifiedMergeViewActive(view.state)
+        }
+      }),
+      'use-db-linter': useDbLinter(),
+      'full-width-char-linter': fullWidthCharLinter(),
+      'save-helper': saveHelper({
+        save: (view: EditorView) => {
+          const s = `Doc saved to localStorage`
+          console.log(s)
+          setOutput(s)
+          setLocalStorageItem(
+            'example.save_helper.doc',
+            view.state.doc.toString()
+          )
+        }
+      }),
+      events: [
+        onDocChange((_view, content) => {
+          const s = `Doc changes, current doc:\n\n${content}`
+          console.log(s)
+          setOutput(s)
+        }),
+        onSelectionChange((view, sels) => {
+          if (sels.length === 0 || sels[0].from === sels[0].to) {
+            return
+          }
+          const s = `Selection changes, select from ${sels[0].from} to ${sels[0].to}\nSelected content:\n${view.state.sliceDoc(sels[0].from, sels[0].to)}`
+          console.log(s)
+          setOutput(s)
+        })
+      ]
+    }),
+    []
+  )
+
   const extraExts = useMemo(() => {
-    return exampleArr.map((item) => EXAMPLE_EXTS[item]).filter((ex) => !!ex)
+    return exampleArr.map((item) => exts[item]).filter((ex) => !!ex)
   }, [exampleArr])
 
   const doc = useMemo(() => {
@@ -110,12 +160,27 @@ export function EditorExample({
   }, [exampleArr])
 
   return (
-    <SQLEditor
-      className="h-full"
-      editorId={example || 'default'}
-      doc={doc}
-      theme={THEME_EXTS[theme]}
-      extraExts={extraExts}
-    />
+    <div className="h-full flex flex-col">
+      <SQLEditor
+        className={cn('flex-auto', withSelect && 'border-2 max-h-[400px]')}
+        editorId={example || 'default'}
+        doc={doc}
+        theme={THEME_EXTS[theme]}
+        extraExts={extraExts}
+      />
+
+      {showOutputBox && (
+        <div
+          className={cn(
+            'h-[200px] p-2 overflow-y-auto shrink-0',
+            withSelect ? 'border-2 mt-2' : 'border-t-2'
+          )}
+        >
+          <pre>
+            <p className="text-sm text-slate-400">{output}</p>
+          </pre>
+        </div>
+      )}
+    </div>
   )
 }

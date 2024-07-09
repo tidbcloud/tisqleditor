@@ -418,6 +418,9 @@ importers:
       '@tidbcloud/codemirror-extension-cur-sql-gutter':
         specifier: workspace:^
         version: link:../extensions/cur-sql-gutter
+      '@tidbcloud/codemirror-extension-events':
+        specifier: workspace:^
+        version: link:../extensions/events
       '@tidbcloud/codemirror-extension-linters':
         specifier: workspace:^
         version: link:../extensions/linters

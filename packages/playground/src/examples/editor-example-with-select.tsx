@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { useTheme } from '@/components/darkmode-toggle/theme-provider'
+import { cn } from '@/lib/utils'
 
 import { EditorExample } from './editor-example'
 
@@ -39,6 +40,7 @@ function ExampleSelect({
             FullWidthChar Linter
           </SelectItem>
           <SelectItem value="save-helper">Save Helper</SelectItem>
+          <SelectItem value="events">Events</SelectItem>
           <SelectItem value="all">All</SelectItem>
         </SelectGroup>
       </SelectContent>
@@ -87,6 +89,9 @@ export function EditorExampleWithSelect({
   const [example, setExample] = useState(defExample)
   const [editorTheme, setEditorTheme] = useState(defTheme)
   const { setTheme: setAppTheme } = useTheme()
+
+  const showOutputBox =
+    example === 'events' || example === 'save-helper' || example === 'all'
 
   function onExampleChange(v: string) {
     setExample(v)
@@ -141,8 +146,17 @@ export function EditorExampleWithSelect({
             </Button>
           </div>
 
-          <div className="mt-2 text-left border-2 h-[400px]">
-            <EditorExample example={example} theme={editorTheme} />
+          <div
+            className={cn(
+              'mt-2 text-left',
+              showOutputBox ? 'h-[600px]' : 'h-[400px]'
+            )}
+          >
+            <EditorExample
+              example={example}
+              theme={editorTheme}
+              withSelect={true}
+            />
           </div>
         </div>
       </div>
