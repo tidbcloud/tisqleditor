@@ -9,7 +9,7 @@
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
     "test": "jest",
-    "release": "changeset publish"
+    "release": "changeset publish --access public"
   },
   "keywords": [
     "tidbcloud",
