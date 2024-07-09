@@ -11,9 +11,6 @@
     "test": "jest",
     "release": "changeset publish"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "keywords": [
     "tidbcloud",
     "sql",
