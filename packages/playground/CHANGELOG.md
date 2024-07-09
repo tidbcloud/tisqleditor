@@ -1,5 +1,22 @@
 # @tidbcloud/tisqleditor-playground
 
+## 0.0.6
+
+### Patch Changes
+
+- 438801c: prepare to public
+- Updated dependencies [438801c]
+  - @tidbcloud/codemirror-extension-ai-widget@0.0.6
+  - @tidbcloud/codemirror-extension-cur-sql@0.0.6
+  - @tidbcloud/codemirror-extension-cur-sql-gutter@0.0.6
+  - @tidbcloud/codemirror-extension-events@0.0.6
+  - @tidbcloud/codemirror-extension-linters@0.0.6
+  - @tidbcloud/codemirror-extension-save-helper@0.0.6
+  - @tidbcloud/codemirror-extension-sql-autocomplete@0.0.6
+  - @tidbcloud/codemirror-extension-sql-parser@0.0.6
+  - @tidbcloud/codemirror-extension-themes@0.0.6
+  - @tidbcloud/tisqleditor-react@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes

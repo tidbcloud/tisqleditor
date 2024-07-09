@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/codemirror-extension-cur-sql-gutter",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "codemirror extension to show gutter for current selected sql",
   "type": "module",
   "main": "dist/index.js",

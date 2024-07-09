@@ -1,5 +1,13 @@
 # @tidbcloud/tisqleditor-react
 
+## 0.0.6
+
+### Patch Changes
+
+- 438801c: prepare to public
+- Updated dependencies [438801c]
+  - @tidbcloud/tisqleditor@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes
