@@ -1,14 +1,15 @@
 # TiSQLEditor
 
-TiSQLEditor is a CodeMirror6 based SQL code editor which is used in TiDB Cloud Console.
 
-- [Try Full Featured Playground](https://tisqleditor-playground.netlify.app/)
+SQL Editor is built on [CodeMirror6](https://codemirror.net/), a modern code editor that is written in TypeScript and supports a wide range of extensions. Based on that, we provide a set of extensions to make it easy to use and easy to extend, all these features are validated in the [TiDB Cloud](https://tidbcloud.com), with countless customers all around the world. We also contribute to the CodeMirror6 project, and we are happy to share our extensions with the community.
+
+👉🏻 [Try Full Featured Playground](https://tisqleditor-playground.netlify.app/)
 
 ![image](./packages/playground/public/playground-2.png)
 
 https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-26479bd59d11
 
-- [Try Simple Example](https://tisqleditor-playground.netlify.app/?example=all&with_select)
+👉🏻 [Try Simple Example](https://tisqleditor-playground.netlify.app/?example=all&with_select)
 
 ![image](./packages/playground/public/example-2.png)
 
@@ -25,16 +26,16 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | [@tidbcloud/tisqleditor](./packages/core/README.md)                                                  | SQLEditorInstance with pre-configured extensions                          |
 | [@tidbcloud/tisqleditor-react](./packages/react/README.md)                                           | React component wrapper                                                   |
-| [@tidbcloud/codemirror-extension-ai-widget](./packages/extensions/ai-widget/README.md)               | a widget to chat with AI to help write or refine SQL                      |
-| [@tidbcloud/codemirror-extension-sql-parser](./packages/extensions/sql-parser/README.md)             | parse the editor content to SQL statements                                |
-| [@tidbcloud/codemirror-extension-cur-sql](./packages/extensions/cur-sql/README.md)                   | get the selected SQL statements                                           |
-| [@tidbcloud/codemirror-extension-cur-sql-gutter](./packages/extensions/cur-sql-gutter/README.md)     | show gutter for the selected SQL statements                               |
+| [@tidbcloud/codemirror-extension-ai-widget](./packages/extensions/ai-widget/README.md)               | A widget to chat with AI to help write or refine SQL                      |
+| [@tidbcloud/codemirror-extension-sql-parser](./packages/extensions/sql-parser/README.md)             | Parse the editor content to SQL statements                                |
+| [@tidbcloud/codemirror-extension-cur-sql](./packages/extensions/cur-sql/README.md)                   | Get the selected SQL statements                                           |
+| [@tidbcloud/codemirror-extension-cur-sql-gutter](./packages/extensions/cur-sql-gutter/README.md)     | Show gutter for the selected SQL statements                               |
 | [@tidbcloud/codemirror-extension-sql-autocomplete](./packages/extensions/sql-autocomplete/README.md) | SQL keyword and database schema autocomplete                              |
-| [@tidbcloud/codemirror-extension-linters](./packages/extensions/linters/README.md)                   | use db statement, full width chars, and regular expression linters        |
-| [@tidbcloud/codemirror-extension-save-helper](./packages/extensions/save-helper/README.md)           | save the editor content if it changes                                     |
+| [@tidbcloud/codemirror-extension-linters](./packages/extensions/linters/README.md)                   | Use db statement, full width chars, and regular expression linters        |
+| [@tidbcloud/codemirror-extension-save-helper](./packages/extensions/save-helper/README.md)           | Save the editor content if it changes                                     |
 | [@tidbcloud/codemirror-extension-events](./packages/extensions/events/README.md)                     | 2 normal kinds of event listener: doc change, selection change            |
 | [@tidbcloud/codemirror-extension-themes](./packages/extensions/themes/README.md)                     | 2 simple builtin themes, `bbedit` for light mode, `oneDark` for dark mode |
-| [@tidbcloud/codemirror-extension-basic-setup](./packages/extensions/basic-setup/README.md)           | basic configuration for codemirror                                        |
+| [@tidbcloud/codemirror-extension-basic-setup](./packages/extensions/basic-setup/README.md)           | Basic configuration for codemirror                                        |
 
 ## Usage
 
@@ -68,8 +69,8 @@ export function Editor() {
 ```
 
 ## Documentation
-
-// TODO: add documentation link from https://tidbcloud-uikit.netlify.app/
+* Official site: [https://tiui.tidbcloud.com/sql-editor](https://tiui.tidbcloud.com/sql-editor)
+* Documentation: [https://tiui.tidbcloud.com/docs/sql-editor-getting-started](https://tiui.tidbcloud.com/docs/sql-editor-getting-started)
 
 ## Development
 
@@ -80,14 +81,18 @@ export function Editor() {
 
 ### Local Development
 
-- `echo 'link-workspace-packages=true' >> ~/.npmrc`
-- `pnpm i`
-- `pnpm dev`
+```bash
+echo 'link-workspace-packages=true' >> ~/.npmrc
+pnpm i
+pnpm dev
+```
 
 ### Production Build
 
-- `pnpm i`
-- `pnpm build`
+```bash
+pnpm i
+pnpm build
+```
 
 ### PR Commit Convention
 
@@ -101,6 +106,10 @@ Before you create a pull request, please check whether your commits comply with 
 ### Test
 
 Run `pnpm test` to test.
+
+```bash
+pnpm test
+```
 
 ### Release
 
