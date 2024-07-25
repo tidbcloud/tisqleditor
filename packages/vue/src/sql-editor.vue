@@ -32,9 +32,10 @@ function editorIdChange(newId: string, oldId: string) {
       editorId: newId
     })
     editorCache.addEditor(newId, newInst)
+  } else {
+    newInst.changeTheme(props.theme ?? [])
+    newInst.changeSQLConfig(props.sqlConfig ?? {})
   }
-  newInst.changeTheme(props.theme ?? [])
-  newInst.changeSQLConfig(props.sqlConfig ?? {})
   editorContainerRef.value.appendChild(newInst.editorView.dom)
   newInst.editorView.focus()
 }

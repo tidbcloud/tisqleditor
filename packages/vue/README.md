@@ -30,7 +30,7 @@ When `EditorCacheProvide` unmounts, it will clear all the cached editor instance
 
 ## API
 
-### EditorCacheProvider
+### EditorCacheProvide
 
 - `const cache=inject('editor-cache')`: get the cache
 - `cache.addEditor(editorId, instance)`: add new editor instance
