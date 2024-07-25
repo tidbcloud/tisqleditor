@@ -1,3 +1,4 @@
-import HelloWorld from './components/HelloWorld.vue'
+import EditorCacheProvide from './editor-cache-provide.vue'
+import SQLEditor from './sql-editor.vue'
 
-export { HelloWorld }
+export { EditorCacheProvide, SQLEditor }

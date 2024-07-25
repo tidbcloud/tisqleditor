@@ -1,6 +1,6 @@
 {
   "name": "@tidbcloud/tisqleditor-vue",
-  "version": "0.0.6",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -8,12 +8,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.31"
+    "@tidbcloud/tisqleditor": "workspace:^"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
     "typescript": "^5.2.2",
     "vite": "^5.3.4",
+    "vue": "^3.4.31",
     "vue-tsc": "^2.0.24"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.31"
   }
 }

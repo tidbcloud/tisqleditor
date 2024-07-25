@@ -537,9 +537,9 @@ importers:
 
   packages/vue:
     dependencies:
-      vue:
-        specifier: ^3.4.31
-        version: 3.4.34(typescript@5.4.5)
+      '@tidbcloud/tisqleditor':
+        specifier: workspace:^
+        version: link:../core
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.0.5
@@ -550,6 +550,9 @@ importers:
       vite:
         specifier: ^5.3.4
         version: 5.3.4(@types/node@20.14.2)
+      vue:
+        specifier: ^3.4.31
+        version: 3.4.34(typescript@5.4.5)
       vue-tsc:
         specifier: ^2.0.24
         version: 2.0.28(typescript@5.4.5)
