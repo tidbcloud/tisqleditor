@@ -1,6 +1,5 @@
 # TiSQLEditor
 
-
 SQL Editor is built on [CodeMirror6](https://codemirror.net/), a modern code editor that is written in TypeScript and supports a wide range of extensions. Based on that, we provide a set of extensions to make it easy to use and easy to extend, all these features are validated in the [TiDB Cloud](https://tidbcloud.com), with countless customers all around the world. We also contribute to the CodeMirror6 project, and we are happy to share our extensions with the community.
 
 👉🏻 [Try Full Featured Playground](https://tisqleditor-playground.netlify.app/)
@@ -16,7 +15,7 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 ## Features
 
 - Support edit multiple SQL files
-- Supply React component (Vue component wip)
+- Supply React component and Vue component
 - Out of box extensions
 - AI Widget to chat with AI to help write or refine SQL
 
@@ -26,6 +25,7 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-
 | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | [@tidbcloud/tisqleditor](./packages/core/README.md)                                                  | SQLEditorInstance with pre-configured extensions                          |
 | [@tidbcloud/tisqleditor-react](./packages/react/README.md)                                           | React component wrapper                                                   |
+| [@tidbcloud/tisqleditor-vue](./packages/vue/README.md)                                               | Vue component wrapper                                                     |
 | [@tidbcloud/codemirror-extension-ai-widget](./packages/extensions/ai-widget/README.md)               | A widget to chat with AI to help write or refine SQL                      |
 | [@tidbcloud/codemirror-extension-sql-parser](./packages/extensions/sql-parser/README.md)             | Parse the editor content to SQL statements                                |
 | [@tidbcloud/codemirror-extension-cur-sql](./packages/extensions/cur-sql/README.md)                   | Get the selected SQL statements                                           |
@@ -69,8 +69,9 @@ export function Editor() {
 ```
 
 ## Documentation
-* Official site: [https://tiui.tidbcloud.com/sql-editor](https://tiui.tidbcloud.com/sql-editor)
-* Documentation: [https://tiui.tidbcloud.com/docs/sql-editor-getting-started](https://tiui.tidbcloud.com/docs/sql-editor-getting-started)
+
+- Official site: [https://tiui.tidbcloud.com/sql-editor](https://tiui.tidbcloud.com/sql-editor)
+- Documentation: [https://tiui.tidbcloud.com/docs/sql-editor-getting-started](https://tiui.tidbcloud.com/docs/sql-editor-getting-started)
 
 ## Development
 
