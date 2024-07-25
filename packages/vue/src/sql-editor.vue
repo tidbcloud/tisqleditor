@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, inject, watchEffect } from 'vue'
+import { ref, watch, inject, onMounted } from 'vue'
 import {
   CreateSQLEditorOptions,
   createSQLEditorInstance,
@@ -33,20 +33,26 @@ function editorIdChange(newId: string, oldId: string) {
     })
     editorCache.addEditor(newId, newInst)
   }
+  newInst.changeTheme(props.theme ?? [])
+  newInst.changeSQLConfig(props.sqlConfig ?? {})
   editorContainerRef.value.appendChild(newInst.editorView.dom)
   newInst.editorView.focus()
 }
-editorIdChange(props.editorId, '')
+
+onMounted(() => {
+  editorIdChange(props.editorId, '')
+})
 
 watch(() => props.editorId, editorIdChange)
-
-watchEffect(() => {
-  editorCache.getEditor(props.editorId)?.changeTheme(props.theme ?? [])
-})
-
-watchEffect(() => {
-  editorCache.getEditor(props.editorId)?.changeSQLConfig(props.sqlConfig ?? {})
-})
+watch(
+  () => props.theme,
+  (newVal) => editorCache.getEditor(props.editorId)?.changeTheme(newVal ?? [])
+)
+watch(
+  () => props.sqlConfig,
+  (newVal) =>
+    editorCache.getEditor(props.editorId)?.changeSQLConfig(newVal ?? {})
+)
 </script>
 
 <template>
