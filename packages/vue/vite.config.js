@@ -10,7 +10,7 @@ export default defineConfig({
       formats: ['es']
     },
     rollupOptions: {
-      external: ['vue'],
+      external: ['vue', '@tidbcloud/tisqleditor'],
       output: {
         globals: {
           vue: 'Vue'
