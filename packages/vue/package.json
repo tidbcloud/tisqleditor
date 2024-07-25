@@ -1,0 +1,40 @@
+{
+  "name": "@tidbcloud/tisqleditor-vue",
+  "version": "0.0.1",
+  "description": "tisqleditor vue component",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist/*.js",
+    "dist/*.ts",
+    "package.json",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "vue-tsc -b && vite build"
+  },
+  "keywords": [
+    "tidbcloud",
+    "sql",
+    "editor",
+    "codemirror",
+    "vue component"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@tidbcloud/tisqleditor": "workspace:^"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.4",
+    "vue": "^3.4.31",
+    "vue-tsc": "^2.0.24"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.31"
+  }
+}
