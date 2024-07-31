@@ -7,7 +7,9 @@
   "scripts": {
     "prepare": "husky",
     "dev": "pnpm -r --parallel dev",
+    "dev:playground": "pnpm --filter @tidbcloud/tisqleditor-playground... --parallel dev",
     "build": "pnpm -r build",
+    "build:playground": "pnpm --filter @tidbcloud/tisqleditor-playground... run build",
     "test": "jest",
     "release": "changeset publish"
   },

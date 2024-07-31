@@ -68,7 +68,7 @@ export function EditorActions() {
       </Button>
       <Button variant="outline" size="sm" className="mr-2">
         <a href={`/?example=all&with_select`} target="_blank">
-          Example
+          Examples
         </a>
       </Button>
       <DarkModeToggle />
