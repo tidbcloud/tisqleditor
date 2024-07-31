@@ -1,4 +1,16 @@
-Next.js version for TiSQLEditor playground.
+# TiSQLEditor Playground (NextJS version)
+
+## Try it
+
+- [Full Featured Playground](https://tisqleditor.vercel.app/)
+- [Simple Example](https://tisqleditor.vercel.app/examples)
+
+## Tech Stack
+
+- nextjs
+- tailwindcss
+- shadcn ui
+- react-query
 
 ## Getting Started
 
