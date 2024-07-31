@@ -1,13 +1,16 @@
-import { GitHubLogoIcon, PlayIcon, ReloadIcon } from '@radix-ui/react-icons'
-import { useMutation } from '@tanstack/react-query'
+'use client'
 
-import { DarkModeToggle } from '@/components/darkmode-toggle/toggle'
-import { Button } from '@/components/ui/button'
-import { useFilesContext } from '@/contexts/files-context'
-import { useStatementContext } from '@/contexts/statement-context'
+import Link from 'next/link'
+import { GithubIcon, PlayIcon, RotateCwIcon } from 'lucide-react'
+import { useMutation } from '@tanstack/react-query'
 
 import { useEditorCacheContext } from '@tidbcloud/tisqleditor-react'
 import { SqlStatement } from '@tidbcloud/codemirror-extension-sql-parser'
+
+import { ModeToggle } from '@/components/biz/theme-toggle'
+import { Button } from '@/components/ui/button'
+import { useFilesContext } from '@/contexts/files-context'
+import { useStatementContext } from '@/contexts/statement-context'
 
 export function EditorActions() {
   const {
@@ -60,21 +63,19 @@ export function EditorActions() {
         disabled={runSQLMut.isPending}
       >
         {runSQLMut.isPending ? (
-          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+          <RotateCwIcon className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <PlayIcon className="mr-2 h-4 w-4" />
         )}
         Run
       </Button>
       <Button variant="outline" size="sm" className="mr-2">
-        <a href={`/?example=all&with_select`} target="_blank">
-          Examples
-        </a>
+        <Link href="/examples">Examples</Link>
       </Button>
-      <DarkModeToggle />
+      <ModeToggle />
       <Button variant="ghost" size="icon">
         <a href="https://github.com/tidbcloud/tisqleditor" target="_blank">
-          <GitHubLogoIcon className="h-4 w-4" />
+          <GithubIcon className="h-4 w-4" />
         </a>
       </Button>
     </div>
