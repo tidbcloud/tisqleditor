@@ -13,8 +13,8 @@ https://github.com/tidbcloud/tisqleditor/assets/1284531/46684333-7efa-4925-bf58-
 
 ## Try it
 
-- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
-- [Simple Example](https://tisqleditor-playground.netlify.app/?example=ai-widget&with_select)
+- [Full Featured Playground](https://tisqleditor.vercel.app/playgroud)
+- [Simple Example](https://tisqleditor.vercel.app/examples?ex=ai-widget)
 
 ## Installation
 

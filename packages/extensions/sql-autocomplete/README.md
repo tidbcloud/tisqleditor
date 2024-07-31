@@ -4,8 +4,8 @@ A codemirror extension implements the SQL keyword and database schema autocomple
 
 ## Try it
 
-- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
-- [Simple Example](https://tisqleditor-playground.netlify.app/?example=sql-autocomplete&with_select)
+- [Full Featured Playground](https://tisqleditor.vercel.app/playgroud)
+- [Simple Example](https://tisqleditor.vercel.app/examples?ex=sql-autocomplete)
 
 ## Installation
 

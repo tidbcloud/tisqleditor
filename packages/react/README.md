@@ -4,8 +4,8 @@ This package provides a react component wrap for `SQLEditorInstance` from `@tidb
 
 ## Try it
 
-- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
-- [Simple Example](https://tisqleditor-playground.netlify.app/?example&with_select)
+- [Full Featured Playground](https://tisqleditor.vercel.app/playgroud)
+- [Simple Example](https://tisqleditor.vercel.app/examples)
 
 ## Installation
 

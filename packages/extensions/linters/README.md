@@ -8,8 +8,8 @@
 
 ## Try it
 
-- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
-- [Simple Example](https://tisqleditor-playground.netlify.app/?example=use-db-linter&with_select)
+- [Full Featured Playground](https://tisqleditor.vercel.app/playgroud)
+- [Simple Example](https://tisqleditor.vercel.app/examples?ex=use-db-linter)
 
 ## Installation
 
