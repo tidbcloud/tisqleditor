@@ -8,8 +8,10 @@
     "prepare": "husky",
     "dev": "pnpm -r --parallel dev",
     "dev:playground": "pnpm --filter @tidbcloud/tisqleditor-playground... --parallel dev",
+    "dev:playground-nextjs": "pnpm --filter @tidbcloud/tisqleditor-playground-nextjs... --parallel dev",
     "build": "pnpm -r build",
     "build:playground": "pnpm --filter @tidbcloud/tisqleditor-playground... run build",
+    "build:playground-nextjs": "pnpm --filter @tidbcloud/tisqleditor-playground-nextjs... run build",
     "test": "jest",
     "release": "changeset publish"
   },
