@@ -4,8 +4,8 @@ A codemirror extension listens the editor selection change, and shows gutter for
 
 ## Try it
 
-- [Full Featured Playground](https://tisqleditor-playground.netlify.app/)
-- [Simple Example](https://tisqleditor-playground.netlify.app/?example=cur-sql-gutter&with_select)
+- [Full Featured Playground](https://tisqleditor.vercel.app/playgroud)
+- [Simple Example](https://tisqleditor.vercel.app/examples?ex=cur-sql-gutter)
 
 ## Installation
 

@@ -2,13 +2,13 @@
 
 SQL Editor is built on [CodeMirror6](https://codemirror.net/), a modern code editor that is written in TypeScript and supports a wide range of extensions. Based on that, we provide a set of extensions to make it easy to use and easy to extend, all these features are validated in the [TiDB Cloud](https://tidbcloud.com), with countless customers all around the world. We also contribute to the CodeMirror6 project, and we are happy to share our extensions with the community.
 
-👉🏻 [Try Full Featured Playground](https://tisqleditor-playground.netlify.app/)
+👉🏻 [Try Full Featured Playground](https://tisqleditor.vercel.app/playground)
 
 ![image](./packages/playground/public/playground-2.png)
 
 https://github.com/tidbcloud/tisqleditor/assets/1284531/732b600f-5b4e-45d3-a3d2-26479bd59d11
 
-👉🏻 [Try Simple Example](https://tisqleditor-playground.netlify.app/?example=all&with_select)
+👉🏻 [Try Simple Example](https://tisqleditor.vercel.app/examples?ex=all)
 
 ![image](./packages/playground/public/example-2.png)
 

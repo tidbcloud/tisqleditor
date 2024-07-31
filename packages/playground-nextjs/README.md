@@ -2,7 +2,7 @@
 
 ## Try it
 
-- [Full Featured Playground](https://tisqleditor.vercel.app/)
+- [Full Featured Playground](https://tisqleditor.vercel.app/playgroud)
 - [Simple Example](https://tisqleditor.vercel.app/examples)
 
 ## Tech Stack
