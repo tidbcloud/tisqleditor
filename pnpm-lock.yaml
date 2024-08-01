@@ -690,6 +690,31 @@ importers:
         specifier: ^2.0.24
         version: 2.0.28(typescript@5.4.5)
 
+  packages/vue-demo:
+    dependencies:
+      '@tidbcloud/codemirror-extension-themes':
+        specifier: workspace:^
+        version: link:../extensions/themes
+      '@tidbcloud/tisqleditor-vue':
+        specifier: workspace:^
+        version: link:../vue
+      vue:
+        specifier: ^3.4.31
+        version: 3.4.34(typescript@5.4.5)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.0.5
+        version: 5.1.0(vite@5.3.4(@types/node@20.14.2))(vue@3.4.34(typescript@5.4.5))
+      typescript:
+        specifier: ^5.2.2
+        version: 5.4.5
+      vite:
+        specifier: ^5.3.4
+        version: 5.3.4(@types/node@20.14.2)
+      vue-tsc:
+        specifier: ^2.0.24
+        version: 2.0.28(typescript@5.4.5)
+
 packages:
 
   '@adobe/css-tools@4.4.0':
