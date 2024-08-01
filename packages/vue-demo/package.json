@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tidbcloud/codemirror-extension-ai-widget": "workspace:^",
+    "@tidbcloud/codemirror-extension-cur-sql-gutter": "workspace:^",
+    "@tidbcloud/codemirror-extension-sql-autocomplete": "workspace:^",
     "@tidbcloud/codemirror-extension-themes": "workspace:^",
     "@tidbcloud/tisqleditor-vue": "workspace:^",
     "vue": "^3.4.31"

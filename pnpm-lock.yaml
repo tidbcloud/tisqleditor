@@ -692,6 +692,15 @@ importers:
 
   packages/vue-demo:
     dependencies:
+      '@tidbcloud/codemirror-extension-ai-widget':
+        specifier: workspace:^
+        version: link:../extensions/ai-widget
+      '@tidbcloud/codemirror-extension-cur-sql-gutter':
+        specifier: workspace:^
+        version: link:../extensions/cur-sql-gutter
+      '@tidbcloud/codemirror-extension-sql-autocomplete':
+        specifier: workspace:^
+        version: link:../extensions/sql-autocomplete
       '@tidbcloud/codemirror-extension-themes':
         specifier: workspace:^
         version: link:../extensions/themes
