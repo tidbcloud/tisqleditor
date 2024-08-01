@@ -9,9 +9,11 @@
     "dev": "pnpm -r --parallel dev",
     "dev:playground": "pnpm --filter @tidbcloud/tisqleditor-playground... --parallel dev",
     "dev:playground-nextjs": "pnpm --filter @tidbcloud/tisqleditor-playground-nextjs... --parallel dev",
+    "dev:vue-demo": "pnpm --filter @tidbcloud/tisqleditor-vue-demo... --parallel dev",
     "build": "pnpm -r build",
     "build:playground": "pnpm --filter @tidbcloud/tisqleditor-playground... run build",
     "build:playground-nextjs": "pnpm --filter @tidbcloud/tisqleditor-playground-nextjs... run build",
+    "build:vue-demo": "pnpm --filter @tidbcloud/tisqleditor-vue-demo... run build",
     "test": "jest",
     "release": "changeset publish"
   },
