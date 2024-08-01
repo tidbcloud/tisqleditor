@@ -1,0 +1,25 @@
+{
+  "name": "@tidbcloud/tisqleditor-vue-demo",
+  "private": true,
+  "version": "0.0.6",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tidbcloud/codemirror-extension-ai-widget": "workspace:^",
+    "@tidbcloud/codemirror-extension-cur-sql-gutter": "workspace:^",
+    "@tidbcloud/codemirror-extension-sql-autocomplete": "workspace:^",
+    "@tidbcloud/codemirror-extension-themes": "workspace:^",
+    "@tidbcloud/tisqleditor-vue": "workspace:^",
+    "vue": "^3.4.31"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.4",
+    "vue-tsc": "^2.0.24"
+  }
+}
