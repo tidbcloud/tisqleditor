@@ -4,9 +4,11 @@ This demo is used to test `@tidbcloud/tisqleditor-vue` package, created by Vue3+
 
 ## Preview
 
-![tisqleditor vue](./public/tisqleditor-vue.png)
+👉🏻 [Try it](https://tisqleditor-vue-demo.vercel.app)
 
-## Get Started
+![tisqleditor vue demo](./public/tisqleditor-vue-demo.png)
+
+## Getting Started
 
 ```bash
 pnpm i
