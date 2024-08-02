@@ -22,7 +22,7 @@ export default function Page({
   const showOutputBox = ex === 'events' || ex === 'all'
 
   return (
-    <main className="flex h-screen place-items-center justify-center p-4">
+    <main className="flex min-h-screen place-items-center justify-center p-4">
       <div className="max-w-7xl min-w-[800px]">
         <div className="text-center">
           <h1 className="text-xl font-bold tracking-tight sm:text-3xl">
