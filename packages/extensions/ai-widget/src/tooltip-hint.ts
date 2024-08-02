@@ -53,7 +53,7 @@ const cursorTooltipBaseTheme = EditorView.baseTheme({
 //------------------------------------------
 
 function getCursorTooltips(state: EditorState): readonly Tooltip[] {
-  const cmd = isAppleOs ? 'Command' : 'Ctrl'
+  const cmd = isAppleOs() ? 'Command' : 'Ctrl'
 
   return state.selection.ranges
     .filter((range) => !range.empty)

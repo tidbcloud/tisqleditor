@@ -1,7 +1,7 @@
 import { GithubIcon, FullscreenIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import { DynamicEditorExample } from '@/components/biz/dynamic-editor-example'
+import { EditorExample } from '@/components/biz/editor-example'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -59,11 +59,7 @@ export default function Page({
               showOutputBox ? 'h-[600px]' : 'h-[400px]'
             )}
           >
-            <DynamicEditorExample
-              example={ex}
-              theme={editorTheme}
-              withSelect={true}
-            />
+            <EditorExample example={ex} theme={editorTheme} withSelect={true} />
           </div>
         </div>
       </div>

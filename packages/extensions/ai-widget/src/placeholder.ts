@@ -41,7 +41,7 @@ class AIPlaceholderWidget extends WidgetType {
   }
 
   toDOM(view: EditorView): HTMLElement {
-    const cmd = isAppleOs ? 'Command' : 'Ctrl'
+    const cmd = isAppleOs() ? 'Command' : 'Ctrl'
 
     const root = document.createElement('span')
     root.className = 'cm-ai-placeholder'

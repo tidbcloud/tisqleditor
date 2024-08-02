@@ -1,4 +1,4 @@
-import { DynamicEditorExample } from '@/components/biz/dynamic-editor-example'
+import { EditorExample } from '@/components/biz/editor-example'
 
 export default function Page({
   searchParams
@@ -10,10 +10,7 @@ export default function Page({
 }) {
   return (
     <main className="h-screen">
-      <DynamicEditorExample
-        example={searchParams?.ex}
-        theme={searchParams?.theme}
-      />
+      <EditorExample example={searchParams?.ex} theme={searchParams?.theme} />
     </main>
   )
 }
