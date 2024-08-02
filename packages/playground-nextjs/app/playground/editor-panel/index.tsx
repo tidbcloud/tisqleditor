@@ -1,11 +1,6 @@
-import dynamic from 'next/dynamic'
-
 import { EditorActions } from './actions'
 import { OpenedFilesTabs } from './opened-files'
-
-const Editor = dynamic(() => import('./editor'), {
-  ssr: false
-})
+import { Editor } from './editor'
 
 export function EditorPanel() {
   return (

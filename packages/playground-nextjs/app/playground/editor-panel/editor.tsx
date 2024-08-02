@@ -54,20 +54,7 @@ function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
   return { schema, tables }
 }
 
-// wholly shit!
-// when I use `export function Editor`, and dynamic load this file, next.js still reports prerender error, `ReferenceError: navigator is not defined` after running `pnpm build`.
-// full code:
-//   const MyEditor = dynamic(() => import("./editor").then((mod) => mod.Editor), {
-//     ssr: false,
-//   });
-// build logs: https://vercel.com/baurines-projects/tisqleditor/5Y4HjQY6xeDYVCBCaBrpLxawdYPD?filter=errors
-//
-// then I export Editor as default, aka `export default function Editor`, then, the error is dismissed, can't understand it totally.
-// full code:
-//   const MyEditor = dynamic(() => import("./editor")), {
-//     ssr: false,
-//   });
-export default function Editor() {
+export function Editor() {
   const {
     api: { saveFile },
     state: { activeFileId, openedFiles }
