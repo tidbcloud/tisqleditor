@@ -1,5 +1,11 @@
 # @tidbcloud/codemirror-extension-events
 
+## 0.0.7
+
+### Patch Changes
+
+- 478bcde: extensions events callback params add state & autocomplete add vector type
+
 ## 0.0.6
 
 ### Patch Changes
