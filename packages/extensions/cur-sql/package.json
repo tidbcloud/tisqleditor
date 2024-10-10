@@ -34,7 +34,7 @@
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.26.3",
     "@rollup/plugin-typescript": "^11.1.6",
-    "rollup": "^4.18.0",
+    "rollup": "^4.22.4",
     "tslib": "^2.6.3",
     "typescript": "^5.4.5"
   },
