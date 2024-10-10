@@ -28,7 +28,7 @@ import {
   SelectionRange
 } from '@tidbcloud/codemirror-extension-events'
 
-const docChangeHandler = (view: EditorView, doc: string) => {
+const docChangeHandler = (view: EditorView, state: EditorState, doc: string) => {
   console.log(doc)
 }
 
