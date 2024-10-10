@@ -23,7 +23,7 @@ describe('test change event', () => {
         state: EditorState.create({
           doc: '',
           extensions: [
-            onDocChange((_view, content) => {
+            onDocChange((_view, _state, content) => {
               doc = content
             })
           ]
@@ -45,7 +45,7 @@ describe('test change event', () => {
         state: EditorState.create({
           doc: LINE_1,
           extensions: [
-            onDocChange((_view, content) => {
+            onDocChange((_view, _state, content) => {
               doc = content
             })
           ]

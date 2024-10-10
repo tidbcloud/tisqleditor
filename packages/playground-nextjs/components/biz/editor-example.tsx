@@ -136,12 +136,12 @@ export function EditorExample({
         }
       }),
       events: [
-        onDocChange((_view, content) => {
+        onDocChange((_view, state, content) => {
           const s = `Doc changes, current doc:\n\n${content}`
           console.log(s)
           setOutput(s)
         }),
-        onSelectionChange((view, sels) => {
+        onSelectionChange((view, state, sels) => {
           if (sels.length === 0 || sels[0].from === sels[0].to) {
             return
           }

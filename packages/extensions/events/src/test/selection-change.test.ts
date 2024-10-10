@@ -24,7 +24,7 @@ describe('test selection change event', () => {
       state: EditorState.create({
         doc: '',
         extensions: [
-          onSelectionChange((_view, ranges) => {
+          onSelectionChange((_view, _state, ranges) => {
             selRanges = ranges
           })
         ]

@@ -19,7 +19,8 @@ import {
   Numberic,
   String,
   Types,
-  Variable
+  Variable,
+  Vector
 } from './icons-svg'
 
 /**
@@ -314,6 +315,11 @@ const customAutoCompletion = (config: AutoCompletionConfig) => {
               break
             case 'JSON':
               src = Brackets
+              break
+            case 'VECTOR<FLOAT>':
+            case 'VECTOR<FLOAT16>':
+            case 'VECTOR':
+              src = Vector
               break
           }
 

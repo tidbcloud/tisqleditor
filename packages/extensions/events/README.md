@@ -28,11 +28,11 @@ import {
   SelectionRange
 } from '@tidbcloud/codemirror-extension-events'
 
-const docChangeHandler = (view: EditorView, doc: string) => {
+const docChangeHandler = (view: EditorView, state: EditorState, doc: string) => {
   console.log(doc)
 }
 
-const selectionChangeHandler = (view: EditorView, ranges: SelectionRange[]) => {
+const selectionChangeHandler = (view: EditorView, state: EditorState, ranges: SelectionRange[]) => {
   console.log(ranges)
 }
 
@@ -50,7 +50,7 @@ const editorView = new EditorView({
 ## API
 
 ```ts
-type DocChangeHandler = (view: EditorView, content: string) => void
+type DocChangeHandler = (view: EditorView, state: EditorState, content: string) => void
 function onDocChange(handler: DocChangeHandler): Extension
 
 type SelectionRange = {
@@ -59,6 +59,7 @@ type SelectionRange = {
 }
 type SelectionChangeHandler = (
   view: EditorView,
+  state: EditorState,
   selRanges: SelectionRange[]
 ) => void
 function onSelectionChange(handler: SelectionChangeHandler): Extension

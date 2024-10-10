@@ -1,4 +1,4 @@
-import { Extension } from '@codemirror/state'
+import { EditorState, Extension } from '@codemirror/state'
 import { EditorView, ViewUpdate } from '@codemirror/view'
 
 export type SelectionRange = {
@@ -8,6 +8,7 @@ export type SelectionRange = {
 
 type SelectionChangeHandler = (
   view: EditorView,
+  state: EditorState,
   selRanges: SelectionRange[]
 ) => void
 
@@ -30,6 +31,7 @@ const selectionChangeListener = (handler: SelectionChangeHandler) => {
         }
         handler(
           v.view,
+          v.state,
           v.state.selection.ranges.map((r) => ({
             from: r.from,
             to: r.to
