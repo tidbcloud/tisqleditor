@@ -1,6 +1,3 @@
-// @ts-ignore
-// to make the test pass, else it will report `React is not defined` error
-import React from 'react'
 import { useEffect, useLayoutEffect, useRef } from 'react'
 
 import { useEditorCacheContext } from './editor-cache-context'
@@ -24,7 +21,8 @@ export function SQLEditor({
   const cacheCtx = useEditorCacheContext()
 
   useLayoutEffect(() => {
-    if (!editorContainerRef.current) return
+    const container = editorContainerRef.current
+    if (!container) return
 
     let editorInst = cacheCtx.getEditor(editorId)
     if (!editorInst) {
@@ -37,24 +35,25 @@ export function SQLEditor({
       cacheCtx.addEditor(editorId, editorInst)
     }
 
-    editorContainerRef.current.appendChild(editorInst.editorView.dom)
+    const editorDOM = editorInst.editorView.dom
+    container.appendChild(editorDOM)
     editorInst.editorView.focus()
 
     return () => {
-      if (editorContainerRef.current && editorInst) {
-        editorContainerRef.current.removeChild(editorInst.editorView.dom)
+      if (editorDOM.parentNode === container) {
+        container.removeChild(editorDOM)
       }
     }
-  }, [editorId])
+  }, [cacheCtx, editorId])
 
   // use `useLayoutEffect` to avoid flicker
   useLayoutEffect(() => {
     cacheCtx.getEditor(editorId)?.changeTheme(theme ?? [])
-  }, [editorId, theme])
+  }, [cacheCtx, editorId, theme])
 
   useEffect(() => {
     cacheCtx.getEditor(editorId)?.changeSQLConfig(sqlConfig ?? {})
-  }, [editorId, sqlConfig])
+  }, [cacheCtx, editorId, sqlConfig])
 
   return <div className={className} ref={editorContainerRef} />
 }

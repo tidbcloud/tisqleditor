@@ -94,6 +94,11 @@ class SQLEditorInstance {
 
 ### EditorCache
 
+The cache owns its stored views. `deleteEditor` destroys the removed CodeMirror
+view, and `clearEditors` destroys all remaining views, releasing their listeners
+and plugins. Repeated deletion or clearing is safe. Create a new instance when
+reopening a removed editor; a destroyed instance must not be reused.
+
 ```ts
 class EditorCache {
   addEditor: (editorId: string, editor: SQLEditorInstance) => void

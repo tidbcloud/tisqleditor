@@ -1,0 +1,52 @@
+name: React Compatibility
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  react:
+    name: React ${{ matrix.react }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - react: '18.3.1'
+            types: '18.3.3'
+            dom-types: '18.3.0'
+          - react: '19.0.0'
+            types: '19.0.0'
+            dom-types: '19.0.0'
+          - react: '19.3.1'
+            types: '19.3.0'
+            dom-types: '19.3.0'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '20'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Select the runtime and types in this disposable checkout. Keep the other
+      # playgrounds on their own React versions; they are not part of this matrix.
+      - name: Select React version
+        env:
+          REACT_VERSION: ${{ matrix.react }}
+          REACT_TYPES: ${{ matrix.types }}
+          REACT_DOM_TYPES: ${{ matrix.dom-types }}
+        run: |
+          pnpm add --workspace-root --save-dev --save-exact "react@$REACT_VERSION" "react-dom@$REACT_VERSION" "@types/react@$REACT_TYPES" "@types/react-dom@$REACT_DOM_TYPES"
+          pnpm --filter @tidbcloud/tisqleditor-react add --save-dev --save-exact "react@$REACT_VERSION" "@types/react@$REACT_TYPES"
+      - name: Build editor and type-check wrapper
+        run: pnpm --filter @tidbcloud/tisqleditor-react... build
+      - name: Test editor lifecycle and behavior
+        env:
+          EXPECTED_REACT_VERSION: ${{ matrix.react }}
+        run: pnpm exec jest --runInBand packages/react/src/test packages/core/src/test

@@ -14,10 +14,14 @@ export class EditorCache {
   }
 
   deleteEditor = (editorId: string) => {
+    const editor = this.cache.get(editorId)
     this.cache.delete(editorId)
+    editor?.editorView.destroy()
   }
 
   clearEditors = () => {
+    const editors = [...this.cache.values()]
     this.cache.clear()
+    editors.forEach((editor) => editor.editorView.destroy())
   }
 }
