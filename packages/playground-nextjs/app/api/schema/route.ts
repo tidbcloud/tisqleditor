@@ -1,3 +1,8 @@
+import {
+  audit,
+  accessLog,
+  readOnlyURL
+} from '../../../../../security/db-access'
 import { connect } from '@tidbcloud/serverless'
 
 type SchemaRes = {
@@ -13,47 +18,21 @@ type SchemaRes = {
 }[]
 
 export async function GET() {
-  const conn = connect({
-    url: process.env.DATABASE_URL
-  })
+  const requestId = crypto.randomUUID()
+  try {
+    const url = readOnlyURL(process.env.READONLY_DATABASE_URL)
+    const conn = connect({ url: url.toString() })
+    const execute = (...args: Parameters<typeof conn.execute>) =>
+      audit(requestId, 'schema.query', () => conn.execute(...args))
+    const schema: SchemaRes = [
+      { name: decodeURIComponent(url.pathname.slice(1)), tables: [] }
+    ]
 
-  let schema: SchemaRes = []
-
-  // step 1: get all databases
-  let dbs = await conn.execute('show databases')
-  // responses:
-  // [
-  //   {
-  //       "Database": "INFORMATION_SCHEMA"
-  //   },
-  //   {
-  //       "Database": "PERFORMANCE_SCHEMA"
-  //   },
-  //   {
-  //       "Database": "game"
-  //   },
-  //   ...
-  // ]
-  schema = (dbs as any[])
-    .map((db) => db.Database)
-    .filter(
-      (db) =>
-        ![
-          'INFORMATION_SCHEMA',
-          'PERFORMANCE_SCHEMA',
-          'lightning_task_info',
-          'mysql'
-        ].includes(db)
-    )
-    .sort()
-    .map((db) => ({ name: db, tables: [] }))
-  console.log('dbs:', schema)
-
-  // step 2: get tables for each db
-  for (let i = 0; i < schema.length; i++) {
-    const db = schema[i]
-    const tables = await conn.execute(
-      `
+    // step 2: get tables for each db
+    for (let i = 0; i < schema.length; i++) {
+      const db = schema[i]
+      const tables = await execute(
+        `
 SELECT
   TABLE_NAME as name
 FROM
@@ -62,16 +41,16 @@ WHERE
   table_schema = ?
 ORDER BY
   name ASC`,
-      [db.name]
-    )
-    db.tables = (tables as any[]).map((t) => ({ ...t, columns: [] }))
+        [db.name]
+      )
+      db.tables = (tables as any[]).map((t) => ({ ...t, columns: [] }))
 
-    // step 3: get columns for each table
-    for (let j = 0; j < db.tables.length; j++) {
-      const table = db.tables[j]
+      // step 3: get columns for each table
+      for (let j = 0; j < db.tables.length; j++) {
+        const table = db.tables[j]
 
-      const columns = await conn.execute(
-        `
+        const columns = await execute(
+          `
 SELECT
   COLUMN_NAME as col, DATA_TYPE as data_type, IS_NULLABLE as is_nullable
 FROM 
@@ -80,21 +59,32 @@ WHERE
   table_schema = ? AND table_name = ?
 ORDER BY
   col ASC`,
-        [db.name, table.name]
-      )
-      table.columns = (columns as any[]).map((c) => ({
-        col: c.col,
-        data_type: c.data_type,
-        nullable: c.is_nullable === 'YES'
-      }))
-    }
-  }
-  return Response.json(
-    { code: 200, message: 'ok', data: schema },
-    {
-      headers: {
-        'cache-control': 'public, s-maxage=3600'
+          [db.name, table.name]
+        )
+        table.columns = (columns as any[]).map((c) => ({
+          col: c.col,
+          data_type: c.data_type,
+          nullable: c.is_nullable === 'YES'
+        }))
       }
     }
-  )
+    return Response.json(
+      { code: 200, message: 'ok', data: schema },
+      {
+        headers: {
+          'cache-control': 'no-store'
+        }
+      }
+    )
+  } catch {
+    accessLog(requestId, 'schema.response', 500)
+    return new Response(
+      JSON.stringify({
+        code: 500,
+        message: 'Database access failed',
+        data: {}
+      }),
+      { status: 500 }
+    )
+  }
 }

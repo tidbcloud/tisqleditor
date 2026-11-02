@@ -1,41 +1,50 @@
-import type { Config, Context } from '@netlify/edge-functions'
 import { connect } from 'https://esm.sh/@tidbcloud/serverless'
+import { audit, accessLog, readOnlyURL } from '../../security/db-access.ts'
 
-type StatementReq = {
-  database: string
-  sql: string
-}
-
-// url:
-// mysql://[user]:[pwd]@[host]/
-// database is skipped and its default value is `test`
-const DATABASE_URL = Netlify.env.get('TIDBCLOUD_DATABASE_URL')
-
-export default async (req: Request, _context: Context) => {
-  const body: StatementReq = await req.json()
-
-  const conn = connect({
-    url: DATABASE_URL + body.database
-  })
-
-  if (body.sql.trim().toLowerCase().startsWith('select')) {
-    const res = await conn.execute(body.sql, null, {
-      arrayMode: true,
-      fullResult: true
+export default async (request: Request) => {
+  const requestId = crypto.randomUUID()
+  const respond = (status: number, message: string, data: unknown = {}) => {
+    accessLog(requestId, 'statement.response', status)
+    return new Response(JSON.stringify({ code: status, message, data }), {
+      status
     })
-
-    return new Response(JSON.stringify({ code: 200, message: 'ok', data: res }))
-  } else {
-    return new Response(
-      JSON.stringify({
-        code: 403,
-        message:
-          'forbidden, only select statement is available to run in this playground',
-        data: {}
-      }),
-      { status: 403 }
+  }
+  let body: { database?: unknown; sql?: unknown }
+  try {
+    body = await request.json()
+  } catch {
+    return respond(400, 'Invalid JSON request')
+  }
+  if (
+    !body ||
+    typeof body.database !== 'string' ||
+    typeof body.sql !== 'string'
+  ) {
+    return respond(400, 'database and sql must be strings')
+  }
+  try {
+    const url = readOnlyURL(Netlify.env.get('TIDBCLOUD_READONLY_DATABASE_URL'))
+    if (body.database !== decodeURIComponent(url.pathname.slice(1))) {
+      return respond(403, 'Database access forbidden')
+    }
+    // Defense in depth only: database grants enforce read-only access.
+    if (!/^select\b/i.test(body.sql.trim())) {
+      return respond(
+        403,
+        'Only SELECT statements are available in this playground'
+      )
+    }
+    const conn = connect({ url: url.toString() })
+    const result = await audit(requestId, 'statement.query', () =>
+      conn.execute(body.sql as string, null, {
+        arrayMode: true,
+        fullResult: true
+      })
     )
+    return respond(200, 'ok', result)
+  } catch {
+    return respond(500, 'Database access failed')
   }
 }
 
-export const config: Config = { path: '/api/statement' }
+export const config = { path: '/api/statement' }
