@@ -95,6 +95,28 @@ pnpm i
 pnpm build
 ```
 
+### Playground API access
+
+The public playground permits reading all tables in one dedicated demo database.
+Configure `READONLY_DATABASE_URL` for Next.js or
+`TIDBCLOUD_READONLY_DATABASE_URL` for Netlify with a database path. System
+databases are rejected. Use a dedicated account with only `SELECT` on this
+database, without global privileges, inherited roles or `GRANT OPTION`. Keep
+private data out of the demo database, including views exposing private data.
+
+`/api/statement` parses a single SELECT, validates database references throughout
+joins, subqueries, CTEs and unions, then executes regenerated SQL. Writes, other
+databases, variables, file output, locking reads and functions outside a small
+allowlist are rejected. Unsupported TiDB syntax is rejected rather than executed.
+This is a public demo policy, not user-specific or row-level authorization.
+
+`/api/chat2data`, `/api/refine-sql` (Netlify: `/api/refineSql`) and `/api/jobs`
+return mock data without external requests. Mock task IDs are bound to an
+HttpOnly browser session cookie and expire after one hour. Polling requires the
+same cookie; missing, tampered, expired or other-session IDs return 404. The
+capabilities are stateless and work across serverless instances; they do not
+represent persisted jobs or authentication for a real job service.
+
 ### PR Commit Convention
 
 Before you create a pull request, please check whether your commits comply with the commit conventions used in this repository. When you create a commit, you should follow the convention `category(scope or module): message` in your commit message while using one of the following categories:

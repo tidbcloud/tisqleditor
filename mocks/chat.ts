@@ -1,5 +1,5 @@
 // Stateless demo responses: no credentials, network requests or database access.
-const jobPrefix = 'mock-chat2data-'
+import { createMockJob, ownsMockJob } from '../security/mock-job.ts'
 const headers = { 'Cache-Control': 'no-store' }
 
 function invalidRequest(message: string, status = 400) {
@@ -27,6 +27,7 @@ export async function mockChat2Data(req: Request) {
     return invalidRequest('bad request, database or question should not empty.')
   }
 
+  const job = await createMockJob(req, 'chat2data')
   return Response.json(
     {
       code: 200,
@@ -34,12 +35,12 @@ export async function mockChat2Data(req: Request) {
       result: {
         cluster_id: 'mock-cluster',
         database: body.database,
-        job_id: jobPrefix + crypto.randomUUID(),
+        job_id: job.jobId,
         session_id: crypto.randomUUID(),
         mock: true
       }
     },
-    { headers }
+    { headers: { ...headers, 'Set-Cookie': job.cookie } }
   )
 }
 
@@ -61,28 +62,32 @@ export async function mockRefineSql(req: Request) {
     return invalidRequest('bad request, database or sql should not empty.')
   }
 
+  const job = await createMockJob(req, 'refine-sql')
   return Response.json(
     {
       code: 200,
       msg: '',
       result: {
-        job_id: 'mock-refine-sql-' + crypto.randomUUID(),
+        job_id: job.jobId,
         session_id: crypto.randomUUID(),
         mock: true
       }
     },
-    { headers }
+    { headers: { ...headers, 'Set-Cookie': job.cookie } }
   )
 }
 
 export async function mockJobStatus(req: Request) {
   const jobId = new URL(req.url).searchParams.get('job_id')
   if (!jobId) return invalidRequest('bad request, job_id is empty')
-  if (
-    !/^mock-(?:chat2data|refine-sql)-[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(
-      jobId
+  if (!(await ownsMockJob(req, jobId))) {
+    console.info(
+      JSON.stringify({
+        event: 'mock_job_access',
+        status: 404,
+        timestamp: new Date().toISOString()
+      })
     )
-  ) {
     return invalidRequest('mock job not found', 404)
   }
 

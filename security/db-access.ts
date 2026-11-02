@@ -24,6 +24,21 @@ export function readOnlyURL(value: string | undefined): URL {
       'Read-only database URL must include an account and database'
     )
   }
+  const database = decodeURIComponent(url.pathname.slice(1))
+  if (
+    !/^[a-zA-Z0-9_$-]+$/.test(database) ||
+    [
+      'mysql',
+      'information_schema',
+      'performance_schema',
+      'sys',
+      'metrics_schema',
+      'inspection_schema',
+      'lightning_task_info'
+    ].includes(database.toLowerCase())
+  ) {
+    throw new Error('A non-system demo database is required')
+  }
   return url
 }
 

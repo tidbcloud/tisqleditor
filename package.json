@@ -56,5 +56,8 @@
     "node": ">= 20",
     "pnpm": ">= 9"
   },
-  "packageManager": "pnpm@9.5.0"
+  "packageManager": "pnpm@9.5.0",
+  "dependencies": {
+    "node-sql-parser": "5.3.8"
+  }
 }

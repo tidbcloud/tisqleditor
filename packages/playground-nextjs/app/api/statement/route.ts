@@ -1,3 +1,5 @@
+import { Parser } from 'node-sql-parser'
+import { assertAllowedStatement } from '../../../../../security/statement-policy'
 import { connect } from '@tidbcloud/serverless'
 import {
   audit,
@@ -31,16 +33,23 @@ export async function POST(request: Request) {
     if (body.database !== decodeURIComponent(url.pathname.slice(1))) {
       return respond(403, 'Database access forbidden')
     }
-    // Defense in depth only: database grants enforce read-only access.
-    if (!/^select\b/i.test(body.sql.trim())) {
+    let authorizedSQL: string
+    try {
+      if (body.sql.length > 20000) throw new Error('Query too long')
+      const parser = new Parser()
+      const ast = parser.astify(body.sql, { database: 'MySQL' })
+      assertAllowedStatement(ast, body.database)
+      // Execute the validated AST, never the original text or executable comments.
+      authorizedSQL = parser.sqlify(ast, { database: 'MySQL' })
+    } catch {
       return respond(
         403,
-        'Only SELECT statements are available in this playground'
+        'Only a single read-only query on the configured demo database is allowed'
       )
     }
     const conn = connect({ url: url.toString() })
     const result = await audit(requestId, 'statement.query', () =>
-      conn.execute(body.sql as string, null, {
+      conn.execute(authorizedSQL, null, {
         arrayMode: true,
         fullResult: true
       })
