@@ -1,16 +1,17 @@
 import { EditorExample } from '@/components/biz/editor-example'
 
-export default function Page({
+export default async function Page({
   searchParams
 }: {
-  searchParams?: {
+  searchParams?: Promise<{
     ex?: string
     theme?: string
-  }
+  }>
 }) {
+  const params = await searchParams
   return (
     <main className="h-screen">
-      <EditorExample example={searchParams?.ex} theme={searchParams?.theme} />
+      <EditorExample example={params?.ex} theme={params?.theme} />
     </main>
   )
 }

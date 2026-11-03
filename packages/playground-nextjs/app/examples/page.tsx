@@ -8,16 +8,17 @@ import { cn } from '@/lib/utils'
 import { ExampleSelect } from './example-select'
 import { EditorThemeSelect } from './editor-theme-select'
 
-export default function Page({
+export default async function Page({
   searchParams
 }: {
-  searchParams?: {
+  searchParams?: Promise<{
     ex?: string
     theme?: string
-  }
+  }>
 }) {
-  const ex = searchParams?.ex ?? 'all'
-  const editorTheme = searchParams?.theme ?? 'oneDark'
+  const params = await searchParams
+  const ex = params?.ex ?? 'all'
+  const editorTheme = params?.theme ?? 'oneDark'
 
   const showOutputBox = ex === 'events' || ex === 'all'
 
