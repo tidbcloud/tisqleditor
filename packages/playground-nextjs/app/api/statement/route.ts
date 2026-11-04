@@ -1,37 +1,39 @@
+import { Parser } from 'node-sql-parser'
+import {
+  validateStatement,
+  statementAuthorized
+} from '../../../../../shared/statement-security'
 import { connect } from '@tidbcloud/serverless'
 
-type StatementReq = {
-  database: string
-  sql: string
-}
+const parser = new Parser()
 
 export async function POST(request: Request) {
-  const body: StatementReq = await request.json()
-
-  const conn = connect({
-    url: process.env.DATABASE_URL + body.database
-  })
-
-  if (body.sql.trim().toLowerCase().startsWith('select')) {
-    const res = await conn.execute(body.sql, null, {
-      arrayMode: true,
-      fullResult: true
-    })
-
-    return Response.json({
-      code: 200,
-      message: 'ok',
-      data: res
-    })
-  } else {
+  if (!statementAuthorized(request, process.env.STATEMENT_API_TOKEN)) {
     return Response.json(
-      {
-        code: 403,
-        message:
-          'forbidden, only select statement is available to run in this playground',
-        data: {}
-      },
-      { status: 403 }
+      { code: 401, message: 'Unauthorized', data: {} },
+      { status: 401 }
     )
   }
+  let statement: { database: string; sql: string }
+  try {
+    statement = validateStatement(await request.json(), parser)
+  } catch {
+    return Response.json(
+      {
+        code: 400,
+        message:
+          'Only a single read-only query in the selected database is allowed',
+        data: {}
+      },
+      { status: 400 }
+    )
+  }
+  const url = new URL(process.env.DATABASE_URL!)
+  url.pathname = '/' + statement.database
+  const conn = connect({ url: url.toString() })
+  const res = await conn.execute(statement.sql, null, {
+    arrayMode: true,
+    fullResult: true
+  })
+  return Response.json({ code: 200, message: 'ok', data: res })
 }
