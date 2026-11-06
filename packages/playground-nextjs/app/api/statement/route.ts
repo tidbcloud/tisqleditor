@@ -1,7 +1,8 @@
 import { Parser } from 'node-sql-parser'
 import {
   validateStatement,
-  statementAuthorized
+  statementAuthorized,
+  statementConfiguration
 } from '../../../../../shared/statement-security'
 import { connect } from '@tidbcloud/serverless'
 
@@ -14,9 +15,25 @@ export async function POST(request: Request) {
       { status: 401 }
     )
   }
+  let configuration: ReturnType<typeof statementConfiguration>
+  try {
+    configuration = statementConfiguration(
+      process.env.DATABASE_URL,
+      process.env.STATEMENT_ALLOWED_DATABASES
+    )
+  } catch {
+    return Response.json(
+      { code: 503, message: 'SQL execution is not configured', data: {} },
+      { status: 503 }
+    )
+  }
   let statement: { database: string; sql: string }
   try {
-    statement = validateStatement(await request.json(), parser)
+    statement = validateStatement(
+      await request.json(),
+      parser,
+      configuration.databases
+    )
   } catch {
     return Response.json(
       {
@@ -28,7 +45,7 @@ export async function POST(request: Request) {
       { status: 400 }
     )
   }
-  const url = new URL(process.env.DATABASE_URL!)
+  const url = configuration.url
   url.pathname = '/' + statement.database
   const conn = connect({ url: url.toString() })
   const res = await conn.execute(statement.sql, null, {

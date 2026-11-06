@@ -1,7 +1,8 @@
 import { Parser } from 'https://esm.sh/node-sql-parser@5.3.8'
 import {
   validateStatement,
-  statementAuthorized
+  statementAuthorized,
+  statementConfiguration
 } from '../../shared/statement-security.ts'
 import { connect } from 'https://esm.sh/@tidbcloud/serverless'
 import type { Config, Context } from '@netlify/edge-functions'
@@ -15,9 +16,25 @@ export default async (request: Request, _context: Context) => {
       { status: 401 }
     )
   }
+  let configuration: ReturnType<typeof statementConfiguration>
+  try {
+    configuration = statementConfiguration(
+      Netlify.env.get('TIDBCLOUD_DATABASE_URL'),
+      Netlify.env.get('TIDBCLOUD_STATEMENT_ALLOWED_DATABASES')
+    )
+  } catch {
+    return Response.json(
+      { code: 503, message: 'SQL execution is not configured', data: {} },
+      { status: 503 }
+    )
+  }
   let statement: { database: string; sql: string }
   try {
-    statement = validateStatement(await request.json(), parser)
+    statement = validateStatement(
+      await request.json(),
+      parser,
+      configuration.databases
+    )
   } catch {
     return Response.json(
       {
@@ -29,7 +46,7 @@ export default async (request: Request, _context: Context) => {
       { status: 400 }
     )
   }
-  const url = new URL(Netlify.env.get('TIDBCLOUD_DATABASE_URL')!)
+  const url = configuration.url
   url.pathname = '/' + statement.database
   const conn = connect({ url: url.toString() })
   const res = await conn.execute(statement.sql, null, {
