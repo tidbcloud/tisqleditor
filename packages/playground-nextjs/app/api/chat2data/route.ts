@@ -1,4 +1,12 @@
+import { apiGuard } from '../../../../../shared/api-security'
 export async function POST(req: Request) {
+  const denied = apiGuard(
+    req,
+    process.env.API_TOKEN ?? process.env.STATEMENT_API_TOKEN,
+    'POST'
+  )
+  if (denied) return denied
+
   const body = await req.json().catch(() => null)
   if (
     typeof body?.database !== 'string' ||

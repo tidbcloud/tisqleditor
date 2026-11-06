@@ -1,8 +1,17 @@
+import { apiGuard } from '../../shared/api-security.ts'
 import { connect } from 'https://esm.sh/@tidbcloud/serverless'
 import { statementConfiguration } from '../../shared/statement-security.ts'
 import { readSchema } from '../../shared/schema.ts'
 
-export default async () => {
+export default async (req: Request) => {
+  const denied = apiGuard(
+    req,
+    Netlify.env.get('TIDBCLOUD_API_TOKEN') ??
+      Netlify.env.get('STATEMENT_API_TOKEN'),
+    'GET'
+  )
+  if (denied) return denied
+
   let configuration: ReturnType<typeof statementConfiguration>
   try {
     configuration = statementConfiguration(

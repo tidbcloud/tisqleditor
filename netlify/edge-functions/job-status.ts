@@ -1,6 +1,15 @@
+import { apiGuard } from '../../shared/api-security.ts'
 import type { Config, Context } from '@netlify/edge-functions'
 
 export default async (req: Request, _context: Context) => {
+  const denied = apiGuard(
+    req,
+    Netlify.env.get('TIDBCLOUD_API_TOKEN') ??
+      Netlify.env.get('STATEMENT_API_TOKEN'),
+    'GET'
+  )
+  if (denied) return denied
+
   const jobId = new URL(req.url).searchParams.get('job_id')
   if (!jobId) {
     return Response.json(

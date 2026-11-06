@@ -1,6 +1,15 @@
+import { apiGuard } from '../../shared/api-security.ts'
 import type { Config, Context } from '@netlify/edge-functions'
 
 export default async (req: Request, _context: Context) => {
+  const denied = apiGuard(
+    req,
+    Netlify.env.get('TIDBCLOUD_API_TOKEN') ??
+      Netlify.env.get('STATEMENT_API_TOKEN'),
+    'POST'
+  )
+  if (denied) return denied
+
   const body = await req.json().catch(() => null)
   if (
     typeof body?.database !== 'string' ||

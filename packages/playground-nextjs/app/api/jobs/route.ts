@@ -1,4 +1,12 @@
+import { apiGuard } from '../../../../../shared/api-security'
 export async function GET(req: Request) {
+  const denied = apiGuard(
+    req,
+    process.env.API_TOKEN ?? process.env.STATEMENT_API_TOKEN,
+    'GET'
+  )
+  if (denied) return denied
+
   const jobId = new URL(req.url).searchParams.get('job_id')
   if (!jobId) {
     return Response.json(

@@ -1,8 +1,16 @@
+import { apiGuard } from '../../../../../shared/api-security'
 import { connect } from '@tidbcloud/serverless'
 import { statementConfiguration } from '../../../../../shared/statement-security'
 import { readSchema } from '../../../../../shared/schema'
 
-export async function GET() {
+export async function GET(req: Request) {
+  const denied = apiGuard(
+    req,
+    process.env.API_TOKEN ?? process.env.STATEMENT_API_TOKEN,
+    'GET'
+  )
+  if (denied) return denied
+
   let configuration: ReturnType<typeof statementConfiguration>
   try {
     configuration = statementConfiguration(

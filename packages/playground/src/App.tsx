@@ -4,7 +4,6 @@ import { EditorCacheProvider } from '@tidbcloud/tisqleditor-react'
 
 import { Panels } from '@/components/biz/panels'
 import { ThemeProvider } from '@/components/darkmode-toggle/theme-provider'
-import { StatementProvider } from '@/contexts/statement-context-provider'
 import { FilesProvider } from '@/contexts/files-context-provider'
 import { SchemaProvider } from '@/contexts/schema-context-provider'
 
@@ -25,15 +24,13 @@ function FullFeaturedPlayground() {
     <QueryClientProvider client={queryClient}>
       <EditorCacheProvider>
         <ThemeProvider defaultTheme="dark">
-          <StatementProvider>
-            <SchemaProvider>
-              <FilesProvider>
-                <ChatProvider>
-                  <Panels />
-                </ChatProvider>
-              </FilesProvider>
-            </SchemaProvider>
-          </StatementProvider>
+          <SchemaProvider>
+            <FilesProvider>
+              <ChatProvider>
+                <Panels />
+              </ChatProvider>
+            </FilesProvider>
+          </SchemaProvider>
         </ThemeProvider>
       </EditorCacheProvider>
     </QueryClientProvider>

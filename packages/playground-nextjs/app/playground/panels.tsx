@@ -5,7 +5,6 @@ import {
 } from '@/components/ui/resizable'
 import { LeftPanel } from './left-panel'
 import { EditorPanel } from './editor-panel'
-import { ResultPanel } from './result-panel'
 
 export function Panels() {
   return (
@@ -17,17 +16,7 @@ export function Panels() {
       <ResizableHandle withHandle />
 
       <ResizablePanel defaultSize={80}>
-        <ResizablePanelGroup direction="vertical">
-          <ResizablePanel defaultSize={75} minSize={5}>
-            <EditorPanel />
-          </ResizablePanel>
-
-          <ResizableHandle withHandle />
-
-          <ResizablePanel defaultSize={25} minSize={5}>
-            <ResultPanel />
-          </ResizablePanel>
-        </ResizablePanelGroup>
+        <EditorPanel />
       </ResizablePanel>
     </ResizablePanelGroup>
   )
