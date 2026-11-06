@@ -1,37 +1,41 @@
-const endpoint = process.env.TIDBCLOUD_CHAT2QUERY_APP_URL_ENDPOINT
-const publicKey = process.env.TIDBCLOUD_CHAT2QUERY_APP_PUBLIC_KEY
-const privateKey = process.env.TIDBCLOUD_CHAT2QUERY_APP_PRIVATE_KEY
-
 export async function GET(req: Request) {
-  const url = new URL(req.url)
-  const jobId = url.searchParams.get('job_id')
+  const jobId = new URL(req.url).searchParams.get('job_id')
   if (!jobId) {
-    return new Response(
-      JSON.stringify({
-        code: 400,
-        message: 'bad request, job_id is empty',
-        data: {}
-      }),
+    return Response.json(
+      { code: 400, msg: 'bad request, job_id is empty', data: {} },
       { status: 400 }
     )
   }
 
-  const jobStatusUrl = endpoint + `/v2/jobs/${jobId}`
-
-  const fetchOptions = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Basic ' + btoa(`${publicKey}:${privateKey}`)
-    }
+  if (jobId !== 'mock-chat2data' && jobId !== 'mock-refine-sql') {
+    return Response.json(
+      { code: 404, msg: 'Mock job not found', data: {} },
+      { status: 404 }
+    )
   }
 
-  let statusCode = 200
-  const res = await fetch(jobStatusUrl, fetchOptions).then((res) => {
-    console.log(res.status)
-    statusCode = res.status
-    return res.json()
-  })
+  // Fixed demo results; no cluster or external service is contacted.
+  const result =
+    jobId === 'mock-refine-sql'
+      ? {
+          rewritten_sql:
+            'SELECT * FROM `games` ORDER BY `recommendations` DESC LIMIT 10;',
+          solution: 'Mock SQL refinement: limit the demo query to 10 results.'
+        }
+      : {
+          sql: 'SELECT * FROM `games` ORDER BY `recommendations` DESC LIMIT 20;',
+          sql_error: null
+        }
 
-  return new Response(JSON.stringify(res), { status: statusCode })
+  return Response.json({
+    code: 200,
+    msg: '',
+    result: {
+      job_id: jobId,
+      status: 'done',
+      reason: '',
+      ended_at: Math.floor(Date.now() / 1000),
+      result
+    }
+  })
 }
